@@ -1,0 +1,22 @@
+build:
+  image: onaio/node
+  commands:
+    - npm install
+    - npm test
+notify:
+  email:
+    from: $$FROM
+    host: $$SMTP_HOST
+    username: $$SMTP_USERNAME
+    password: $$SMTP_PASSWORD
+    recipients:
+     - tech+drone@ona.io
+    on_success: true
+    on_failure: true
+  slack:
+    webhook_url: 'https://hooks.slack.com/services/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'
+    username: drone
+    channel: tech-logs
+    on_started: false
+    on_success: true
+    on_failure: true

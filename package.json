@@ -1,0 +1,28 @@
+{
+  "name": "karma",
+  "version": "0.0.1-alpha",
+  "description": "Experience Sampling Assessment bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/eslint karma.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/onaio/karma.git"
+  },
+  "author": "onaio",
+  "license": "Copyright (c) 2017, Ona Systems Inc, All rights reserved.",
+  "bugs": {
+    "url": "https://github.com/onaio/karma/issues"
+  },
+  "homepage": "https://github.com/onaio/karma",
+  "dependencies": {
+    "botkit": "^0.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "supervisor": "^0.12.0"
+  }
+}
