@@ -3,6 +3,12 @@
   process.exit(1);
 }
 
+ if (!process.env.PORT) {
+  console.log('Error: Specify PORT in environment');
+  process.exit(1);
+}
+
+
 if (!process.env.verify_token) {
   console.log('Error: Specify verify_token in environment');
   process.exit(1);
@@ -29,13 +35,13 @@ const controller = Botkit.facebookbot({
 const karma = controller.spawn({
 });
 
-var triggered;
 var fb_id;
 
-controller.setupWebserver(process.env.port || 3000, (err, webserver) => {
+controller.setupWebserver(process.env.PORT, (err, webserver) => {
   controller.createWebhookEndpoints(webserver, karma, () => {
     console.log('Karma is ONLINE!');
   });
+
   webserver.get('/',function(req,res) {
     var html = '<h1>This is Karma</h1>';
     res.send(html);
@@ -45,10 +51,10 @@ controller.setupWebserver(process.env.port || 3000, (err, webserver) => {
   webserver.post('/trigger',function(req,res) {
     fb_id = req.body.urn.split(":")[1];
     karma.say({text: 'Respond with start or s to get started:)', channel: fb_id});
-    triggered = true;
     res.statusCode = 200;
     res.send();
   });
+
 });
 
 controller.api.messenger_profile.greeting('Welcome to Karma');
