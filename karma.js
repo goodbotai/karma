@@ -154,7 +154,9 @@ function firstConversation(err, convo) {
 }
 
 function aggregate(convo) {
-
+  if (convo.status === 'completed') {
+      console.log ('done');
+  }
 }
 
 // Second conversationn
@@ -245,13 +247,8 @@ function secondConversation(err, convo) {
                       convo.next();
                     },
                     {},
-                   'no_change');
-  convo.on('end', function (conversation) {
-    if (convo.status === 'completed') {
-      console.log ('done');
-  }
-  });
-
+                    'no_change');
+  convo.on('end', aggregate);
 }
 
 /* Listeners */
