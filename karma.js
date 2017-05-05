@@ -98,13 +98,20 @@ controller.api.messenger_profile.menu([{
 // const emotions = ['angry', 'afraid', 'happy', 'sad', 'surprised'];
 
 /* Conversations */
+function next_conversation ({text}, conversation) {
+  conversation.next();
+}
+function aggregate(convo) {
+  if (convo.status === 'completed') {
+      console.log ('done');
+  }
+}
+
 
 // First conversation
 function firstConversation(err, convo) {
   convo.addQuestion('What are you doing now?',
-                    (response, conversation) => {
-                      convo.next();
-                    },
+                    next_conversation,
                     {});
   convo.addQuestion({'attachment': {'type':'template',
                                     'payload':{'template_type':'button',
@@ -120,12 +127,10 @@ function firstConversation(err, convo) {
                                                           ]
                                               }}},
                     [{pattern: 'yes_with_someone',
-                      callback: ({text, conversation}) => {
-                        convo.next();
-                      }
+                      callback: next_conversation
                      },
                      {pattern: 'no_with_someone',
-                      callback: ({text, conversation}) => {
+                      callback: ({text}, conversation) => {
                         convo.gotoThread('skip_yes');
                       }
                      }],
@@ -137,9 +142,7 @@ function firstConversation(err, convo) {
                     {}
                     );
   convo.addQuestion("What are you thinking now?",
-                    ({text}, conversation) => {
-                      convo.gotoThread('end_of_first_section');
-                    },
+                    next_conversation,
                     {},
                     'skip_yes'
                    );
@@ -153,28 +156,16 @@ function firstConversation(err, convo) {
                    );
 }
 
-function aggregate(convo) {
-  if (convo.status === 'completed') {
-      console.log ('done');
-  }
-}
-
 // Second conversationn
 function secondConversation(err, convo) {
   convo.addQuestion('What is your major social concern at the moment?',
-                    ({text}, conversation) => {
-                      conversation.next();
-                    },
+                    next_conversation,
                     {key: 'concern'});
   convo.addQuestion('How much are you affected by {{responses.concern}}',
-                    (response, conversation) => {
-                      conversation.next();
-                    },
+                    next_conversation,
                     {});
   convo.addQuestion('How does {{responses.concern}} make you feel?',
-                    (response, conversation) => {
-                      conversation.next();
-                    },
+                    next_conversation,
                     {});
   convo.addQuestion({'attachment': {'type':'template',
                                     'payload':{'template_type':'button',
@@ -190,27 +181,21 @@ function secondConversation(err, convo) {
                                                           ]
                                               }}},
                     [{pattern: 'yes_concern',
-                      callback: ({text, conversation}) => {
-                        convo.next();
-                      }
+                      callback:  next_conversation
                      },
                      {pattern: 'no_concern',
-                      callback: ({text, conversation}) => {
+                      callback: ({text}, conversation) => {
                         // console.log("conv >" + convo[0]);
                         convo.stop('completed');
                       }
                      }],
                     {});
   convo.addQuestion("Who did you talk to about this?",
-                    ({text}, convo) => {
-                      convo.next();
-                    },
+                    next_conversation,
                     {}
                    );
   convo.addQuestion("Name these people",
-                    ({text}, convo) => {
-                      convo.next();
-                    },
+                    next_conversation,
                     {});
   convo.addQuestion({'attachment': {'type':'template',
                                     'payload':{ 'template_type':'button',
@@ -226,28 +211,34 @@ function secondConversation(err, convo) {
                                                           ]
                                               }}},
                     [{pattern: 'yes_talk',
-                      callback: ({text, conversation}) => {
+                      callback: ({text}, conversation) => {
                         convo.gotoThread('yes_change');
                       }
                      },
                      {pattern: 'no_talk',
-                      callback: ({text, conversation}) => {
-                        convo.next();
-                      }
+                      callback: next_conversation
                      }],
                     {});
-  convo.addQuestion("Did it change for better or for worse?",
-                    ({text}, convo) => {
-                      convo.next();
-                    },
+  convo.addQuestion({'attachment': {'type':'template',
+                                    'payload':{ 'template_type':'button',
+                                                'text': 'Did it change for better or for worse?',
+                                                'buttons':[{ 'type':'postback',
+                                                             'title':'better',
+                                                             'payload':'Better'
+                                                           },
+                                                           { 'type':'postback',
+                                                             'title':'worse',
+                                                             'payload':'Worse'
+                                                           },
+                                                          ]
+                                              }}},
+
+                    next_conversation,
                     {},
                     'yes_change');
   convo.addQuestion("What changed specifically?",
-                    ({text}, convo) => {
-                      convo.next();
-                    },
-                    {},
-                    'no_change');
+                    next_conversation,
+                    {});
   convo.on('end', aggregate);
 }
 
