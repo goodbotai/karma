@@ -50,7 +50,7 @@ controller.setupWebserver(process.env.PORT, (err, webserver) => {
 
   webserver.post('/trigger',function(req,res) {
     fb_id = req.body.urn.split(":")[1];
-    karma.say({text: 'Respond with start or s to get started:)', channel: fb_id});
+    karma.say({text: 'Respond with start to get started:)', channel: fb_id});
     res.statusCode = 200;
     res.send();
   });
@@ -107,18 +107,18 @@ function firstConversation(err, convo) {
                     },
                     {});
   convo.addQuestion({'attachment': {'type':'template',
-                     'payload':{ 'template_type':'button',
-                                 'text': 'Are you with someone now?',
-                                 'buttons':[{ 'type':'postback',
-                                              'title':'yes',
-                                              'payload':'yes_with_someone'
-                                            },
-                                            { 'type':'postback',
-                                              'title':'no',
-                                              'payload':'no_with_someone'
-                                            },
-                                           ]
-                               }}},
+                                    'payload':{'template_type':'button',
+                                               'text': 'Are you with someone now?',
+                                               'buttons':[{ 'type':'postback',
+                                                             'title':'yes',
+                                                             'payload':'yes_with_someone'
+                                                           },
+                                                           { 'type':'postback',
+                                                             'title':'no',
+                                                             'payload':'no_with_someone'
+                                                           },
+                                                          ]
+                                              }}},
                     [{pattern: 'yes_with_someone',
                       callback: ({text, conversation}) => {
                         convo.next();
@@ -138,7 +138,7 @@ function firstConversation(err, convo) {
                     );
   convo.addQuestion("What are you thinking now?",
                     ({text}, conversation) => {
-                      convo.next();
+                      convo.gotoThread('end_of_first_section');
                     },
                     {},
                     'skip_yes'
@@ -148,48 +148,54 @@ function firstConversation(err, convo) {
                       secondConversation(null, convo);
                       convo.next();
                     },
-                    {}
+                    {},
+                    'end_of_first_section'
                    );
+}
+
+function aggregate(convo) {
+
 }
 
 // Second conversationn
 function secondConversation(err, convo) {
   convo.addQuestion('What is your major social concern at the moment?',
-                    ({text}, convo) => {
-                      convo.next();
+                    ({text}, conversation) => {
+                      conversation.next();
                     },
                     {key: 'concern'});
   convo.addQuestion('How much are you affected by {{responses.concern}}',
-                    (response, convo) => {
-                      convo.next();
+                    (response, conversation) => {
+                      conversation.next();
                     },
                     {});
   convo.addQuestion('How does {{responses.concern}} make you feel?',
-                    (response, convo) => {
-                      convo.next();
+                    (response, conversation) => {
+                      conversation.next();
                     },
                     {});
   convo.addQuestion({'attachment': {'type':'template',
-                                    'payload':{ 'template_type':'button',
-                                 'text': 'Have you spoken with someone about {{responses.concern}} recently?',
-                                 'buttons':[{ 'type':'postback',
-                                              'title':'yes',
-                                              'payload':'yes_concern'
-                                            },
-                                            { 'type':'postback',
-                                              'title':'no',
-                                              'payload':'no'
-                                            },
-                                           ]
-                               }}},
+                                    'payload':{'template_type':'button',
+                                               'text': 'Have you spoken with someone about {{responses.concern}} recently?',
+                                                'buttons':[{ 'type':'postback',
+                                                             'title':'yes',
+                                                             'payload':'yes_concern'
+                                                           },
+                                                           { 'type':'postback',
+                                                             'title':'no',
+                                                             'payload':'no_concern'
+                                                           },
+                                                          ]
+                                              }}},
                     [{pattern: 'yes_concern',
-                      callback: ({text, convo}) => {
+                      callback: ({text, conversation}) => {
                         convo.next();
                       }
                      },
                      {pattern: 'no_concern',
-                      callback: ({text, convo}) => {
-                        convo.stop();
+                      callback: ({text, conversation}) => {
+                        // console.log("conv >" + convo[0]);
+                        convo.stop('completed');
                       }
                      }],
                     {});
@@ -206,25 +212,25 @@ function secondConversation(err, convo) {
                     {});
   convo.addQuestion({'attachment': {'type':'template',
                                     'payload':{ 'template_type':'button',
-                                 'text': 'Did talking about {{responses.concern}} change what you think about it?',
-                                 'buttons':[{ 'type':'postback',
-                                              'title':'yes',
-                                              'payload':'yes'
-                                            },
-                                            { 'type':'postback',
-                                              'title':'no',
-                                              'payload':'no'
-                                            },
-                                           ]
-                               }}},
-                    [{pattern: 'yes',
-                      callback: ({text, convo}) => {
+                                                'text': 'Did talking about {{responses.concern}} change what you think about it?',
+                                                'buttons':[{ 'type':'postback',
+                                                             'title':'yes',
+                                                             'payload':'yes_talk'
+                                                           },
+                                                           { 'type':'postback',
+                                                             'title':'no',
+                                                             'payload':'no_talk'
+                                                           },
+                                                          ]
+                                              }}},
+                    [{pattern: 'yes_talk',
+                      callback: ({text, conversation}) => {
                         convo.gotoThread('yes_change');
                       }
                      },
-                     {pattern: 'no',
-                      callback: ({text, convo}) => {
-                        convo.stop();
+                     {pattern: 'no_talk',
+                      callback: ({text, conversation}) => {
+                        convo.next();
                       }
                      }],
                     {});
@@ -238,7 +244,14 @@ function secondConversation(err, convo) {
                     ({text}, convo) => {
                       convo.next();
                     },
-                    {});
+                    {},
+                   'no_change');
+  convo.on('end', function (conversation) {
+    if (convo.status === 'completed') {
+      console.log ('done');
+  }
+  });
+
 }
 
 /* Listeners */
@@ -248,13 +261,19 @@ controller.on('facebook_postback', (bot, message) => {
   }
 });
 
-controller.hears(['start', 's'], 'message_received', (bot, message) => {
+controller.hears(['start'], 'message_received', (bot, message) => {
   bot.startConversation(message, firstConversation);
 });
 
 controller.on('facebook_postback', (bot, message) => {
   if (message.payload === 'restart') {
     bot.startConversation(message, firstConversation);
+  }
+});
+
+controller.on('facebook_postback', (bot, message) => {
+  if (message.payload === 'second') {
+    bot.startConversation(message, secondConversation);
   }
 });
 
