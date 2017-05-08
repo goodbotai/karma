@@ -20,6 +20,7 @@ if (!process.env.app_secret) {
 }
 
 const Botkit = require('botkit');
+const Milia  = require('milia');
 
 const controller = Botkit.facebookbot({
   debug: true,
@@ -49,7 +50,8 @@ controller.setupWebserver(process.env.PORT, (err, webserver) => {
   });
 
   webserver.post('/trigger',function(req,res) {
-    fb_id = req.body.urn.split(":")[1];
+    // fb_id = req.body.urn.split(":")[1];
+    Milia.say_hi();
     karma.say({text: 'Respond with start to get started:)', channel: fb_id});
     res.statusCode = 200;
     res.send();
@@ -101,9 +103,15 @@ controller.api.messenger_profile.menu([{
 function next_conversation ({text}, conversation) {
   conversation.next();
 }
-function aggregate(convo) {
-  if (convo.status === 'completed') {
-      console.log ('done');
+function aggregate(conversation) {
+  if (conversation.status === 'completed') {
+    // console.log (conversation);
+    return {
+      start: conversation.startTime,
+      stop: conversation.lastActive,
+      responses: conversation.responses
+    };
+
   }
 }
 
@@ -165,7 +173,9 @@ function secondConversation(err, convo) {
                     next_conversation,
                     {});
   convo.addQuestion('How does {{responses.concern}} make you feel?',
-                    next_conversation,
+                    ({text}, conversation) => {
+                        convo.stop('completed');
+                    },
                     {});
   convo.addQuestion({'attachment': {'type':'template',
                                     'payload':{'template_type':'button',
