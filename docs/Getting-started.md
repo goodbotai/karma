@@ -8,7 +8,7 @@ page_toke="" verify_token="" app_secret="" port="" node karma.js
 # Dev
 ```
 npm install supervisor --save-dev
-page_token="" app_secret="" verify_token="" PORT="" ./node_modules/.bin/supervisor karma.js
+page_token="" app_secret="" verify_token="" PORT="" ./node_modules/.bin/supervisor Karma.js
 ```
 # Testing
 ## Linting
