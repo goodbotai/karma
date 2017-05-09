@@ -1,4 +1,9 @@
- if (!process.env.page_token) {
+const Botkit = require('botkit');
+const Milia  = require('milia');
+const Aggregate = require('./lib/Aggregate.js');
+
+
+if (!process.env.page_token) {
   console.log('Error: Specify page_token in environment');
   process.exit(1);
 }
@@ -19,9 +24,6 @@ if (!process.env.app_secret) {
   process.exit(1);
 }
 
-const Botkit = require('botkit');
-const Milia  = require('milia');
-
 const controller = Botkit.facebookbot({
   debug: true,
   log: true,
@@ -36,22 +38,19 @@ const controller = Botkit.facebookbot({
 const karma = controller.spawn({
 });
 
-var fb_id;
-
 controller.setupWebserver(process.env.PORT, (err, webserver) => {
   controller.createWebhookEndpoints(webserver, karma, () => {
     console.log('Karma is ONLINE!');
   });
 
   webserver.get('/',function(req,res) {
-    var html = '<h1>This is Karma</h1>';
+    let html = '<h1>This is Karma</h1>';
     res.send(html);
     console.log(res);
   });
 
   webserver.post('/trigger',function(req,res) {
-    // fb_id = req.body.urn.split(":")[1];
-    Milia.say_hi();
+    let fb_id = req.body.urn.split(":")[1];
     karma.say({text: 'Respond with start to get started:)', channel: fb_id});
     res.statusCode = 200;
     res.send();
@@ -103,18 +102,6 @@ controller.api.messenger_profile.menu([{
 function next_conversation ({text}, conversation) {
   conversation.next();
 }
-function aggregate(conversation) {
-  if (conversation.status === 'completed') {
-    // console.log (conversation);
-    return {
-      start: conversation.startTime,
-      stop: conversation.lastActive,
-      responses: conversation.responses
-    };
-
-  }
-}
-
 
 // First conversation
 function firstConversation(err, convo) {
@@ -173,9 +160,7 @@ function secondConversation(err, convo) {
                     next_conversation,
                     {});
   convo.addQuestion('How does {{responses.concern}} make you feel?',
-                    ({text}, conversation) => {
-                        convo.stop('completed');
-                    },
+                    next_conversation,
                     {});
   convo.addQuestion({'attachment': {'type':'template',
                                     'payload':{'template_type':'button',
@@ -199,7 +184,7 @@ function secondConversation(err, convo) {
                         convo.stop('completed');
                       }
                      }],
-                    {});
+                    {key: 'yn_concern'});
   convo.addQuestion("Who did you talk to about this?",
                     next_conversation,
                     {}
@@ -249,7 +234,7 @@ function secondConversation(err, convo) {
   convo.addQuestion("What changed specifically?",
                     next_conversation,
                     {});
-  convo.on('end', aggregate);
+  convo.on('end', Aggregate);
 }
 
 /* Listeners */
