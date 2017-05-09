@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/onaio/karma",
   "dependencies": {
-    "botkit": "^0.5.2",
+    "botkit": "^0.5.4",
     "milia-wrapper": "file:milia-wrapper"
   },
   "devDependencies": {
