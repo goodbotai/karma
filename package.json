@@ -2,7 +2,7 @@
   "name": "karma",
   "version": "0.0.1-alpha",
   "description": "Experience Sampling Assessment bot.",
-  "main": "index.js",
+  "main": "Karma.js",
   "scripts": {
     "test": "./node_modules/.bin/eslint karma.js"
   },
@@ -18,7 +18,8 @@
   "homepage": "https://github.com/onaio/karma",
   "dependencies": {
     "botkit": "^0.5.4",
-    "milia-wrapper": "file:milia-wrapper"
+    "milia-wrapper": "file:milia-wrapper",
+    "node-fetch": "^1.6.3"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
