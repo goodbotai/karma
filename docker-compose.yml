@@ -1,0 +1,16 @@
+version: "3"
+services:
+  karma:
+    build:
+      context: .
+    working_dir: /app
+    image: karma:0.0.1
+    environment:
+      - page_token
+      - ona_token
+      - app_secret
+      - verify_token
+      - rapidpro_token
+      - PORT
+    ports:
+      - "6666:3000"
