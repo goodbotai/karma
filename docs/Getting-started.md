@@ -7,7 +7,8 @@ page_toke="" verify_token="" app_secret="" port="" node karma.js
 
 # Dev
 ```
-npm install --dev
+npm install --only=dev
+
 page_token="" app_secret="" verify_token="" PORT="" ./node_modules/.bin/supervisor Karma.js
 ```
 
