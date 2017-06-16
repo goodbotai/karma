@@ -1,8 +1,8 @@
 build:
   image: onaio/node
   commands:
-    - npm install
-    - npm test
+    - yarn
+    - yarn lint
 notify:
   email:
     from: $$FROM
