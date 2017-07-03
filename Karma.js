@@ -1,1 +1,1 @@
-const Facebook = require('./lib/Facebook.js');
+require('./lib/Facebook.js');

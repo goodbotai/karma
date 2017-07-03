@@ -2,5 +2,10 @@
     "extends": "airbnb-base",
     "plugins": [
         "import"
-    ]
+    ],
+   "rules": {
+     "max-len": ["error", 100],
+     "no-param-reassign": ["warn", { "props": true}]
+
+     }
 }
