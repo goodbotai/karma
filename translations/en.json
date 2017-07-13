@@ -5,7 +5,7 @@
   "withSomeone": "Are you with someone now?",
   "withWhom": "Who are you with?",
   "withWhomRelationship": "Is {{responses.withWhom}} your",
-  "withAnyoneElse": "Is there anyone else with you?",
+  "withAnyoneElse": "Is anyone else with you?",
   "thoughts": "What are you thinking about right now?",
   "A4": "We will show you a list of words describing different feelings and emotions. Indicate to what extent you feel this way right now.",
   "upset": "Upset",
@@ -22,12 +22,12 @@
   "socialConcernHowAffected": "On a scale from 1 to 10, how much are you affected by {{responses.socialConcern}}?",
   "B3": "We will show you a list of words describing different feelings and emotions. Indicate to what extent {{responses.socialConcern}} makes you feel right now.",
   "socialConcernSpoken": "Have you spoken with someone about {{responses.socialConcern}} recently?",
-  "socialConcernSpokeTo": "Who did you talk to about {{responses.socialConcern}}?",
-  "socialConcernConfidant": "What is their name?",
+  "socialConcernSpokeToRelationship": "Who did you talk to about {{responses.socialConcern}}?",
+  "socialConcernConfidantName": "What is their name?",
   "socialConcernChangeScale": "How much did talking about {{responses.socialConcern}} with {{responses.socialConcernConfidant}} changed what you think about it?",
   "whatChanged": "What changed specifically?",
-  "socialConcernChange": "Do you feel worse or better after you talked about {{responses.socialConcern}}?",
+  "socialConcernChangeBW": "Do you feel worse or better after you talked about {{responses.socialConcern}}?",
   "B4f": "Have you spoken with someone else about {{responses.socialConcern}} recently?",
   "thankYou": "Thanks, see you tomorrow 😃.",
-  "shareWith": "Pleas press share and send me to [name of all the people mentioned previously]?"
+  "shareWith": "Please press \"SHARE\" and send me to [name of all the people mentioned previously]?"
 }
