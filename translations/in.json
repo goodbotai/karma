@@ -24,7 +24,7 @@
   "socialConcernSpoken": "Apakah belakangan ini Anda pernah berbicara dengan seseorang mengenai {{responses.socialConcern}} tersebut?",
   "socialConcernSpokeTo": "Jika iya, siapa orang tersebut?",
   "socialConcernConfidant": "Sebutkan nama orang tersebut",
-  "socialConcernChangeScale": "Setelah berbicara dengan [name of the person], seberapa besar hal tersebut mengubah pendapat Anda tentang {{responses.socialConcern}}?",
+  "socialConcernChangeScale": "Setelah berbicara dengan {{responses.socialConcernSpokeTo}}, seberapa besar hal tersebut mengubah pendapat Anda tentang {{responses.socialConcern}}?",
   "whatChanged": "Secara spesifik, hal apa yang berubah?",
   "socialConcernChange": "Setelah berbicara tentang {{responses.socialConcern}}, apakah Anda merasa lebih baik atau lebih buruk?",
   "B4f": "Apakah belakangan ini Anda pernah berbicara dengan orang lain selain orang di atas tentang {{responses.socialConcern}}?",
