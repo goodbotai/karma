@@ -1,6 +1,15 @@
 {
   "Yes": "Ya",
   "No": "Tidak",
+
+  "friend": "Teman",
+  "family": "Keluarga",
+  "partner": "suami/isteri/pacar",
+  "co-worker": "teman kerja",
+  "client": "klien/pelangan",
+  "other": "lainnya",
+  "none": "tidak ada pilihan yang sesuai",
+
   "doing": "Apa yang sedang Anda lakukan sekarang?",
   "withSomeone": "Apa Anda bersama orang lain?",
   "withWhom": "Siapa yang bersama Anda?",
