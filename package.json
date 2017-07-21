@@ -12,7 +12,7 @@
     "url": "git+ssh://git@github.com/onaio/karma.git"
   },
   "author": "onaio",
-  "license": "Copyright (c) 2017, Ona Systems Inc, All rights reserved.",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/onaio/karma/issues"
   },
