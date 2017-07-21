@@ -5,6 +5,7 @@
     ],
    "rules": {
      "max-len": ["error", 100],
+     "prefer-template": ["warn"],
      "no-param-reassign": ["warn", { "props": true}]
 
      }

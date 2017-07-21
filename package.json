@@ -19,6 +19,8 @@
   "homepage": "https://github.com/onaio/karma",
   "dependencies": {
     "botkit": "^0.5.4",
+    "i18next": "^8.4.2",
+    "i18next-node-fs-backend": "^1.0.0",
     "node-fetch": "^1.6.3",
     "uuid": "^3.0.1"
   },
