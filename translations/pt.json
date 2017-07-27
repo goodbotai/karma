@@ -36,6 +36,6 @@
   "whatChanged": "O que mudou especificamente?",
   "socialConcernChange": "Você se sente pior ou melhor depois de conversar sobre {{responses.socialConcern}}?",
   "B4f": "Você conversou com mais alguém sobre {{responses.socialConcern}} recentemente?",
-  "thankYou": "Thanks, see you tomorrow 😃.",
-  "shareWith": "Please press share and send me to [name of all the people mentioned previously]?"
+  "thankYou": "Obrigado, até amanhã 😃.",
+  "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos."
 }
