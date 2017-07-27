@@ -2,8 +2,8 @@
   "Yes": "Ya",
   "No": "Tidak",
 
-  "friend": "Teman",
-  "family": "Keluarga",
+  "friend": "teman",
+  "family": "keluarga",
   "partner": "suami/isteri/pacar",
   "co-worker": "teman kerja",
   "client": "klien/pelangan",
@@ -36,6 +36,6 @@
   "whatChanged": "Secara spesifik, hal apa yang berubah?",
   "socialConcernChange": "Setelah berbicara tentang {{responses.socialConcern}}, apakah Anda merasa lebih baik atau lebih buruk?",
   "B4f": "Apakah belakangan ini Anda pernah berbicara dengan orang lain selain orang di atas tentang {{responses.socialConcern}}?",
-  "thankYou": "Terima kasih. Anda sudah menyelesaikan semua pertanyaan!",
-  "shareWith": "Mohon tuliskan [link FB] dari [nama semua orang yang Anda sebutkan di atas]?"
+  "thankYou": "Terima kasih, sampai jumpa besok 😃.",
+  "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda."
 }
