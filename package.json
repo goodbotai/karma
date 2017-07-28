@@ -23,6 +23,7 @@
     "i18next": "^8.4.2",
     "i18next-node-fs-backend": "^1.0.0",
     "node-fetch": "^1.6.3",
+    "raven": "^2.1.1",
     "uuid": "^3.0.1",
     "winston": "^2.3.1"
   },
