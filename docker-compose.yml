@@ -5,6 +5,9 @@ services:
       context: .
     working_dir: /app
     image: karma:0.0.1
+    volumes:
+      - ~/data/karma/logs:/app/logs:rw
+      - ~/data/karma/logs/pm2:/root/.pm2/logs:rw
     environment:
       - NODE_ENV
       - PORT
