@@ -4,8 +4,8 @@
   "description": "Experience Sampling Assessment bot.",
   "main": "Karma.js",
   "scripts": {
-    "lint":  "eslint Karma.js lib config",
-    "start": "node Karma.js"
+    "lint": "eslint Karma.js lib config",
+    "dev": "supervisor Karma.js"
   },
   "repository": {
     "type": "git",
