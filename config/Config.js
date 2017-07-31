@@ -17,7 +17,6 @@ module.exports = {
 
   // logging and error reporting
   sentryDSN: env.SENTRY_DSN,
-  karmaAccessLogFile: env.KARMA_ACCESS_LOG_FILE || 'karma_http.log',
-  karmaErrorFile: env.KARMA_ERROR_FILE || 'karma_errors.log',
+  karmaAccessLogFile: env.KARMA_ACCESS_LOG_FILE || './logs/karma_access.log',
   debugTranslations: env.DEBUG_TRANSLATIONS === 'true' || false,
 };
