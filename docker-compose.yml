@@ -6,11 +6,20 @@ services:
     working_dir: /app
     image: karma:0.0.1
     environment:
-      - page_token
-      - ona_token
-      - app_secret
-      - verify_token
-      - rapidpro_token
+      - NODE_ENV
       - PORT
+
+      - ONADATA_API_TOKEN
+      - RAPIDPRO_API_TOKEN
+
+      - FACEBOOK_PAGE_ACCESS_TOKEN
+      - FACEBOOK_API_VERSION
+      - FACEBOOK_APP_SECRET
+      - FACEBOOK_VERIFY_TOKEN
+
+      - SENTRY_DSN
+      - KARMA_ACCESS_LOG_FILE
+      - KARMA_ERROR_FILE
+      - DEBUG_TRANSLATIONS
     ports:
-      - "6666:3000"
+      - "${HOST_PORT}:${APP_PORT}"
