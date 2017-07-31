@@ -3,7 +3,7 @@ const env = process.env;
 module.exports = {
   // core
   environment: env.NODE_ENV || 'dev', // dev, prod, test
-  PORT: env.PORT || 3000, // env to run karma on
+  PORT: env.PORT || env.APP_PORT || 3000, // env to run karma on
 
   // facebook
   facebookPageAccessToken: env.FACEBOOK_PAGE_ACCESS_TOKEN,

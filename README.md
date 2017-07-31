@@ -1,14 +1,21 @@
 # Karma
 Bot orchestration framework
 
-# Description
+## Description
 Experience Sampling Assessment bot.
 
-# Target platforms
-- Facebook messenger
+### Target platforms
+Current:
+ - Facebook messenger
 
-# Testing and linting
-See docs https://github.com/onaio/karma/blob/master/docs/Getting-started.md#testing
+Coming soon:
+ - Telegram
+
+## Documentation
+
+ * [Get Started](docs/Get-started.md)
+ * [Installation](docs/Install.md)
+ * [Testing](docs/Testing.md)
 
 # License
-Copyright (c) 2017, Ona Systems Inc, All rights reserved.
+[Apache 2.0](LICENSE)
