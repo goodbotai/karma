@@ -9,6 +9,3 @@ Experience Sampling Assessment bot.
 
 # Testing and linting
 See docs https://github.com/onaio/karma/blob/master/docs/Getting-started.md#testing
-
-# License
-Copyright (c) 2017, Ona Systems Inc, All rights reserved.
