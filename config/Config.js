@@ -14,6 +14,7 @@ module.exports = {
   // external data stores
   onadataApiToken: env.ONADATA_API_TOKEN,
   rapidproApiToken: env.RAPIDPRO_API_TOKEN,
+  rapidproGroups: env.RAPIDPRO_GROUPS || '[]',
 
   // logging and error reporting
   sentryDSN: env.SENTRY_DSN,
