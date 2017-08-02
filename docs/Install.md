@@ -13,7 +13,7 @@ in development or production.
 |      PORT                    |   3000    |
 |      ONADATA_API_TOKEN       | undefined |
 |      RAPIDPRO_API_TOKEN      | undefined |
-|      RAPIDPRO_GROUPS         |    '[]'   |
+|      RAPIDPRO_GROUPS         |     []    |
 |      SENTRY_DSN              | undefined |
 |      KARMA_ACCESS_LOG_FILE   | undefined |
 |      DEBUG_TRANSLATIONS      |   false   |
