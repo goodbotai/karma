@@ -4,25 +4,28 @@
   "description": "Experience Sampling Assessment bot.",
   "main": "Karma.js",
   "scripts": {
-    "lint": "eslint Karma.js lib",
-    "start": "node Karma.js"
+    "lint": "./node_modules/.bin/eslint Karma.js lib config",
+    "dev": "supervisor Karma.js"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/onaio/karma.git"
   },
   "author": "onaio",
-  "license": "Apache-2.0",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/onaio/karma/issues"
   },
   "homepage": "https://github.com/onaio/karma",
   "dependencies": {
     "botkit": "^0.5.4",
+    "express-winston": "^2.4.0",
     "i18next": "^8.4.2",
     "i18next-node-fs-backend": "^1.0.0",
     "node-fetch": "^1.6.3",
-    "uuid": "^3.0.1"
+    "raven": "^2.1.1",
+    "uuid": "^3.0.1",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
