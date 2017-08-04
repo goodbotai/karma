@@ -1,1 +1,1 @@
-require('./lib/Facebook.js');
+require('./conversations/KarmaConversation.js');

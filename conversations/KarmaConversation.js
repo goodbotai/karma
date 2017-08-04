@@ -2,7 +2,10 @@ const Utils = require('../lib/FacebookUtils.js');
 
 const Config = require('../config/Config.js');
 const Services = require('../lib/Services.js');
+const Facebook = require('../lib/Facebook.js');
+const Aggregate = require('../lib/Aggregate.js');
 
+const winston = require('winston');
 const i18next = require('i18next');
 const Backend = require('i18next-node-fs-backend');
 
@@ -34,7 +37,7 @@ const availableLanguages = [
 
 const i18nextOptions = {
   debug: Config.debugTranslations,
-  ns: availableLanguages.map(({ locale }) => extractLanguageFromLocale(locale) ),
+  ns: availableLanguages.map(({ locale }) => extractLanguageFromLocale(locale)),
   defaultNS: 'en',
   fallbackLng: 'en',
   backend: {
@@ -51,15 +54,13 @@ i18next
     .init(i18nextOptions,
           (err, t) => {
             if (err) {
-              return console.log('Something went wrong loading', err);
+              winston.log('error', `Something went wrong loading transaltion ${t}`, err);
             }
-            return console.log(t('Translations loaded successfully'));
+            winston.log('info', 'Translations loaded successfully');
           });
-
 
 function karmaConversation(err, convo, firstName, lastName) {
   const language = 'in';
-
   const relationships = [
     i18next.t(`${language}:friend`),
     i18next.t(`${language}:family`),
@@ -68,7 +69,6 @@ function karmaConversation(err, convo, firstName, lastName) {
     i18next.t(`${language}:client`),
     i18next.t(`${language}:other`),
   ];
-
   const emotions = [
     i18next.t(`${language}:upset`),
     i18next.t(`${language}:hostile`),
@@ -81,7 +81,6 @@ function karmaConversation(err, convo, firstName, lastName) {
     i18next.t(`${language}:afraid`),
     i18next.t(`${language}:active`),
   ];
-
   const nums10 = generateButtonObject([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const nums5 = generateButtonObject([1, 2, 3, 4, 5]);
   const relationshipsObject = generateButtonObject(relationships);
@@ -96,9 +95,11 @@ function karmaConversation(err, convo, firstName, lastName) {
                       { key: 'doing' });
 
   convo.addQuestion(
-      generateYesNoButtonTemplate(i18next.t(`${language}:withSomeone`),
-                                  'yes_with_someone',
-                                  'no_with_someone'),
+    generateYesNoButtonTemplate(i18next.t(`${language}:withSomeone`),
+                                i18next.t(`${language}:yes`),
+                                i18next.t(`${language}:no`),
+                                'yes_with_someone',
+                                'no_with_someone'),
     [{
       pattern: 'yes_with_someone',
       callback: goto('with whom name'),
@@ -120,9 +121,11 @@ function karmaConversation(err, convo, firstName, lastName) {
                       'with whom relationship');
 
   convo.addQuestion(
-      generateYesNoButtonTemplate(i18next.t(`${language}:withAnyoneElse`),
-                                  'yesWithSomeoneElse',
-                                  'noWithSomeoneElse'),
+    generateYesNoButtonTemplate(i18next.t(`${language}:withAnyoneElse`),
+                                i18next.t(`${language}:yes`),
+                                i18next.t(`${language}:no`),
+                                'yesWithSomeoneElse',
+                                'noWithSomeoneElse'),
     [{
       pattern: 'yesWithSomeoneElse',
       callback: (_, conversation) => {
@@ -179,9 +182,11 @@ function karmaConversation(err, convo, firstName, lastName) {
                    'B3'));
 
   convo.addQuestion(
-      generateYesNoButtonTemplate(i18next.t(`${language}:socialConcernSpoken`),
-                                  'yes_concern',
-                                  'no_concern'),
+    generateYesNoButtonTemplate(i18next.t(`${language}:socialConcernSpoken`),
+                                i18next.t(`${language}:yes`),
+                                i18next.t(`${language}:no`),
+                                'yes_concern',
+                                'no_concern'),
     [{
       pattern: 'yes_concern',
       callback: goto('who did you talk to'),
@@ -221,9 +226,11 @@ function karmaConversation(err, convo, firstName, lastName) {
                      'social concern change');
 
   convo.addQuestion(
-      generateYesNoButtonTemplate(i18next.t(`${language}:B4f`),
-                                  'yes_anyone_else',
-                                      'no_anyone_else'),
+    generateYesNoButtonTemplate(i18next.t(`${language}:B4f`),
+                                i18next.t(`${language}:yes`),
+                                i18next.t(`${language}:no`),
+                                'yes_anyone_else',
+                                'no_anyone_else'),
     [{
       pattern: 'yes_anyone_else',
       callback: (_, conversation) => {
@@ -283,7 +290,7 @@ function karmaConversation(err, convo, firstName, lastName) {
       service.genAndPostSubmissionToOna();
       service.genAndPostRapidproContact(Config.rapidproGroups);
     } else {
-      console.log(`Ended with status: ${conversation.status}`);
+      winston.log('info', `Ended with status: ${conversation.status}`);
     }
   });
 
@@ -295,13 +302,31 @@ function prepareConversation(err, convo) {
   const { userId } = Aggregate(convo);
   Services.getFacebookProfile(userId)
       .then(({ first_name: firstName, last_name: lastName, locale }) => {
-        KarmaConversation.karmaConversation(err,
-                                            convo,
-                                            extractLanguageFromLocale(locale),
-                                            firstName,
-                                            lastName);
+        karmaConversation(err,
+                          convo,
+                          extractLanguageFromLocale(locale),
+                          firstName,
+                          lastName);
       });
 }
+
+/* Listeners */
+Facebook.karma.on('facebook_postback', (bot, message) => {
+  if (message.payload === 'get_started') {
+    bot.createConversation(message, prepareConversation);
+  }
+});
+
+Facebook.karma.on('facebook_postback', (bot, message) => {
+  if (message.payload === 'restart') {
+    bot.createConversation(message, prepareConversation);
+  }
+});
+
+Facebook.karma.hears(['restart'], 'message_received', (bot, message) => {
+  bot.createConversation(message, prepareConversation);
+});
+
 
 module.exports = {
   karmaConversation,
