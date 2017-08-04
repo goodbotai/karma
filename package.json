@@ -5,7 +5,6 @@
   "main": "lib/Moran.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint index.js lib config conversations",
-    "dev": "supervisor index.js"
   },
   "repository": {
     "type": "git",
