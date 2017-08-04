@@ -1,22 +1,22 @@
 {
-  "name": "karma",
+  "name": "moran",
   "version": "0.0.1-alpha",
-  "description": "Experience Sampling Assessment bot.",
-  "main": "Karma.js",
+  "description": "Bot orchestration framework",
+  "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint Karma.js lib config conversations",
-    "dev": "supervisor Karma.js"
+    "lint": "./node_modules/.bin/eslint index.js lib config conversations",
+    "dev": "supervisor index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/onaio/karma.git"
+    "url": "git+ssh://git@github.com/onaio/moran.git"
   },
   "author": "onaio",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/onaio/karma/issues"
+    "url": "https://github.com/onaio/moran/issues"
   },
-  "homepage": "https://github.com/onaio/karma",
+  "homepage": "https://github.com/onaio/moran",
   "dependencies": {
     "botkit": "^0.5.4",
     "express-winston": "^2.4.0",
