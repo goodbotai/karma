@@ -2,7 +2,7 @@
   "name": "moran",
   "version": "0.0.1-alpha",
   "description": "Bot orchestration framework",
-  "main": "index.js",
+  "main": "lib/Moran.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint index.js lib config conversations",
     "dev": "supervisor index.js"
