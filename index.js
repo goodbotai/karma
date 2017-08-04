@@ -1,1 +1,1 @@
-require('./conversations/KarmaConversation.js');
+require('./conversations/example.js');
