@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
-    "moran": "file:../moran"
+    "borq": "^0.0.1-alpha.1",
+    "i18next": "^8.4.3",
+    "i18next-node-fs-backend": "^1.0.0"
   }
 }

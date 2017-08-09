@@ -1,4 +1,4 @@
-const moran = require('moran');
+const borq = require('borq');
 
 const winston = require('winston');
 const i18next = require('i18next');
@@ -10,7 +10,7 @@ const {
   services,
   aggregate,
   config
-} = moran;
+} = borq;
 
 const {
   generateButtonObject,
@@ -18,8 +18,6 @@ const {
   nextConversation,
   goto,
   generateYesNoButtonTemplate,
-  repeatAnyoneObject,
-  repeatObject,
   generateQuickReply,
 } = facebookUtils;
 
@@ -61,6 +59,86 @@ i18next
             }
             winston.log('info', 'Translations loaded successfully');
           });
+
+/**
+* Create an object for the withWhom section
+* repeat groups are an ODK server's way of handling questions in a loop
+* @param {object} conversation the current conversation
+* @return {object} who'm someoneone is with
+*/
+function repeatAnyoneObject(conversation) {
+  let withWhom;
+  let withWhomRelationship;
+
+  try {
+    withWhom = conversation.responses.with_whom_name.text;
+  } catch (TypeError) {
+    withWhom = null;
+  }
+
+  try {
+    withWhomRelationship = conversation.responses.with_whom_relationship.text;
+  } catch (TypeError) {
+    withWhomRelationship = null;
+  }
+
+  return {
+    with_whom_name: withWhom,
+    with_whom_relationship: withWhomRelationship,
+  };
+}
+
+/**
+* Create an object for speaking with somone about their social concern
+* repeat groups are an ODK server's way of handling questions in a loop
+* @param {object} conversation the current conversation's object
+* @return {object} who someone spoke with about social concern
+*/
+function repeatObject(conversation) {
+  const responses = conversation.responses;
+  let spokeTo;
+  let relationship;
+  let change;
+  let what;
+  let changeScale;
+
+  try {
+    spokeTo = responses.social_concern_spoke_to_relationship.text;
+  } catch (TypeError) {
+    spokeTo = null;
+  }
+
+  try {
+    relationship = responses.social_concern_confidant_name.text;
+  } catch (TypeError) {
+    relationship = null;
+  }
+
+  try {
+    changeScale = conversation.responses.social_concern_change_scale.text;
+  } catch (TypeError) {
+    changeScale = null;
+  }
+
+  try {
+    what = conversation.responses.social_concern_change_what.text;
+  } catch (TypeError) {
+    what = null;
+  }
+  try {
+    what = conversation.responses.social_concern_change_better_worse.text;
+  } catch (TypeError) {
+    what = null;
+  }
+
+  return {
+    social_concern_spoke_to_relationship: spokeTo,
+    social_concern_confidant_name: relationship,
+    social_concern_change: change,
+    social_concern_change_scale: changeScale,
+    social_concern_change_what: what,
+  };
+}
 
 function karmaConversation(err, convo, firstName, lastName) {
   const language = 'in';
@@ -312,6 +390,36 @@ function prepareConversation(err, convo) {
                           lastName);
       });
 }
+
+/* Messenger Karma configs */
+facebook.karma.api.messenger_profile.greeting('I will ask you questions about' +
+                                     ' your daily well-being.');
+facebook.karma.api.messenger_profile.get_started('get_started');
+facebook.karma.api.messenger_profile.menu([{
+  locale: 'default',
+  composer_input_disabled: false,
+  call_to_actions: [
+    {
+      title: 'Help',
+      type: 'nested',
+      call_to_actions: [
+        {
+          title: 'Restart survery',
+          type: 'postback',
+          payload: 'restart',
+        },
+      ],
+    },
+    {
+      type: 'web_url',
+      title: 'FAQ',
+      url: 'https://karma.goodbot.ai/',
+      webview_height_ratio: 'full',
+    },
+  ],
+},
+]);
+
 
 /* Listeners */
 facebook.karma.on('facebook_postback', (bot, message) => {
