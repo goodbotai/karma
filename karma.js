@@ -9,7 +9,7 @@ const {
   facebook,
   services,
   aggregate,
-  config
+  config,
 } = borq;
 
 const {
@@ -38,7 +38,7 @@ const availableLanguages = [
 
 const i18nextOptions = {
   debug: config.debugTranslations,
-  ns: availableLanguages.map(({ locale }) => extractLanguageFromLocale(locale)),
+  ns: availableLanguages.map(({locale}) => extractLanguageFromLocale(locale)),
   defaultNS: 'en',
   fallbackLng: 'en',
   backend: {
@@ -55,7 +55,9 @@ i18next
     .init(i18nextOptions,
           (err, t) => {
             if (err) {
-              winston.log('error', `Something went wrong loading transaltion ${t}`, err);
+              winston.log('error',
+                          `Something went wrong loading transaltion ${t}`,
+                          err);
             }
             winston.log('info', 'Translations loaded successfully');
           });
@@ -140,8 +142,16 @@ function repeatObject(conversation) {
   };
 }
 
-function karmaConversation(err, convo, firstName, lastName) {
-  const language = 'in';
+/**
+* The survey conversation
+* This function has no return statement. Only needed for it's side effects.
+* @param {string} err an exception thrown by startConversation
+* @param {object} convo the conversation object
+* @param {string} language the language of th respondent according to facebook
+* @param {string} firstName respondent first name
+* @param {string} lastName respondent last name
+*/
+function karmaConversation(err, convo, language, firstName, lastName) {
   const relationships = [
     i18next.t(`${language}:friend`),
     i18next.t(`${language}:family`),
@@ -173,7 +183,7 @@ function karmaConversation(err, convo, firstName, lastName) {
 
   convo.addQuestion(i18next.t(`${language}:doing`),
                       nextConversation,
-                      { key: 'doing' });
+                      {key: 'doing'});
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:withSomeone`),
@@ -188,18 +198,19 @@ function karmaConversation(err, convo, firstName, lastName) {
       pattern: 'no_with_someone',
       callback: goto('skip yes'),
     }],
-      { key: 'with_someone' });
+      {key: 'with_someone'});
 
   convo.addQuestion(i18next.t(`${language}:withWhom`),
                       goto('with whom relationship'),
-                      { key: 'with_whom_name' },
+                      {key: 'with_whom_name'},
                      'with whom name');
 
-  convo.addQuestion(generateQuickReply(i18next.t(`${language}:withWhomRelationship`),
-                                         relationshipsObject),
-                      goto('with anyone else'),
-                      { key: 'with_whom_relationship' },
-                      'with whom relationship');
+  convo.addQuestion(
+    generateQuickReply(i18next.t(`${language}:withWhomRelationship`),
+                       relationshipsObject),
+    goto('with anyone else'),
+    {key: 'with_whom_relationship'},
+    'with whom relationship');
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:withAnyoneElse`),
@@ -210,56 +221,63 @@ function karmaConversation(err, convo, firstName, lastName) {
     [{
       pattern: 'yesWithSomeoneElse',
       callback: (_, conversation) => {
-        conversation.responses.repeat.with_whom.push(repeatAnyoneObject(conversation));
+        conversation.responses.repeat.with_whom.push(
+          repeatAnyoneObject(conversation)
+        );
         conversation.gotoThread('with whom name');
         conversation.next();
       },
     }, {
       pattern: 'noWithSomeoneElse',
       callback: (_, conversation) => {
-        conversation.responses.repeat.with_whom.push(repeatAnyoneObject(conversation));
+        conversation.responses.repeat.with_whom.push(
+          repeatAnyoneObject(conversation)
+        );
         conversation.gotoThread('skip yes');
         conversation.next();
       },
     }],
-      { key: 'with_anyone_else' },
+      {key: 'with_anyone_else'},
       'with anyone else');
 
   convo.addQuestion(i18next.t(`${language}:thoughts`),
                       goto('A4'),
-                      { key: 'thoughts' },
+                      {key: 'thoughts'},
                       'skip yes');
 
   convo.addMessage(i18next.t(`${language}:A4`), 'A4');
 
-  emotions.map(emo =>
+  emotions.map((emo) =>
                  convo.addQuestion(
                    generateQuickReply(i18next.t(`${language}:${emo}`), nums5),
-                   emo === i18next.t(`${language}:active`) ? goto('social concern') :
+                   emo === i18next.t(`${language}:active`) ?
+                     goto('social concern') :
                      nextConversation,
-                   { key: `feeling_${i18next.t(`en:${emo}`)}` },
+                   {key: `feeling_${i18next.t(`en:${emo}`)}`},
                    'A4'));
 
   convo.addQuestion(i18next.t(`${language}:socialConcern`),
                           goto('affected by social concern'),
-                          { key: 'social_concern' },
+                          {key: 'social_concern'},
                           'social concern');
 
-  convo.addQuestion(generateQuickReply(i18next.t(`${language}:socialConcernHowAffected`),
-                                             nums10),
-                          goto('B3'),
-                          { key: 'social_concern_how_affected' },
-                          'affected by social concern');
+  convo.addQuestion(
+    generateQuickReply(i18next.t(`${language}:socialConcernHowAffected`),
+                       nums10),
+    goto('B3'),
+    {key: 'social_concern_how_affected'},
+    'affected by social concern');
 
   convo.addMessage(i18next.t(`${language}:B3`), 'B3');
 
 
-  emotions.map(emo =>
+  emotions.map((emo) =>
                  convo.addQuestion(
                    generateQuickReply(i18next.t(`${language}:${emo}`), nums5),
-                   emo === i18next.t(`${language}:active`) ? goto('social concern spoken') :
+                   emo === i18next.t(`${language}:active`) ?
+                     goto('social concern spoken') :
                      nextConversation,
-                   { key: `social_concern_feeling_${i18next.t(`en:${emo}`)}` },
+                   {key: `social_concern_feeling_${i18next.t(`en:${emo}`)}`},
                    'B3'));
 
   convo.addQuestion(
@@ -275,35 +293,39 @@ function karmaConversation(err, convo, firstName, lastName) {
       pattern: 'no_concern',
       callback: goto('graceful ending'),
     }],
-      { key: 'social_concern_spoken' },
+      {key: 'social_concern_spoken'},
       'social concern spoken');
 
-  convo.addQuestion(generateQuickReply(i18next.t(`${language}:socialConcernSpokeToRelationship`),
-    relationshipsObject),
+  convo.addQuestion(
+    generateQuickReply(
+      i18next.t(`${language}:socialConcernSpokeToRelationship`),
+      relationshipsObject),
                       goto('social concern confidant'),
-                      { key: 'social_concern_spoke_to_relationship' },
+                      {key: 'social_concern_spoke_to_relationship'},
                      'who did you talk to');
 
   convo.addQuestion(i18next.t(`${language}:socialConcernConfidantName`),
                       goto('social concern change scale'),
-                      { key: 'social_concern_confidant_name' },
+                      {key: 'social_concern_confidant_name'},
                      'social concern confidant');
 
-  convo.addQuestion(generateQuickReply(i18next.t(`${language}:socialConcernChangeScale`),
+  convo.addQuestion(
+    generateQuickReply(i18next.t(`${language}:socialConcernChangeScale`),
                                          nums10),
                       goto('what changed'),
-                      { key: 'socialConcern_change_scale' },
+                      {key: 'socialConcern_change_scale'},
                      'social concern change scale');
 
   convo.addQuestion(i18next.t(`${language}:whatChanged`),
                       goto('social concern change'),
-                      { key: 'social_concern_change_what' },
+                      {key: 'social_concern_change_what'},
                       'what changed');
 
-  convo.addQuestion(generateQuickReply(i18next.t(`${language}:socialConcernChangeBW`),
+  convo.addQuestion(
+    generateQuickReply(i18next.t(`${language}:socialConcernChangeBW`),
                                          nums10),
                       goto('B4f'),
-                      { key: 'social_concern_change_better_worse' },
+                      {key: 'social_concern_change_better_worse'},
                      'social concern change');
 
   convo.addQuestion(
@@ -327,7 +349,7 @@ function karmaConversation(err, convo, firstName, lastName) {
         conversation.next();
       },
     }],
-      { key: 'social_concern_spoke_to_someone_else' },
+      {key: 'social_concern_spoke_to_someone_else'},
       'B4f');
 
   convo.addMessage({
@@ -346,14 +368,15 @@ function karmaConversation(err, convo, firstName, lastName) {
                 payload: {
                   template_type: 'generic',
                   elements: [{
-                    title: "Hello, I'm Karma 😃.",
-                    subtitle: `I was referred to you by ${firstName} ${lastName}.` +
-                        ' I would like to ask you questions about your wellbeing' +
-                        ' every 24 hours. Press "Start" if you would like me to.',
+                    title: 'Hello, I\'m Karma 😃.',
+                    subtitle: 'I was referred to you by' +
+                      ` ${firstName} ${lastName}. I would like to ask` +
+                      'you questions about your wellbeing every 24 hours.' +
+                      ' Press "Start" if you would like me to.',
                     buttons: [{
                       type: 'web_url',
                       url: 'http://m.me/1504460956262236',
-                      title: 'Start' }],
+                      title: 'Start'}],
                   }],
                 },
               },
@@ -379,10 +402,17 @@ function karmaConversation(err, convo, firstName, lastName) {
 }
 
 
+/**
+* Fetch facebook user profile get the reponent's language and name
+* No return statement.
+* We use it to start the conversation and get the user profile from Facebook.
+* @param {string} err (optional) Exception thrown by createConversation
+* @param {object} convo the conversation object for a respondent
+*/
 function prepareConversation(err, convo) {
-  const { userId } = aggregate(convo);
+  const {userId} = aggregate(convo);
   services.getFacebookProfile(userId)
-      .then(({ first_name: firstName, last_name: lastName, locale }) => {
+      .then(({first_name: firstName, last_name: lastName, locale}) => {
         karmaConversation(err,
                           convo,
                           extractLanguageFromLocale(locale),
