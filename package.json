@@ -1,36 +1,27 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpha",
-  "description": "Experience Sampling Assessment bot.",
-  "main": "Karma.js",
+  "version": "0.0.1",
+  "description": "Bot for the Karma study",
+  "main": "karma.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint Karma.js lib config",
-    "dev": "supervisor Karma.js"
+    "lint": "./node_modules/.bin/eslint karma.js",
+    "dev": "supervisor karma.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/onaio/karma.git"
+    "url": "git+https://github.com/onaio/karma.git"
   },
   "author": "onaio",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/onaio/karma/issues"
   },
-  "homepage": "https://github.com/onaio/karma",
+  "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
-    "botkit": "^0.5.4",
-    "express-winston": "^2.4.0",
-    "i18next": "^8.4.2",
-    "i18next-node-fs-backend": "^1.0.0",
-    "node-fetch": "^1.6.3",
-    "raven": "^2.1.1",
-    "uuid": "^3.0.1",
-    "winston": "^2.3.1"
-  },
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.1.3",
-    "eslint-plugin-import": "^2.2.0",
-    "supervisor": "^0.12.0"
+    "borq": "^0.0.1-alpha.1",
+    "eslint": "^4.4.1",
+    "eslint-config-google": "^0.9.1",
+    "i18next": "^8.4.3",
+    "i18next-node-fs-backend": "^1.0.0"
   }
 }

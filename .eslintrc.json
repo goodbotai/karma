@@ -1,12 +1,7 @@
 {
-    "extends": "airbnb-base",
-    "plugins": [
-        "import"
-    ],
-   "rules": {
-     "max-len": ["error", 100],
-     "prefer-template": ["warn"],
-     "no-param-reassign": ["warn", { "props": true}]
-
-     }
+  "extends": "google",
+  "env": {
+    "node": true,
+    "es6": true
+  }
 }
