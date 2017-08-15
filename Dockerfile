@@ -4,6 +4,8 @@ COPY . /app
 
 WORKDIR /app
 
+RUN mkdir -p /app/logs
+
 RUN npm install pm2@latest -g
 RUN npm install --deps
 
