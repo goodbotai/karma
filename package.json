@@ -1,6 +1,6 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpah.2",
+  "version": "0.0.1-alpah.3",
   "description": "Bot for the Karma study",
   "main": "karma.js",
   "scripts": {
