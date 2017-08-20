@@ -501,9 +501,19 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-borq@^0.0.1-alpha.2, borq@^0.0.1-alpha.4:
+borq@^0.0.1-alpha.2:
   version "0.0.1-alpha.4"
-  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.4.tgz#30c7c39a38d2ea5e8e2d6f345fa373d9cca89290"
+  dependencies:
+    borq "^0.0.1-alpha.2"
+    botkit "^0.5.7"
+    express-winston "^2.4.0"
+    node-fetch "^1.7.1"
+    raven "^2.1.1"
+    uuid "^3.1.0"
+    winston "^2.3.1"
+
+"borq@file:../borq":
+  version "0.0.1-alpha.4"
   dependencies:
     borq "^0.0.1-alpha.2"
     botkit "^0.5.7"
@@ -514,8 +524,8 @@ borq@^0.0.1-alpha.2, borq@^0.0.1-alpha.4:
     winston "^2.3.1"
 
 botbuilder@^3.7.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/botbuilder/-/botbuilder-3.9.0.tgz#363ca6b965d603a87316fb15e52b1fc8a39f40cb"
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/botbuilder/-/botbuilder-3.9.1.tgz#104aede362185d0aa3222cdb545e39d388d09f06"
   dependencies:
     async "^1.5.2"
     base64url "^2.0.0"
@@ -1775,8 +1785,8 @@ jsonwebtoken@5.4.x:
     ms "^0.7.1"
 
 jsonwebtoken@^7.0.1:
-  version "7.4.2"
-  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-7.4.2.tgz#571b903c07e875c0fc59203d1ac78667d80e09cd"
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-7.4.3.tgz#77f5021de058b605a1783fa1283e99812e645638"
   dependencies:
     joi "^6.10.1"
     jws "^3.1.4"

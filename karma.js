@@ -1,6 +1,7 @@
 const borq = require('borq');
 
 const winston = require('winston');
+const expressWinston = require('express-winston');
 const i18next = require('i18next');
 const Backend = require('i18next-node-fs-backend');
 
@@ -19,7 +20,10 @@ const {
   goto,
   generateYesNoButtonTemplate,
   generateQuickReply,
+  sendMessage,
 } = facebookUtils;
+
+const bot = facebook.karma.spawn({});
 
 const availableLanguages = [
   {
@@ -36,11 +40,17 @@ const availableLanguages = [
   },
 ];
 
+const lookupISO6392code = {
+  en: 'eng',
+  pt: 'por',
+    in: 'ind',
+};
+
 const i18nextOptions = {
   debug: config.debugTranslations,
   ns: availableLanguages.map(({locale}) => extractLanguageFromLocale(locale)),
-  defaultNS: 'en',
-  fallbackLng: 'en',
+  defaultNS: config.defaultLanguage,
+  fallbackLng: config.defaultLanguage,
   backend: {
     loadPath: 'translations/{{{ns}}}.json',
   },
@@ -392,7 +402,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     if (conversation.status === 'completed') {
       const service = services.init(conversation);
       service.genAndPostSubmissionToOna();
-      service.genAndPostRapidproContact(config.rapidproGroups);
+      service.genAndPostRapidproContact(config.rapidproGroups, language);
     } else {
       winston.log('info', `Ended with status: ${conversation.status}`);
     }
@@ -401,6 +411,27 @@ function karmaConversation(err, convo, language, firstName, lastName) {
   convo.activate();
 }
 
+/**
+* Send a greeting to a rapidpro contact
+* @param {string} urn should hold the facebook messenger id of the user
+* @param {string} contact_name The contact's name
+* @param {string} contact rapidpro contact uuid
+*/
+function sendGreeting({urn, contact_name, contact}) {
+  const facebookId = urn.split(':')[1];
+  services.getRapidProContact(contact)
+    .then(({results: [{language}]}) => {
+      let lang = language.slice(0,2);
+      sendMessage(bot, facebookId, (err, convo) => {
+        convo.addQuestion(generateYesNoButtonTemplate(
+          i18next.t(`${lang}:dailyGreeting`, {contact_name}),
+          i18next.t(`${lang}:yes`),
+          i18next.t(`${lang}:no`),
+          'restart',
+          'end'));
+      });
+    });
+}
 
 /**
 * Fetch facebook user profile get the reponent's language and name
@@ -411,15 +442,53 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 */
 function prepareConversation(err, convo) {
   const {userId} = aggregate(convo);
+  const service = services.init(convo);
   services.getFacebookProfile(userId)
-      .then(({first_name: firstName, last_name: lastName, locale}) => {
-        karmaConversation(err,
-                          convo,
-                          extractLanguageFromLocale(locale),
-                          firstName,
-                          lastName);
-      });
+    .then(({first_name: firstName, last_name: lastName, locale}) => {
+      const language = extractLanguageFromLocale(locale);
+      service.genAndPostRapidproContact(config.rapidproGroups,
+                                        lookupISO6392code[language]);
+      karmaConversation(err,
+                        convo,
+                        language,
+                        firstName,
+                        lastName);
+    });
 }
+
+facebook.karma.setupWebserver(config.PORT, (err, webserver) => {
+  if (config.environment === 'production') {
+    webserver.use(services.sentry.requestHandler());
+  }
+
+  webserver.use(expressWinston.logger({
+    transports: [
+      new winston.transports.File({
+        filename: config.karmaAccessLogFile,
+        logstash: true,
+        zippedArchive: true,
+      })],
+  }));
+
+  facebook.karma.createWebhookEndpoints(webserver, bot, () => {
+  });
+
+  webserver.get('/', (req, res) => {
+    const html = '<h3>This is karma</h3>';
+    res.send(html);
+  });
+
+  webserver.post('/trigger', (req, res) => {
+    sendGreeting(req.body);
+    const response = res;
+    response.statusCode = 200;
+    response.send();
+  });
+
+  if (config.environment === 'production') {
+    webserver.use(services.sentry.errorHandler());
+  }
+});
 
 /* Messenger Karma configs */
 facebook.karma.api.messenger_profile.greeting('I will ask you questions about' +
@@ -450,16 +519,9 @@ facebook.karma.api.messenger_profile.menu([{
 },
 ]);
 
-
 /* Listeners */
 facebook.karma.on('facebook_postback', (bot, message) => {
   if (message.payload === 'get_started') {
-    bot.createConversation(message, prepareConversation);
-  }
-});
-
-facebook.karma.on('facebook_postback', (bot, message) => {
-  if (message.payload === 'restart') {
     bot.createConversation(message, prepareConversation);
   }
 });

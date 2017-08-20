@@ -37,5 +37,7 @@
   "socialConcernChange": "Setelah berbicara tentang {{responses.socialConcern}}, apakah Anda merasa lebih baik atau lebih buruk?",
   "B4f": "Apakah belakangan ini Anda pernah berbicara dengan orang lain selain orang di atas tentang {{responses.socialConcern}}?",
   "thankYou": "Terima kasih, sampai jumpa besok 😃.",
-  "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda."
+  "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
+
+  "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?"
 }
