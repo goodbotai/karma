@@ -3,10 +3,12 @@ node_js:
   - "8"
 
 install:
-  - yarn install --dev
-  - yarn add travis-ecs-deploy -g
+  - npm install --dev
+  - npm install travis-ecs-deploy -g
+
 script:
   - yarn lint
+
 deploy:
   skip_cleanup: true
   provider: script
