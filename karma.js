@@ -402,7 +402,8 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     if (conversation.status === 'completed') {
       const service = services.init(conversation);
       service.genAndPostSubmissionToOna();
-      service.genAndPostRapidproContact(config.rapidproGroups, lookupISO6392code[language]);
+      service.genAndPostRapidproContact(config.rapidproGroups,
+                                        lookupISO6392code[language]);
     } else {
       winston.log('info', `Ended with status: ${conversation.status}`);
     }
@@ -422,11 +423,14 @@ function sendGreeting({urn, contact_name, contact}) {
   // handle failed getting of rapidpro contact
   services.getRapidProContact(contact)
     .then(({results: [{language}]}) => {
-      let lang = language.slice(0,2);
+      let lang = language.slice(0, 2);
       sendMessage(bot, facebookId, (err, convo) => {
         convo.addQuestion(generateYesNoButtonTemplate(
           i18next.t(`${lang}:dailyGreeting`, {contact_name}),
-          i18next.t(`${lang}:yes`), i18next.t(`${lang}:no`), 'restart', 'opt_out'),
+          i18next.t(`${lang}:yes`),
+          i18next.t(`${lang}:no`),
+          'restart',
+          'opt_out'),
                           [{
                             pattern: 'opt_out',
                             callback: nextConversation,
@@ -506,31 +510,31 @@ facebook.karma.api.messenger_profile.menu([{
       type: 'nested',
       call_to_actions: [
         {
-          title:   'Restart survery',
-          type:    'postback',
+          title: 'Restart survery',
+          type: 'postback',
           payload: 'restart',
         },
       ],
     },
-    { title: 'Change language',
+    {title: 'Change language',
       type: 'nested',
       call_to_actions: [
         {
-          title:   'English',
-          type:    'postback',
+          title: 'English',
+          type: 'postback',
           payload: 'english',
              },
         {
-          title:   'Bahasa',
-          type:    'postback',
+          title: 'Bahasa',
+          type: 'postback',
           payload: 'bahasa',
         },
         {
-          title:   'Portougese',
-          type:    'postback',
+          title: 'Portougese',
+          type: 'postback',
           payload: 'portougese',
         },
-      ]
+      ],
     },
     {
       type: 'web_url',
@@ -548,8 +552,7 @@ facebook.karma.on('facebook_postback', (bot, message) => {
     bot.createConversation(message, prepareConversation);
   } else if (message.payload === 'restart') {
     bot.createConversation(message, prepareConversation);
-  }
-  else if (['portougese', 'english', 'bahasa'].includes(message.payload)) {
+  } else if (['portougese', 'english', 'bahasa'].includes(message.payload)) {
     bot.reply(message, 'Changing language...');
   }
 });
@@ -558,7 +561,9 @@ facebook.karma.hears(['help'], 'message_received', (bot, message) => {
   bot.reply(message, 'This should be an appropriate help message');
 });
 
-facebook.karma.hears(['hello', 'hi', 'start'], 'message_received', (bot, message) => {
-  bot.reply(message, `${message.text} yourself.`);
-  bot.createConversation(message, prepareConversation);
+facebook.karma.hears(['hello', 'hi', 'start'],
+                     'message_received',
+                     (bot, message) => {
+                       bot.reply(message, `${message.text} yourself.`);
+                       bot.createConversation(message, prepareConversation);
 });
