@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "8"
+
+install:
+  - yarn install --dev
+  - yarn add travis-ecs-deploy -g
+script:
+  - yarn lint
+deploy:
+  skip_cleanup: true
+  provider: script
+  script:
+    - yarn run travis-ecs-deploy
+  on:
+    all_branches: true
