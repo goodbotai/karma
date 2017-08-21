@@ -1,6 +1,6 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpah.5",
+  "version": "0.0.1-alpah.6",
   "description": "Bot for the Karma study",
   "main": "karma.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
-    "borq": "^0.0.1-alpha.5",
+    "borq": "^0.0.1-alpha.6",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.9.1",
     "express-winston": "^2.4.0",
