@@ -5,7 +5,8 @@
   "main": "karma.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint karma.js",
-    "dev": "supervisor karma.js"
+    "dev": "supervisor karma.js",
+    "travis-ecs-deploy": "travis-ecs-deploy"
   },
   "repository": {
     "type": "git",
