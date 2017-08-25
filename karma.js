@@ -449,7 +449,7 @@ function sendGreeting({urn, contact_name, contact}) {
 * @param {object} convo the conversation object for a respondent
 */
 function prepareConversation(err, convo) {
-  const {userId} = aggregate.aggregate(convo);
+  const {userId} = aggregate(convo);
   const service = services.init(convo);
   services.getFacebookProfile(userId)
     .then(({first_name: firstName, last_name: lastName, locale}) => {
