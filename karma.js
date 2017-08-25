@@ -24,6 +24,7 @@ const {
 } = facebookUtils;
 
 const bot = facebook.karma.spawn({});
+let lang = config.defaultLanguage;
 
 const availableLanguages = [
   {
@@ -448,11 +449,11 @@ function sendGreeting({urn, contact_name, contact}) {
 * @param {object} convo the conversation object for a respondent
 */
 function prepareConversation(err, convo) {
-  const {userId} = aggregate(convo);
+  const {userId} = aggregate.aggregate(convo);
   const service = services.init(convo);
   services.getFacebookProfile(userId)
     .then(({first_name: firstName, last_name: lastName, locale}) => {
-      const language = extractLanguageFromLocale(locale);
+      const language = lang || extractLanguageFromLocale(locale);
       service.genAndPostRapidproContact(config.rapidproGroups,
                                         lookupISO6392code[language]);
       karmaConversation(err,
@@ -522,17 +523,17 @@ facebook.karma.api.messenger_profile.menu([{
         {
           title: 'English',
           type: 'postback',
-          payload: 'english',
-             },
+          payload: 'switch_en',
+        },
         {
           title: 'Bahasa',
           type: 'postback',
-          payload: 'bahasa',
+          payload: 'switch_in',
         },
         {
           title: 'Portougese',
           type: 'postback',
-          payload: 'portougese',
+         payload: 'switch_pt',
         },
       ],
     },
@@ -548,22 +549,25 @@ facebook.karma.api.messenger_profile.menu([{
 
 /* Listeners */
 facebook.karma.on('facebook_postback', (bot, message) => {
-  if (message.payload === 'get_started') {
+  const {payload} = message;
+  if (payload === 'get_started') {
     bot.createConversation(message, prepareConversation);
-  } else if (message.payload === 'restart') {
+  } else if (payload === 'restart') {
     bot.createConversation(message, prepareConversation);
-  } else if (['portougese', 'english', 'bahasa'].includes(message.payload)) {
+ } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
     bot.reply(message, 'Changing language...');
+    lang = payload.split('_')[1];
+    bot.createConversation(message, prepareConversation);
   }
 });
 
 facebook.karma.hears(['help'], 'message_received', (bot, message) => {
-  bot.reply(message, 'This should be an appropriate help message');
+  bot.reply(message, i18next.t(`${lang}:helpMessage`));
 });
 
 facebook.karma.hears(['hello', 'hi', 'start'],
                      'message_received',
                      (bot, message) => {
-                       bot.reply(message, `${message.text} yourself.`);
-                       bot.createConversation(message, prepareConversation);
+  bot.reply(message, `${message.text} yourself.`);
+  bot.createConversation(message, prepareConversation);
 });
