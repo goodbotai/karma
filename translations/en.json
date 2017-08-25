@@ -39,5 +39,7 @@
   "thankYou": "Thanks, see you tomorrow 😃.",
   "shareWith": "Please press \"SHARE\" to send me to your friends.",
 
-  "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?"
+  "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?",
+
+  "helpMessage": "I am bots. I am a program meant to ask you questions every day about your wellbeing.\n You can press the manu button (the button with ☰) to see what else I offer."
 }

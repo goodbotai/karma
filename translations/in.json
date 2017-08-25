@@ -39,5 +39,6 @@
   "thankYou": "Terima kasih, sampai jumpa besok 😃.",
   "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
 
-  "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?"
+  "dailyGreeting": "Hai, {{{contact_name}}} Apakah Anda siap untuk menceritakan apa yang Anda rasakan hari ini?",
+  "helpMessage": "Saya bots Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda.\n Anda dapat menekan tombol manu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan."
 }

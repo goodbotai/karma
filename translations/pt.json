@@ -1,4 +1,4 @@
-{
+ {
   "yes": "Sim",
   "no": "Não",
 
@@ -37,6 +37,7 @@
   "socialConcernChange": "Você se sente pior ou melhor depois de conversar sobre {{responses.socialConcern}}?",
   "B4f": "Você conversou com mais alguém sobre {{responses.socialConcern}} recentemente?",
   "thankYou": "Obrigado, até amanhã 😃.",
-  "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
-  "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?"
+   "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
+   "dailyGreeting": "Oi, {{{contact_name}}} Você está pronto para falar sobre seu bem-estar hoje?",
+   "helpMessage": "Eu sou bots. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar. \n Você pode pressionar o botão manu (o botão com ☰) para ver o que mais eu ofereço."
 }
