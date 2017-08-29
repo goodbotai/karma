@@ -405,6 +405,8 @@ function karmaConversation(err, convo, language, firstName, lastName) {
       service.genAndPostSubmissionToOna();
       service.genAndPostRapidproContact(config.rapidproGroups,
                                         lookupISO6392code[language]);
+    } else if (conversation.status === 'interrupted') {
+      karmaConversation(err, convo, language, firstName, lastName);
     } else {
       winston.log('info', `Ended with status: ${conversation.status}`);
     }
@@ -568,6 +570,5 @@ facebook.karma.hears(['help'], 'message_received', (bot, message) => {
 facebook.karma.hears(['hello', 'hi', 'start'],
                      'message_received',
                      (bot, message) => {
-  bot.reply(message, `${message.text} yourself.`);
-  bot.createConversation(message, prepareConversation);
+                       bot.createConversation(message, prepareConversation);
 });
