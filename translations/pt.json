@@ -40,5 +40,6 @@
    "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
    "dailyGreeting": "Oi, {{{contact_name}}} Você está pronto para falar sobre seu bem-estar hoje?",
 
-   "helpMessage": "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" ou \"hello \" para iniciar uma conversa comigo."
+   "helpMessage": "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" ou \"hello \" para iniciar uma conversa comigo.",
+   "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 2 minutos. Você pode responder com \"help \" ou \"start \"."
 }

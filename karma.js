@@ -193,8 +193,8 @@ function karmaConversation(err, convo, language, firstName, lastName) {
   };
 
   convo.addQuestion(i18next.t(`${language}:doing`),
-                      nextConversation,
-                      {key: 'doing'});
+                    nextConversation,
+                    {key: 'doing'});
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:withSomeone`),
@@ -209,7 +209,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
       pattern: 'no_with_someone',
       callback: goto('skip yes'),
     }],
-      {key: 'with_someone'});
+    {key: 'with_someone'});
 
   convo.addQuestion(i18next.t(`${language}:withWhom`),
                       goto('with whom relationship'),
@@ -405,14 +405,14 @@ function karmaConversation(err, convo, language, firstName, lastName) {
       service.genAndPostSubmissionToOna();
       service.genAndPostRapidproContact(config.rapidproGroups,
                                         lookupISO6392code[language]);
-    } else if (conversation.status === 'interrupted') {
-      karmaConversation(err, convo, language, firstName, lastName);
+    } else if (conversation.status === 'timeout') {
+      sendMessage(bot, conversation.user, (err, convo) => {
+        convo.say(i18next.t(`${lang}:timeoutMessage`));
+      });
     } else {
       winston.log('info', `Ended with status: ${conversation.status}`);
     }
   });
-
-  convo.activate();
 }
 
 /**
@@ -435,10 +435,17 @@ function sendGreeting({urn, contact_name, contact}) {
           'restart',
           'opt_out'),
                           [{
+                            pattern: 'restart',
+                            callback: (err, convo) => {
+                              convo.stop();
+                            },
+                           }, {
                             pattern: 'opt_out',
-                            callback: nextConversation,
+                             callback: (err, convo) => {
+                               convo.say('Ok, talk tomorrow.');
+                               convo.stop();
+                            },
                           }]);
-        convo.say('Ok, talk tomorrow.');
       });
     });
 }
@@ -553,13 +560,13 @@ facebook.karma.api.messenger_profile.menu([{
 facebook.karma.on('facebook_postback', (bot, message) => {
   const {payload} = message;
   if (payload === 'get_started') {
-    bot.createConversation(message, prepareConversation);
+    bot.startConversation(message, prepareConversation);
   } else if (payload === 'restart') {
-    bot.createConversation(message, prepareConversation);
+    bot.startConversation(message, prepareConversation);
  } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
     bot.reply(message, 'Changing language...');
     lang = payload.split('_')[1];
-    bot.createConversation(message, prepareConversation);
+    bot.startConversation(message, prepareConversation);
   }
 });
 
@@ -567,8 +574,10 @@ facebook.karma.hears(['help'], 'message_received', (bot, message) => {
   bot.reply(message, i18next.t(`${lang}:helpMessage`));
 });
 
-facebook.karma.hears(['hello', 'hi', '/^start$/'],
+facebook.karma.hears(['hello', 'hi', 'start'],
                      'message_received',
                      (bot, message) => {
-                       bot.createConversation(message, prepareConversation);
-});
+                       if (message.type === 'user_message') {
+                         bot.startConversation(message, prepareConversation);
+                       }
+                     });
