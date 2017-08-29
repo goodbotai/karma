@@ -567,7 +567,7 @@ facebook.karma.hears(['help'], 'message_received', (bot, message) => {
   bot.reply(message, i18next.t(`${lang}:helpMessage`));
 });
 
-facebook.karma.hears(['hello', 'hi', 'start'],
+facebook.karma.hears(['hello', 'hi', '/^start$/'],
                      'message_received',
                      (bot, message) => {
                        bot.createConversation(message, prepareConversation);

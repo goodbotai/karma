@@ -41,5 +41,5 @@
 
   "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?",
 
-  "helpMessage": "I am bots. I am a program meant to ask you questions every day about your wellbeing.\n You can press the manu button (the button with ☰) to see what else I offer."
+  "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer. You can also reply with \"hi\" or \"hello\" to start a conversation with me."
 }
