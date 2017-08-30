@@ -540,7 +540,7 @@ facebookBot.api.messenger_profile.menu([{
           payload: 'switch_in',
         },
         {
-          title: 'Portougese',
+          title: 'Portuguese',
           type: 'postback',
          payload: 'switch_pt',
         },
