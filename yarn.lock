@@ -501,9 +501,9 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-borq@^0.0.1-alpha.10:
-  version "0.0.1-alpha.10"
-  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.10.tgz#c61dc6678f29c39a194f3ba7cb7e8a3d3a83447d"
+borq@^0.0.1-alpha.11:
+  version "0.0.1-alpha.11"
+  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.11.tgz#87b64bbc4c455b5c8ca56b32d2cb56e03f8aaa9e"
   dependencies:
     botkit "^0.5.7"
     express-winston "^2.4.0"

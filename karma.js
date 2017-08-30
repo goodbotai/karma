@@ -7,7 +7,7 @@ const Backend = require('i18next-node-fs-backend');
 
 const {
   facebookUtils,
-  facebook,
+  facebookBot,
   services,
   aggregate,
   config,
@@ -23,7 +23,7 @@ const {
   sendMessage,
 } = facebookUtils;
 
-const bot = facebook.karma.spawn({});
+const bot = facebookBot.spawn({});
 let lang = config.defaultLanguage;
 
 const availableLanguages = [
@@ -406,7 +406,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
       service.genAndPostRapidproContact(config.rapidproGroups,
                                         lookupISO6392code[language]);
     } else if (conversation.status === 'timeout') {
-      sendMessage(bot, conversation.user, (err, convo) => {
+      sendMessage(bot, conversation.context.user, (err, convo) => {
         convo.say(i18next.t(`${lang}:timeoutMessage`));
       });
     } else {
@@ -444,7 +444,7 @@ function sendGreeting({urn, contact_name, contact}) {
                              callback: (err, convo) => {
                                convo.say('Ok, talk tomorrow.');
                                convo.stop();
-                            },
+                             },
                           }]);
       });
     });
@@ -473,7 +473,7 @@ function prepareConversation(err, convo) {
     });
 }
 
-facebook.karma.setupWebserver(config.PORT, (err, webserver) => {
+facebookBot.setupWebserver(config.PORT, (err, webserver) => {
   if (config.environment === 'production') {
     webserver.use(services.sentry.requestHandler());
   }
@@ -487,7 +487,7 @@ facebook.karma.setupWebserver(config.PORT, (err, webserver) => {
       })],
   }));
 
-  facebook.karma.createWebhookEndpoints(webserver, bot, () => {
+  facebookBot.createWebhookEndpoints(webserver, bot, () => {
   });
 
   webserver.get('/', (req, res) => {
@@ -508,10 +508,10 @@ facebook.karma.setupWebserver(config.PORT, (err, webserver) => {
 });
 
 /* Messenger Karma configs */
-facebook.karma.api.messenger_profile.greeting('I will ask you questions about' +
+facebookBot.api.messenger_profile.greeting('I will ask you questions about' +
                                      ' your daily well-being.');
-facebook.karma.api.messenger_profile.get_started('get_started');
-facebook.karma.api.messenger_profile.menu([{
+facebookBot.api.messenger_profile.get_started('get_started');
+facebookBot.api.messenger_profile.menu([{
   locale: 'default',
   composer_input_disabled: false,
   call_to_actions: [
@@ -557,7 +557,7 @@ facebook.karma.api.messenger_profile.menu([{
 ]);
 
 /* Listeners */
-facebook.karma.on('facebook_postback', (bot, message) => {
+facebookBot.on('facebook_postback', (bot, message) => {
   const {payload} = message;
   if (payload === 'get_started') {
     bot.startConversation(message, prepareConversation);
@@ -570,11 +570,11 @@ facebook.karma.on('facebook_postback', (bot, message) => {
   }
 });
 
-facebook.karma.hears(['help'], 'message_received', (bot, message) => {
+facebookBot.hears(['help'], 'message_received', (bot, message) => {
   bot.reply(message, i18next.t(`${lang}:helpMessage`));
 });
 
-facebook.karma.hears(['hello', 'hi', 'start'],
+facebookBot.hears(['hello', 'hi', 'start'],
                      'message_received',
                      (bot, message) => {
                        if (message.type === 'user_message') {
