@@ -1,5 +1,5 @@
+const fs = require('fs');
 const borq = require('borq');
-
 const winston = require('winston');
 const expressWinston = require('express-winston');
 const i18next = require('i18next');
@@ -18,7 +18,7 @@ const {
   extractLanguageFromLocale,
   nextConversation,
   goto,
-  generateYesNoButtonTemplate,
+  generateButtonTemplate,
   generateQuickReply,
   sendMessage,
 } = facebookUtils;
@@ -163,29 +163,28 @@ function repeatObject(conversation) {
 * @param {string} lastName respondent last name
 */
 function karmaConversation(err, convo, language, firstName, lastName) {
-  const relationships = [
-    i18next.t(`${language}:friend`),
-    i18next.t(`${language}:family`),
-    i18next.t(`${language}:partner`),
-    i18next.t(`${language}:co-worker`),
-    i18next.t(`${language}:client`),
-    i18next.t(`${language}:other`),
-  ];
-  const emotions = [
-    i18next.t(`${language}:upset`),
-    i18next.t(`${language}:hostile`),
-    i18next.t(`${language}:alert`),
-    i18next.t(`${language}:ashamed`),
-    i18next.t(`${language}:inspired`),
-    i18next.t(`${language}:nervous`),
-    i18next.t(`${language}:determined`),
-    i18next.t(`${language}:attentive`),
-    i18next.t(`${language}:afraid`),
-    i18next.t(`${language}:active`),
-  ];
-  const nums10 = generateButtonObject([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  const nums5 = generateButtonObject([1, 2, 3, 4, 5]);
-  const relationshipsObject = generateButtonObject(relationships);
+  const enTranslation = JSON.parse(fs.readFileSync('translations/en.json'));
+  const relationships =
+        Object.keys(enTranslation.relationships).map((relationship) => {
+          return i18next.t(`${language}:relationships.${relationship}`);
+        });
+  const emotions = Object.keys(enTranslation.emotions);
+  const nums10 = Array.from({length:10}, (_,i)=>i+1);
+  const nums5 = Array.from({length:5}, (_,i)=>i+1);
+  const relationshipsObject = generateButtonObject('text', relationships);
+
+  function generateYesNoButtonTemplate(text, [yesPayload, noPayload]) {
+    return generateButtonTemplate(text,
+                                null,
+                                [{
+                                  title:  i18next.t(`${language}:yes`),
+                                  payload: yesPayload
+                                }, {
+                                  title:  i18next.t(`${language}:no`),
+                                  payload: noPayload
+                                }]);
+  }
+
 
   convo.responses.repeat = {
     spoken: [],
@@ -198,10 +197,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:withSomeone`),
-                                i18next.t(`${language}:yes`),
-                                i18next.t(`${language}:no`),
-                                'yes_with_someone',
-                                'no_with_someone'),
+                                ['yes_with_someone', 'no_with_someone']),
     [{
       pattern: 'yes_with_someone',
       callback: goto('with whom name'),
@@ -225,10 +221,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:withAnyoneElse`),
-                                i18next.t(`${language}:yes`),
-                                i18next.t(`${language}:no`),
-                                'yesWithSomeoneElse',
-                                'noWithSomeoneElse'),
+                                ['yesWithSomeoneElse', 'noWithSomeoneElse']),
     [{
       pattern: 'yesWithSomeoneElse',
       callback: (_, conversation) => {
@@ -258,14 +251,13 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.addMessage(i18next.t(`${language}:A4`), 'A4');
 
-  emotions.map((emo) =>
-                 convo.addQuestion(
-                   generateQuickReply(i18next.t(`${language}:${emo}`), nums5),
-                   emo === i18next.t(`${language}:active`) ?
-                     goto('social concern') :
-                     nextConversation,
-                   {key: `feeling_${i18next.t(`en:${emo}`)}`},
-                   'A4'));
+  emotions.map((emo) => convo.addQuestion(
+    generateQuickReply(i18next.t(`${language}:emotions.${emo}`), nums5),
+    emo === i18next.t(`${language}:emotions.active`) ?
+      goto('social concern') :
+      nextConversation,
+    {key: `feeling_${emo}`},
+    'A4'));
 
   convo.addQuestion(i18next.t(`${language}:socialConcern`),
                           goto('affected by social concern'),
@@ -281,22 +273,17 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.addMessage(i18next.t(`${language}:B3`), 'B3');
 
-
-  emotions.map((emo) =>
-                 convo.addQuestion(
-                   generateQuickReply(i18next.t(`${language}:${emo}`), nums5),
-                   emo === i18next.t(`${language}:active`) ?
-                     goto('social concern spoken') :
-                     nextConversation,
-                   {key: `social_concern_feeling_${i18next.t(`en:${emo}`)}`},
-                   'B3'));
+  emotions.map((emo) => convo.addQuestion(
+    generateQuickReply(i18next.t(`${language}:emotions.${emo}`), nums5),
+    emo === i18next.t(`${language}:emotions.active`) ?
+      goto('social concern spoken') :
+      nextConversation,
+    {key: `social_concern_feeling_${emo}`},
+    'B3'));
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:socialConcernSpoken`),
-                                i18next.t(`${language}:yes`),
-                                i18next.t(`${language}:no`),
-                                'yes_concern',
-                                'no_concern'),
+                                ['yes_concern', 'no_concern']),
     [{
       pattern: 'yes_concern',
       callback: goto('who did you talk to'),
@@ -341,10 +328,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.addQuestion(
     generateYesNoButtonTemplate(i18next.t(`${language}:B4f`),
-                                i18next.t(`${language}:yes`),
-                                i18next.t(`${language}:no`),
-                                'yes_anyone_else',
-                                'no_anyone_else'),
+                                ['yes_anyone_else', 'no_anyone_else']),
     [{
       pattern: 'yes_anyone_else',
       callback: (_, conversation) => {
@@ -401,10 +385,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.on('end', (conversation) => {
     if (conversation.status === 'completed') {
-      const service = services.init(conversation);
-      service.genAndPostSubmissionToOna();
-      service.genAndPostRapidproContact(config.rapidproGroups,
-                                        lookupISO6392code[language]);
+      services.genAndPostSubmissionToOna(convo);
     } else if (conversation.status === 'timeout') {
       sendMessage(bot, conversation.context.user, (err, convo) => {
         convo.say(i18next.t(`${lang}:timeoutMessage`));
@@ -428,12 +409,16 @@ function sendGreeting({urn, contact_name, contact}) {
     .then(({results: [{language}]}) => {
       let lang = language.slice(0, 2);
       sendMessage(bot, facebookId, (err, convo) => {
-        convo.addQuestion(generateYesNoButtonTemplate(
+        convo.addQuestion(generateButtonTemplate(
           i18next.t(`${lang}:dailyGreeting`, {contact_name}),
-          i18next.t(`${lang}:yes`),
-          i18next.t(`${lang}:no`),
-          'restart',
-          'opt_out'),
+          null,
+          [{
+            title: i18next.t(`${lang}:yes`),
+            payload: 'restart',
+          }, {
+             title: i18next.t(`${lang}:no`),
+             payload: 'opt_out'
+           }]),
                           [{
                             pattern: 'restart',
                             callback: (err, convo) => {
@@ -458,19 +443,20 @@ function sendGreeting({urn, contact_name, contact}) {
 * @param {object} convo the conversation object for a respondent
 */
 function prepareConversation(err, convo) {
-  const {userId} = aggregate(convo);
-  const service = services.init(convo);
-  services.getFacebookProfile(userId)
+  const {context: {user: messengerId}} = convo;
+  services.getFacebookProfile(messengerId)
     .then(({first_name: firstName, last_name: lastName, locale}) => {
-      const language = lang || extractLanguageFromLocale(locale);
-      service.genAndPostRapidproContact(config.rapidproGroups,
-                                        lookupISO6392code[language]);
+      const lang = extractLanguageFromLocale(locale);
+      services.genAndPostRapidproContact(config.rapidproGroups,
+                                         lookupISO6392code[lang],
+                                         messengerId,
+                                         {});
       karmaConversation(err,
                         convo,
-                        language,
+                        extractLanguageFromLocale(locale),
                         firstName,
                         lastName);
-    });
+});
 }
 
 facebookBot.setupWebserver(config.PORT, (err, webserver) => {
@@ -487,8 +473,7 @@ facebookBot.setupWebserver(config.PORT, (err, webserver) => {
       })],
   }));
 
-  facebookBot.createWebhookEndpoints(webserver, bot, () => {
-  });
+  facebookBot.createWebhookEndpoints(webserver, bot, () => {});
 
   webserver.get('/', (req, res) => {
     const html = '<h3>This is karma</h3>';
@@ -574,10 +559,6 @@ facebookBot.hears(['help'], 'message_received', (bot, message) => {
   bot.reply(message, i18next.t(`${lang}:helpMessage`));
 });
 
-facebookBot.hears(['hello', 'hi', 'start'],
-                     'message_received',
-                     (bot, message) => {
-                       if (message.type === 'user_message') {
-                         bot.startConversation(message, prepareConversation);
-                       }
-                     });
+facebookBot.hears(['hello', 'hi', 'start'], 'message_received', (bot, message) => {
+  bot.startConversation(message, prepareConversation);
+});
