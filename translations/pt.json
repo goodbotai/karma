@@ -2,13 +2,6 @@
   "yes": "Sim",
   "no": "Não",
 
-  "friend": "amigo",
-  "family": "família",
-  "partner": "esposa/marido//namorada(o)",
-  "co-worker": "colega de trabalho",
-  "client": "cliente",
-  "other": "outro",
-
   "doing": "O que você está fazendo agora?",
   "withSomeone": "Você está com alguém agora?",
   "withWhom": "Se sim, quem está com você agora?",
@@ -16,16 +9,6 @@
   "withAnyoneElse": "Tem mais alguém com você?",
   "thoughts": "No que você está pensando agora?",
   "A4": "Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como você está se sentindo agora.",
-  "upset": "Aborrecido",
-  "hostile": "Agressivo",
-  "alert": "Alerta",
-  "ashamed": "Envergonhado",
-  "inspired": "Inspirado",
-  "nervous": "Nervoso",
-  "determined": "Determinado",
-  "attentive": "Atento",
-  "afraid": "Amedrontado",
-  "active": "Ativo",
   "socialConcern": "Qual o problema social mais importante para você agora?",
   "socialConcernHowAffected": "Numa escala de 1 a 10, o quanto {{responses.socialConcern}} te afeta? ",
   "B3": " Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como  {{responses.socialConcern}} faz você se sentir agora.",
@@ -41,5 +24,25 @@
    "dailyGreeting": "Oi, {{{contact_name}}} Você está pronto para falar sobre seu bem-estar hoje?",
 
    "helpMessage": "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" ou \"hello \" para iniciar uma conversa comigo.",
-   "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 2 minutos. Você pode responder com \"help \" ou \"start \"."
+   "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 2 minutos. Você pode responder com \"help \" ou \"start \".",
+   "relationships": {
+     "friend": "amigo",
+     "family": "família",
+     "partner": "esposa/marido//namorada(o)",
+     "co-worker": "colega de trabalho",
+     "client": "cliente",
+     "other": "outro"
+   },
+   "emotions": {
+     "upset": "Aborrecido",
+     "hostile": "Agressivo",
+     "alert": "Alerta",
+     "ashamed": "Envergonhado",
+     "inspired": "Inspirado",
+     "nervous": "Nervoso",
+     "determined": "Determinado",
+     "attentive": "Atento",
+     "afraid": "Amedrontado",
+     "active": "Ativo"
+   }
 }
