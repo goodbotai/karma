@@ -452,11 +452,13 @@ function sendGreeting({urn, contact_name, contact}) {
 function prepareConversation(err, convo) {
   const {context: {user: messengerId}} = convo;
   services.getFacebookProfile(messengerId)
-    .then(({first_name: firstName, last_name: lastName, locale}) => {
+    .then((fbProfile) => {
+      const {first_name: firstName, last_name: lastName, locale} = fbProfile;
       const lang = extractLanguageFromLocale(locale);
       services.genAndPostRapidproContact(config.rapidproGroups,
                                          lookupISO6392code[lang],
                                          messengerId,
+                                         fbProfile,
                                          {});
       karmaConversation(err,
                         convo,
