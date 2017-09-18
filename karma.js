@@ -9,7 +9,6 @@ const {
   facebookUtils,
   facebookBot,
   services,
-  aggregate,
   config,
 } = borq;
 
@@ -169,19 +168,26 @@ function karmaConversation(err, convo, language, firstName, lastName) {
           return i18next.t(`${language}:relationships.${relationship}`);
         });
   const emotions = Object.keys(enTranslation.emotions);
-  const nums10 = Array.from({length:10}, (_,i)=>i+1);
-  const nums5 = Array.from({length:5}, (_,i)=>i+1);
+  const nums10 = Array.from({length: 10}, (_, i)=>i+1);
+  const nums5 = Array.from({length: 5}, (_, i)=>i+1);
   const relationshipsObject = generateButtonObject('text', relationships);
 
+  /**
+  * A helper function to DRY creating yes and no button templates
+  * @param {string} text The question text
+  * @param {string} yesPayload the payload for yes
+  * @param {string} noPayload the payload for no
+  * @return {object} returns a JS object that is sent to FB to create a button
+  */
   function generateYesNoButtonTemplate(text, [yesPayload, noPayload]) {
     return generateButtonTemplate(text,
                                 null,
                                 [{
-                                  title:  i18next.t(`${language}:yes`),
-                                  payload: yesPayload
+                                  title: i18next.t(`${language}:yes`),
+                                  payload: yesPayload,
                                 }, {
-                                  title:  i18next.t(`${language}:no`),
-                                  payload: noPayload
+                                  title: i18next.t(`${language}:no`),
+                                  payload: noPayload,
                                 }]);
   }
 
@@ -417,7 +423,7 @@ function sendGreeting({urn, contact_name, contact}) {
             payload: 'restart',
           }, {
              title: i18next.t(`${lang}:no`),
-             payload: 'opt_out'
+             payload: 'opt_out',
            }]),
                           [{
                             pattern: 'restart',
@@ -456,7 +462,9 @@ function prepareConversation(err, convo) {
                         extractLanguageFromLocale(locale),
                         firstName,
                         lastName);
-});
+    })
+    .catch((reason) =>
+           winston.log('error', `Failed to fetch FB profile: ${reason}`));
 }
 
 facebookBot.setupWebserver(config.PORT, (err, webserver) => {
@@ -559,6 +567,8 @@ facebookBot.hears(['help'], 'message_received', (bot, message) => {
   bot.reply(message, i18next.t(`${lang}:helpMessage`));
 });
 
-facebookBot.hears(['hello', 'hi', 'start'], 'message_received', (bot, message) => {
-  bot.startConversation(message, prepareConversation);
-});
+facebookBot.hears(['hello', 'hi', 'start'],
+                  'message_received',
+                  (bot, message) => {
+                    bot.startConversation(message, prepareConversation);
+                  });
