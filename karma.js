@@ -10,6 +10,7 @@ const {
   facebookBot,
   services,
   config,
+  http,
 } = borq;
 
 const {
@@ -467,7 +468,9 @@ function prepareConversation(err, convo) {
                         lastName);
     })
     .catch((reason) =>
-           winston.log('error', `Failed to fetch FB profile: ${reason}`));
+           http.genericCatchRejectedPromise('Failed to fetch Facebook profile' +
+                                            `in prepareConversation: ${reason}`)
+          );
 }
 
 facebookBot.setupWebserver(config.PORT, (err, webserver) => {
