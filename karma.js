@@ -10,6 +10,7 @@ const {
   facebookBot,
   services,
   config,
+  http,
 } = borq;
 
 const {
@@ -393,6 +394,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     if (conversation.status === 'completed') {
       services.genAndPostSubmissionToOna(convo);
     } else if (conversation.status === 'timeout') {
+      services.genAndPostSubmissionToOna(convo);
       sendMessage(bot, conversation.context.user, (err, convo) => {
         convo.say(i18next.t(`${lang}:timeoutMessage`));
       });
@@ -451,11 +453,13 @@ function sendGreeting({urn, contact_name, contact}) {
 function prepareConversation(err, convo) {
   const {context: {user: messengerId}} = convo;
   services.getFacebookProfile(messengerId)
-    .then(({first_name: firstName, last_name: lastName, locale}) => {
+    .then((fbProfile) => {
+      const {first_name: firstName, last_name: lastName, locale} = fbProfile;
       const lang = extractLanguageFromLocale(locale);
       services.genAndPostRapidproContact(config.rapidproGroups,
                                          lookupISO6392code[lang],
                                          messengerId,
+                                         fbProfile,
                                          {});
       karmaConversation(err,
                         convo,
@@ -464,7 +468,9 @@ function prepareConversation(err, convo) {
                         lastName);
     })
     .catch((reason) =>
-           winston.log('error', `Failed to fetch FB profile: ${reason}`));
+           http.genericCatchRejectedPromise('Failed to fetch Facebook profile' +
+                                            `in prepareConversation: ${reason}`)
+          );
 }
 
 facebookBot.setupWebserver(config.PORT, (err, webserver) => {
