@@ -501,11 +501,11 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-borq@^0.0.1-alpha.11:
-  version "0.0.1-alpha.11"
-  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.11.tgz#87b64bbc4c455b5c8ca56b32d2cb56e03f8aaa9e"
+borq@0.0.1-alpha.13-SNAPSHOT:
+  version "0.0.1-alpha.13-SNAPSHOT"
+  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.13-SNAPSHOT.tgz#f52ff97211e34d5a32962918fd4a8bc25b01edd0"
   dependencies:
-    botkit "^0.5.7"
+    botkit "0.5.8"
     express-winston "^2.4.0"
     node-fetch "^1.7.1"
     raven "^2.1.1"
@@ -533,9 +533,9 @@ botkit-studio-sdk@^1.0.2:
     promise "^7.1.1"
     request "^2.67.0"
 
-botkit@^0.5.7:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/botkit/-/botkit-0.5.7.tgz#e85281af622bcfdb9702fddcf032844a41084ec7"
+botkit@0.5.8:
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/botkit/-/botkit-0.5.8.tgz#d1fbde81c8c91f638a9af7da0badfdd43e8f5e73"
   dependencies:
     async "^2.1.5"
     back "^1.0.1"

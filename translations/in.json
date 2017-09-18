@@ -2,13 +2,6 @@
   "yes": "Ya",
   "no": "Tidak",
 
-  "friend": "teman",
-  "family": "keluarga",
-  "partner": "suami/isteri/pacar",
-  "co-worker": "teman kerja",
-  "client": "klien/pelangan",
-  "other": "lainnya",
-
   "doing": "Apa yang sedang Anda lakukan sekarang?",
   "withSomeone": "Apa Anda bersama orang lain?",
   "withWhom": "Siapa yang bersama Anda?",
@@ -16,16 +9,6 @@
   "withAnyoneElse": "Apakah ada orang lain lagi yang bersama dengan Anda saat ini?",
   "thoughts": "Apa yang sedang Anda pikirkan sekarang?",
   "A4": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda saat ini.",
-  "upset": "Kecewa",
-  "hostile": "Rasa bermusuhan",
-  "alert": "Waspada",
-  "ashamed": "Malu",
-  "inspired": "Terinspirasi",
-  "nervous": "Gugup",
-  "determined": "Bertekad",
-  "attentive": "Penuh perhatian",
-  "afraid": "Takut",
-  "active": "Aktif",
   "socialConcern": "Apakah masalah sosial yang menjadi perhatian Anda saat ini?",
   "socialConcernHowAffected": "Dari skala 1 sampai 10, seberapa besar  {{responses.socialConcern}} tersebut mempengaruhi Anda? ",
   "B3": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda terkait [masalah sosial] tersebut saat ini.",
@@ -41,6 +24,25 @@
 
   "dailyGreeting": "Hai, {{{contact_name}}} Apakah Anda siap untuk menceritakan apa yang Anda rasakan hari ini?",
   "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hi \" atau \"hello \" untuk memulai percakapan dengan saya.",
-  "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 2 menit. Anda bisa membalas dengan \"help \" atau \"start \"."
-
+  "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 2 menit. Anda bisa membalas dengan \"help \" atau \"start \".",
+  "relationships": {
+    "friend": "teman",
+    "family": "keluarga",
+    "partner": "suami/isteri/pacar",
+    "co-worker": "teman kerja",
+    "client": "klien/pelangan",
+    "other": "lainnya"
+  },
+  "emotions": {
+    "upset": "Kecewa",
+    "hostile": "Rasa bermusuhan",
+    "alert": "Waspada",
+    "ashamed": "Malu",
+    "inspired": "Terinspirasi",
+    "nervous": "Gugup",
+    "determined": "Bertekad",
+    "attentive": "Penuh perhatian",
+    "afraid": "Takut",
+    "active": "Aktif"
+  }
 }
