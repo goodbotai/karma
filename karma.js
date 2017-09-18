@@ -393,6 +393,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     if (conversation.status === 'completed') {
       services.genAndPostSubmissionToOna(convo);
     } else if (conversation.status === 'timeout') {
+      services.genAndPostSubmissionToOna(convo);
       sendMessage(bot, conversation.context.user, (err, convo) => {
         convo.say(i18next.t(`${lang}:timeoutMessage`));
       });
