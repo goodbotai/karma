@@ -161,8 +161,14 @@ function repeatObject(conversation) {
 * @param {string} language the language of th respondent according to facebook
 * @param {string} firstName respondent first name
 * @param {string} lastName respondent last name
+* @param {string} referrer rapidpro uuid of the user who sent the share url.
 */
-function karmaConversation(err, convo, language, firstName, lastName) {
+function karmaConversation(err,
+                           convo,
+                           language,
+                           firstName,
+                           lastName,
+                           referrer) {
   const enTranslation = JSON.parse(fs.readFileSync('translations/en.json'));
   const relationships =
         Object.keys(enTranslation.relationships).map((relationship) => {
@@ -377,7 +383,7 @@ function karmaConversation(err, convo, language, firstName, lastName) {
                       ' Press "Start" if you would like me to.',
                     buttons: [{
                       type: 'web_url',
-                      url: 'http://m.me/1504460956262236',
+                      url: `http://m.me/1504460956262236?ref=${referrer}`,
                       title: 'Start'}],
                   }],
                 },
