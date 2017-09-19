@@ -460,12 +460,17 @@ function prepareConversation(err, convo) {
                                          lookupISO6392code[lang],
                                          messengerId,
                                          fbProfile,
-                                         {});
-      karmaConversation(err,
-                        convo,
-                        extractLanguageFromLocale(locale),
-                        firstName,
-                        lastName);
+                                         {})
+        .then((rapidProContact) => {
+          karmaConversation(err,
+                            convo,
+                            extractLanguageFromLocale(locale),
+                            firstName,
+                            lastName,
+                            rapidProContact.uuid);
+        })
+        .catch((reason) => http.genericCatchRejectedPromise(
+          `Failed genAndPostRapidproContact in prepareConversation ${reason}`));
     })
     .catch((reason) =>
            http.genericCatchRejectedPromise('Failed to fetch Facebook profile' +
