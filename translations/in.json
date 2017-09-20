@@ -23,8 +23,12 @@
   "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
 
   "dailyGreeting": "Hai, {{{contact_name}}} Apakah Anda siap untuk menceritakan apa yang Anda rasakan hari ini?",
-  "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hi \" atau \"hello \" untuk memulai percakapan dengan saya.",
-  "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 20 menit. Anda bisa membalas dengan \"help \" atau \"start \".",
+  "utils": {
+    "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hai \" untuk memulai percakapan dengan saya.",
+    "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 20 menit. Anda bisa membalas dengan \"membantu \".",
+    "quitMessage": "Apa Anda yakin ingin berhenti?",
+    "idkw": "Saya belum mengenal kata itu."
+  },
   "relationships": {
     "friend": "teman",
     "family": "keluarga",

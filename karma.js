@@ -11,11 +11,11 @@ const {
   services,
   config,
   http,
+  localeUtils,
 } = borq;
 
 const {
   generateButtonObject,
-  extractLanguageFromLocale,
   nextConversation,
   goto,
   generateButtonTemplate,
@@ -26,30 +26,9 @@ const {
 const bot = facebookBot.spawn({});
 let lang = config.defaultLanguage;
 
-const availableLanguages = [
-  {
-    locale: 'en_US',
-    name: 'English',
-  },
-  {
-    locale: 'pt_BR',
-    name: 'Portuguese',
-  },
-  {
-    locale: 'in_ID',
-    name: 'Indonesian',
-  },
-];
-
-const lookupISO6392code = {
-  en: 'eng',
-  pt: 'por',
-  in: 'ind',
-};
-
 const i18nextOptions = {
   debug: config.debugTranslations,
-  ns: availableLanguages.map(({locale}) => extractLanguageFromLocale(locale)),
+  ns: localeUtils.languages.map(({iso6391}) => iso6391),
   defaultNS: config.defaultLanguage,
   fallbackLng: config.defaultLanguage,
   backend: {
@@ -158,15 +137,14 @@ function repeatObject(conversation) {
 * This function has no return statement. Only needed for it's side effects.
 * @param {string} err an exception thrown by startConversation
 * @param {object} convo the conversation object
-* @param {string} language the language of th respondent according to facebook
-* @param {string} firstName respondent first name
-* @param {string} lastName respondent last name
+* @param {object} rapidProContact Current user's rapidpro contact
 */
-function karmaConversation(err, convo, language, firstName, lastName) {
+function karmaConversation(err, convo, {uuid, name, language}) {
+  const lang = localeUtils.lookupISO6391(language);
   const enTranslation = JSON.parse(fs.readFileSync('translations/en.json'));
   const relationships =
         Object.keys(enTranslation.relationships).map((relationship) => {
-          return i18next.t(`${language}:relationships.${relationship}`);
+          return i18next.t(`${lang}:relationships.${relationship}`);
         });
   const emotions = Object.keys(enTranslation.emotions);
   const nums10 = Array.from({length: 10}, (_, i)=>i+1);
@@ -184,10 +162,10 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     return generateButtonTemplate(text,
                                 null,
                                 [{
-                                  title: i18next.t(`${language}:yes`),
+                                  title: i18next.t(`${lang}:yes`),
                                   payload: yesPayload,
                                 }, {
-                                  title: i18next.t(`${language}:no`),
+                                  title: i18next.t(`${lang}:no`),
                                   payload: noPayload,
                                 }]);
   }
@@ -198,12 +176,12 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     with_whom: [],
   };
 
-  convo.addQuestion(i18next.t(`${language}:doing`),
+  convo.addQuestion(i18next.t(`${lang}:doing`),
                     nextConversation,
                     {key: 'doing'});
 
   convo.addQuestion(
-    generateYesNoButtonTemplate(i18next.t(`${language}:withSomeone`),
+    generateYesNoButtonTemplate(i18next.t(`${lang}:withSomeone`),
                                 ['yes_with_someone', 'no_with_someone']),
     [{
       pattern: 'yes_with_someone',
@@ -214,20 +192,20 @@ function karmaConversation(err, convo, language, firstName, lastName) {
     }],
     {key: 'with_someone'});
 
-  convo.addQuestion(i18next.t(`${language}:withWhom`),
+  convo.addQuestion(i18next.t(`${lang}:withWhom`),
                       goto('with whom relationship'),
                       {key: 'with_whom_name'},
                      'with whom name');
 
   convo.addQuestion(
-    generateQuickReply(i18next.t(`${language}:withWhomRelationship`),
+    generateQuickReply(i18next.t(`${lang}:withWhomRelationship`),
                        relationshipsObject),
     goto('with anyone else'),
     {key: 'with_whom_relationship'},
     'with whom relationship');
 
   convo.addQuestion(
-    generateYesNoButtonTemplate(i18next.t(`${language}:withAnyoneElse`),
+    generateYesNoButtonTemplate(i18next.t(`${lang}:withAnyoneElse`),
                                 ['yesWithSomeoneElse', 'noWithSomeoneElse']),
     [{
       pattern: 'yesWithSomeoneElse',
@@ -251,45 +229,45 @@ function karmaConversation(err, convo, language, firstName, lastName) {
       {key: 'with_anyone_else'},
       'with anyone else');
 
-  convo.addQuestion(i18next.t(`${language}:thoughts`),
+  convo.addQuestion(i18next.t(`${lang}:thoughts`),
                       goto('A4'),
                       {key: 'thoughts'},
                       'skip yes');
 
-  convo.addMessage(i18next.t(`${language}:A4`), 'A4');
+  convo.addMessage(i18next.t(`${lang}:A4`), 'A4');
 
   emotions.map((emo) => convo.addQuestion(
-    generateQuickReply(i18next.t(`${language}:emotions.${emo}`), nums5),
-    emo === i18next.t(`${language}:emotions.active`) ?
+    generateQuickReply(i18next.t(`${lang}:emotions.${emo}`), nums5),
+    emo === i18next.t(`${lang}:emotions.active`) ?
       goto('social concern') :
       nextConversation,
     {key: `feeling_${emo}`},
     'A4'));
 
-  convo.addQuestion(i18next.t(`${language}:socialConcern`),
+  convo.addQuestion(i18next.t(`${lang}:socialConcern`),
                           goto('affected by social concern'),
                           {key: 'social_concern'},
                           'social concern');
 
   convo.addQuestion(
-    generateQuickReply(i18next.t(`${language}:socialConcernHowAffected`),
+    generateQuickReply(i18next.t(`${lang}:socialConcernHowAffected`),
                        nums10),
     goto('B3'),
     {key: 'social_concern_how_affected'},
     'affected by social concern');
 
-  convo.addMessage(i18next.t(`${language}:B3`), 'B3');
+  convo.addMessage(i18next.t(`${lang}:B3`), 'B3');
 
   emotions.map((emo) => convo.addQuestion(
-    generateQuickReply(i18next.t(`${language}:emotions.${emo}`), nums5),
-    emo === i18next.t(`${language}:emotions.active`) ?
+    generateQuickReply(i18next.t(`${lang}:emotions.${emo}`), nums5),
+    emo === i18next.t(`${lang}:emotions.active`) ?
       goto('social concern spoken') :
       nextConversation,
     {key: `social_concern_feeling_${emo}`},
     'B3'));
 
   convo.addQuestion(
-    generateYesNoButtonTemplate(i18next.t(`${language}:socialConcernSpoken`),
+    generateYesNoButtonTemplate(i18next.t(`${lang}:socialConcernSpoken`),
                                 ['yes_concern', 'no_concern']),
     [{
       pattern: 'yes_concern',
@@ -303,38 +281,38 @@ function karmaConversation(err, convo, language, firstName, lastName) {
 
   convo.addQuestion(
     generateQuickReply(
-      i18next.t(`${language}:socialConcernSpokeToRelationship`),
+      i18next.t(`${lang}:socialConcernSpokeToRelationship`),
       relationshipsObject),
                       goto('social concern confidant'),
                       {key: 'social_concern_spoke_to_relationship'},
                      'who did you talk to');
 
-  convo.addQuestion(i18next.t(`${language}:socialConcernConfidantName`),
+  convo.addQuestion(i18next.t(`${lang}:socialConcernConfidantName`),
                       goto('social concern change scale'),
                       {key: 'social_concern_confidant_name'},
                      'social concern confidant');
 
   convo.addQuestion(
-    generateQuickReply(i18next.t(`${language}:socialConcernChangeScale`),
+    generateQuickReply(i18next.t(`${lang}:socialConcernChangeScale`),
                                          nums10),
                       goto('what changed'),
                       {key: 'socialConcern_change_scale'},
                      'social concern change scale');
 
-  convo.addQuestion(i18next.t(`${language}:whatChanged`),
+  convo.addQuestion(i18next.t(`${lang}:whatChanged`),
                       goto('social concern change'),
                       {key: 'social_concern_change_what'},
                       'what changed');
 
   convo.addQuestion(
-    generateQuickReply(i18next.t(`${language}:socialConcernChangeBW`),
+    generateQuickReply(i18next.t(`${lang}:socialConcernChangeBW`),
                                          nums10),
                       goto('B4f'),
                       {key: 'social_concern_change_better_worse'},
                      'social concern change');
 
   convo.addQuestion(
-    generateYesNoButtonTemplate(i18next.t(`${language}:B4f`),
+    generateYesNoButtonTemplate(i18next.t(`${lang}:B4f`),
                                 ['yes_anyone_else', 'no_anyone_else']),
     [{
       pattern: 'yes_anyone_else',
@@ -360,8 +338,8 @@ function karmaConversation(err, convo, language, firstName, lastName) {
       payload: {
         template_type: 'generic',
         elements: [{
-          title: i18next.t(`${language}:thankYou`),
-          subtitle: i18next.t(`${language}:shareWith`),
+          title: i18next.t(`${lang}:thankYou`),
+          subtitle: i18next.t(`${lang}:shareWith`),
           buttons: [{
             type: 'element_share',
             share_contents: {
@@ -371,13 +349,12 @@ function karmaConversation(err, convo, language, firstName, lastName) {
                   template_type: 'generic',
                   elements: [{
                     title: 'Hello, I\'m Karma 😃.',
-                    subtitle: 'I was referred to you by' +
-                      ` ${firstName} ${lastName}. I would like to ask` +
-                      'you questions about your wellbeing every 24 hours.' +
-                      ' Press "Start" if you would like me to.',
+                    subtitle: `I was referred to you by ${name}. ` +
+                      'I would like to ask you questions about your wellbeing' +
+                      ' every 24 hours. Press "Start" if you would like me to.',
                     buttons: [{
                       type: 'web_url',
-                      url: 'http://m.me/1504460956262236',
+                      url: `http://m.me/1504460956262236?ref=${uuid}`,
                       title: 'Start'}],
                   }],
                 },
@@ -447,30 +424,49 @@ function sendGreeting({urn, contact_name, contact}) {
 * Fetch facebook user profile get the reponent's language and name
 * No return statement.
 * We use it to start the conversation and get the user profile from Facebook.
-* @param {string} err (optional) Exception thrown by createConversation
-* @param {object} convo the conversation object for a respondent
+* @param {object} bot A bot instance created by the controller
+* @param {object} message a message object also created by the controller
+* @param {string} newLanguage An ISO6392 language code string
 */
-function prepareConversation(err, convo) {
-  const {context: {user: messengerId}} = convo;
-  services.getFacebookProfile(messengerId)
-    .then((fbProfile) => {
-      const {first_name: firstName, last_name: lastName, locale} = fbProfile;
-      const lang = extractLanguageFromLocale(locale);
-      services.genAndPostRapidproContact(config.rapidproGroups,
-                                         lookupISO6392code[lang],
-                                         messengerId,
-                                         fbProfile,
-                                         {});
-      karmaConversation(err,
-                        convo,
-                        extractLanguageFromLocale(locale),
-                        firstName,
-                        lastName);
+function prepareConversation(bot, message, newLanguage) {
+  const {user} = message;
+  if (newLanguage) {
+    services.updateRapidProContact({urn: `facebook:${user}`},
+                                   {language: newLanguage})
+      .then((rapidProContact) =>
+            bot.startConversation(message, (err, convo) => {
+              karmaConversation(err, convo, rapidProContact);
+            }))
+      .catch((reason) =>
+             http.genericCatchRejectedPromise(
+               'Failed to updateRapidProContact in prepareConversation:' +
+                 ` ${reason}`));
+  } else {
+    services.getRapidProContact({urn: `facebook:${user}`})
+      .then(({results: [rapidProContact]}) =>
+            bot.startConversation(message, (err, convo) => {
+              karmaConversation(err, convo, rapidProContact);
+      }))
+      .catch((reason) =>
+           http.genericCatchRejectedPromise(
+             `Failed to getRapidProContact in prepareConversation: ${reason}`));
+  }
+}
+
+/**
+* Create a karma user and start a conversation with them
+* @param {object} message a message object also created by the controller
+* @param {object} bot a bot instance created by the controller
+*/
+function createUserAndStartConversation(message, bot) {
+  services.createUser(message.user, message.referral.ref)
+    .then((rapidProContact) => {
+      bot.startConversation(message, (err, convo) => {
+        karmaConversation(err, convo, rapidProContact);
+      });
     })
     .catch((reason) =>
-           http.genericCatchRejectedPromise('Failed to fetch Facebook profile' +
-                                            `in prepareConversation: ${reason}`)
-          );
+           http.genericCatchRejectedPromise(`Failed createUser: ${reason}`));
 }
 
 facebookBot.setupWebserver(config.PORT, (err, webserver) => {
@@ -558,23 +554,47 @@ facebookBot.api.messenger_profile.menu([{
 /* Listeners */
 facebookBot.on('facebook_postback', (bot, message) => {
   const {payload} = message;
-  if (payload === 'get_started') {
-    bot.startConversation(message, prepareConversation);
-  } else if (payload === 'restart') {
-    bot.startConversation(message, prepareConversation);
- } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
-    bot.reply(message, 'Changing language...');
+  if (['restart', 'get_started'].includes(payload)) {
+    if (message.referral) {
+      createUserAndStartConversation(message, bot);
+    } else {
+      prepareConversation(bot, message);
+    }
+  } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
     lang = payload.split('_')[1];
-    bot.startConversation(message, prepareConversation);
+    prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
+  } else if (['quit'].includes(payload)) {
+    bot.reply(message, i18next.t(`${lang}:utils.quitMessage`));
   }
 });
 
-facebookBot.hears(['help'], 'message_received', (bot, message) => {
-  bot.reply(message, i18next.t(`${lang}:helpMessage`));
-});
+facebookBot.hears(['help',
+                   '👋',
+                   'hello',
+                   'halo',
+                   'hi',
+                   'oi',
+                   'hai',
+                   'membantu',
+                   'socorro',
+                   'olá'], 'message_received', (bot, message) => {
+                    bot.reply(message,
+                              generateButtonTemplate(
+                                i18next.t(`${lang}:utils.helpMessage`),
+                                null,
+                                [{
+                                  title: i18next.t(`${lang}:yes`),
+                                  payload: 'restart',
+                                }, {
+                                  title: i18next.t(`${lang}:no`),
+                                  payload: 'quit',
+                                }]));
+                   });
 
-facebookBot.hears(['hello', 'hi', 'start'],
-                  'message_received',
-                  (bot, message) => {
-                    bot.startConversation(message, prepareConversation);
-                  });
+facebookBot.hears([''], 'message_received', (bot, message) => {});
+
+facebookBot.hears([/([a-z])\w+/gi],
+               'message_received',
+               function(bot, message) {
+                 bot.reply(message, i18next.t(`${lang}:utils.idkw`));
+});
