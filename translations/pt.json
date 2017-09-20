@@ -11,7 +11,7 @@
   "A4": "Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como você está se sentindo agora.",
   "socialConcern": "Qual o problema social mais importante para você agora?",
   "socialConcernHowAffected": "Numa escala de 1 a 10, o quanto {{responses.socialConcern}} te afeta? ",
-  "B3": " Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como  {{responses.socialConcern}} faz você se sentir agora.",
+  "B3": " Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como  {{responses.socialConcern}} faz você se sentir agora.\n1. Muito pouco ou nada \n2. Um pouco \n3. Moderadamente \n4. Bastante \n5. Extremamente",
   "socialConcernSpoken": "Você conversou com alguém sobre {{responses.socialConcern}} recentemente?",
   "socialConcernSpokeTo": "Se sim, com quem você conversou sobre {{responses.socialConcern}}?",
   "socialConcernConfidant": "Qual o nome dessa pessoa?",
