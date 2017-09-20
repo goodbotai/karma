@@ -11,11 +11,11 @@ const {
   services,
   config,
   http,
+  localeUtils,
 } = borq;
 
 const {
   generateButtonObject,
-  extractLanguageFromLocale,
   nextConversation,
   goto,
   generateButtonTemplate,
@@ -26,47 +26,9 @@ const {
 const bot = facebookBot.spawn({});
 let lang = config.defaultLanguage;
 
-const availableLanguages = [
-  {
-    locale: 'en_US',
-    name: 'English',
-  },
-  {
-    locale: 'pt_BR',
-    name: 'Portuguese',
-  },
-  {
-    locale: 'in_ID',
-    name: 'Indonesian',
-  },
-];
-
-const lookupISO6392code = {
-  en: 'eng',
-  pt: 'por',
-  in: 'ind',
-};
-
-/**
-* @param {object} object the object to use
-* @param {string} value an ISO6392 language code
-* @return {string} an _ language code string
-*/
-function getKeyByValue(object, value) {
-  return Object.keys(object).find((key) => object[key] === value);
-}
-
-/**
-* @param {string} ISO6392code an ISO6392 language code
-* @return {string} an _ language code
-*/
-function lookupLang(ISO6392code) {
-  return getKeyByValue(lookupISO6392code, ISO6392code);
-}
-
 const i18nextOptions = {
   debug: config.debugTranslations,
-  ns: availableLanguages.map(({locale}) => extractLanguageFromLocale(locale)),
+  ns: localeUtils.languages.map(({iso6391}) => iso6391),
   defaultNS: config.defaultLanguage,
   fallbackLng: config.defaultLanguage,
   backend: {
@@ -175,13 +137,10 @@ function repeatObject(conversation) {
 * This function has no return statement. Only needed for it's side effects.
 * @param {string} err an exception thrown by startConversation
 * @param {object} convo the conversation object
-* @param {string} language the language of th respondent according to facebook
-* @param {string} firstName respondent first name
-* @param {string} lastName respondent last name
-* @param {string} referrer rapidpro uuid of the user who sent the share url.
+* @param {object} rapidProContact Current user's rapidpro contact
 */
 function karmaConversation(err, convo, {uuid, name, language}) {
-  const lang = lookupLang(language);
+  const lang = localeUtils.lookupISO6391(language);
   const enTranslation = JSON.parse(fs.readFileSync('translations/en.json'));
   const relationships =
         Object.keys(enTranslation.relationships).map((relationship) => {
@@ -473,7 +432,7 @@ function prepareConversation(bot, message, newLanguage) {
   const {user} = message;
   if (newLanguage) {
     services.updateRapidProContact({urn: `facebook:${user}`},
-                                   {language: lookupISO6392code[newLanguage]})
+                                   {language: newLanguage})
       .then((rapidProContact) =>
             bot.startConversation(message, (err, convo) => {
               karmaConversation(err, convo, rapidProContact);
@@ -495,34 +454,12 @@ function prepareConversation(bot, message, newLanguage) {
 }
 
 /**
-* Create a Karma user
-* @param {string} messengerId The messeger ID of the current user
-* @param {string} referrer The rapidpro contact uuid of the user who sent them
-* a link to the bot
-* @return {promise} A promise with the newly created rapidpro contact
-*/
-function createUser(messengerId, referrer) {
-  return services.getFacebookProfile(messengerId)
-    .then((fbProfile) => {
-      const lang = extractLanguageFromLocale(fbProfile.locale);
-      return services.genAndPostRapidproContact(config.rapidproGroups,
-                                                lookupISO6392code[lang],
-                                                messengerId,
-                                                fbProfile,
-                                                {referrer});
-    })
-    .catch((reason) =>
-           http.genericCatchRejectedPromise('Failed to fetch Facebook profile' +
-                                            `in createUser: ${reason}`));
-}
-
-/**
 * Create a karma user and start a conversation with them
 * @param {object} message a message object also created by the controller
 * @param {object} bot a bot instance created by the controller
 */
-function createContactAndStartConversation(message, bot) {
-  createUser(message.user, message.referral.ref)
+function createUserAndStartConversation(message, bot) {
+  services.createUser(message.user, message.referral.ref)
     .then((rapidProContact) => {
       bot.startConversation(message, (err, convo) => {
         karmaConversation(err, convo, rapidProContact);
@@ -619,13 +556,13 @@ facebookBot.on('facebook_postback', (bot, message) => {
   const {payload} = message;
   if (['restart', 'get_started'].includes(payload)) {
     if (message.referral) {
-      createContactAndStartConversation(message, bot);
+      createUserAndStartConversation(message, bot);
     } else {
       prepareConversation(bot, message);
     }
   } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
     lang = payload.split('_')[1];
-    prepareConversation(bot, message, lang);
+    prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
   } else if (['quit'].includes(payload)) {
     bot.reply(message, i18next.t(`${lang}:utils.quitMessage`));
   }
