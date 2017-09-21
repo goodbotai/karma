@@ -3,6 +3,8 @@ sudo: required
 language: node_js
 node_js:
   - "8"
+python:
+  - "2.7.13"
 
 services:
   - docker
