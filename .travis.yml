@@ -36,7 +36,6 @@ deploy:
   skip_cleanup: true
   provider: script
   script:
-    - python --version
     - yarn run travis-ecs-deploy
   on:
     all_branches: true
