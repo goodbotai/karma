@@ -238,9 +238,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 
   emotions.map((emo) => convo.addQuestion(
     generateQuickReply(i18next.t(`${lang}:emotions.${emo}`), nums5),
-    emo === i18next.t(`${lang}:emotions.active`) ?
-      goto('social concern') :
-      nextConversation,
+    emo === 'active' ? goto('social concern') : nextConversation,
     {key: `feeling_${emo}`},
     'A4'));
 
@@ -260,9 +258,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 
   emotions.map((emo) => convo.addQuestion(
     generateQuickReply(i18next.t(`${lang}:emotions.${emo}`), nums5),
-    emo === i18next.t(`${lang}:emotions.active`) ?
-      goto('social concern spoken') :
-      nextConversation,
+    emo === 'active' ? goto('social concern spoken') : nextConversation,
     {key: `social_concern_feeling_${emo}`},
     'B3'));
 
