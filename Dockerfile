@@ -1,4 +1,4 @@
-FROM node:8.2
+FROM node:8.4
 
 COPY . /app
 
