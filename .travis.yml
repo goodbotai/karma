@@ -7,19 +7,21 @@ node_js:
 services:
   - docker
 
+before_install:
+  - pyenv global 2.7.13
+
 install:
   - npm install --dev
   - npm install travis-ecs-deploy -g
 
 script:
-  - echo "Installing requests"
-  - pip install requests[security]
   - yarn lint
 
 deploy:
   skip_cleanup: true
   provider: script
   script:
+    - python --version
     - yarn run travis-ecs-deploy
   on:
     all_branches: true
