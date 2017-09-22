@@ -15,7 +15,6 @@ const {
 } = borq;
 
 const {
-  generateButtonObject,
   nextConversation,
   goto,
   generateButtonTemplate,
@@ -149,7 +148,6 @@ function karmaConversation(err, convo, {uuid, name, language}) {
   const emotions = Object.keys(enTranslation.emotions);
   const nums10 = Array.from({length: 10}, (_, i)=>i+1);
   const nums5 = Array.from({length: 5}, (_, i)=>i+1);
-  const relationshipsObject = generateButtonObject('text', relationships);
 
   /**
   * A helper function to DRY creating yes and no button templates
@@ -199,7 +197,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 
   convo.addQuestion(
     generateQuickReply(i18next.t(`${lang}:withWhomRelationship`),
-                       relationshipsObject),
+                       relationships),
     goto('with anyone else'),
     {key: 'with_whom_relationship'},
     'with whom relationship');
@@ -277,8 +275,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 
   convo.addQuestion(
     generateQuickReply(
-      i18next.t(`${lang}:socialConcernSpokeToRelationship`),
-      relationshipsObject),
+      i18next.t(`${lang}:socialConcernSpokeToRelationship`), relationships),
                       goto('social concern confidant'),
                       {key: 'social_concern_spoke_to_relationship'},
                      'who did you talk to');
