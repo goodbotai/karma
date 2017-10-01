@@ -381,11 +381,10 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 * @param {string} contact rapidpro contact uuid
 */
 function sendGreeting({urn, contact_name, contact}) {
-  const facebookId = urn.split(':')[1];
-  // handle failed getting of rapidpro contact
-  services.getRapidProContact(contact)
+  services.getRapidProContact({urn: urn})
     .then(({results: [{language}]}) => {
       let lang = language.slice(0, 2);
+      let facebookId = urn.split(':')[1];
       sendMessage(bot, facebookId, (err, convo) => {
         convo.addQuestion(generateButtonTemplate(
           i18next.t(`${lang}:dailyGreeting`, {contact_name}),
@@ -410,7 +409,10 @@ function sendGreeting({urn, contact_name, contact}) {
                              },
                           }]);
       });
-    });
+    })
+  .catch((reason) =>
+           http.genericCatchRejectedPromise(
+             `Failed to getRapidProContact in sendGreeting: ${reason}`));
 }
 
 /**
