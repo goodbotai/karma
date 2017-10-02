@@ -26,7 +26,8 @@
      "helpMessage": "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" para iniciar uma conversa comigo.",
      "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 20 minutos. Você pode responder com \"socorro \"",
      "quitMessage": "Bye.\nYou can start me up again by sending me a \"hello\".Bye. \n Você pode me iniciar novamente enviando-me um \"olá\".",
-     "idkw": "Ainda não conheço essa palavra."
+     "idkw": "Ainda não conheço essa palavra.",
+     "done": "Feito"
    },
    "relationships": {
      "friend": "amigo",
