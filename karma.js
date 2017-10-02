@@ -514,6 +514,11 @@ facebookBot.api.messenger_profile.menu([{
           type: 'postback',
           payload: 'restart',
         },
+        {
+          title: 'Stop daily messaging',
+          type: 'postback',
+          payload: 'opt_out',
+        },
       ],
     },
     {title: 'Change language',
@@ -560,6 +565,9 @@ facebookBot.on('facebook_postback', (bot, message) => {
     prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
   } else if (['quit'].includes(payload)) {
     bot.reply(message, i18next.t(`${lang}:utils.quitMessage`));
+  } else if (['opt_out'].includes(payload)) {
+    services.deleteUser(message.user, config.deletedUserGroups);
+    bot.reply(message, i18next.t(`${lang}:utils.done`));
   }
 });
 

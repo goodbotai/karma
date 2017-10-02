@@ -27,7 +27,8 @@
     "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
     "timeoutMessage": "Conversation has ended because you did not reply within 20 minutes. You may reply with \"help\"",
     "quitMessage": "Bye.\nYou can start me up again by sending me a \"hello\".",
-    "idkw": "I don't know that word yet."
+    "idkw": "I don't know that word yet.",
+    "done": "Done"
   },
   "relationships": {
     "friend": "Friend",
