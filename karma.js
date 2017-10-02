@@ -174,6 +174,8 @@ function karmaConversation(err, convo, {uuid, name, language}) {
     with_whom: [],
   };
 
+  convo.addMessage(i18next.t(`${lang}:respond`));
+
   convo.addQuestion(i18next.t(`${lang}:doing`),
                     nextConversation,
                     {key: 'doing'});
