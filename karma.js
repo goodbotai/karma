@@ -466,6 +466,23 @@ function regionByTimeZone(timezone) {
 }
 
 /**
+* First try locale, if it fails try timezone, if that fails use default
+* @param {String} locale of the user from FB
+* @param {String} timezone of the user from FB
+* @return {String} language as a ISO6392 string
+*/
+function pickLanguage({locale, timezone}) {
+  if (locale) {
+    const lang = localeUtils.extractLanguageFromLocale(locale);
+    return localeUtils.lookupISO6392(lang) || config.defaultLanguage;
+  } else {
+    const region = regionByTimeZone(timezone);
+    const lang = 'default' ? config.defaultLanguage : region;
+    return localeUtils.lookupISO6392(lang);
+  }
+}
+
+/**
 * Create a karma user and start a conversation with them
 * @param {object} message a message object also created by the controller
 * @param {object} bot a bot instance created by the controller
@@ -474,10 +491,9 @@ function createUserAndStartConversation(message, bot) {
   services.getFacebookProfile(message.user)
     .then((profile) => {
       const region = regionByTimeZone(profile.timezone);
-      const lang = region === 'default' ? config.defaultLanguage : region;
       services.createUser(message.user,
                           config.rapidproGroups[[(region)]],
-                          localeUtils.lookupISO6392(lang),
+                          pickLanguage(profile),
                           profile,
                           {referrer: message.referral.ref})
         .then((rapidProContact) => {
