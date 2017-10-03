@@ -492,7 +492,7 @@ function createUserAndStartConversation(message, bot) {
     .then((profile) => {
       const region = regionByTimeZone(profile.timezone);
       services.createUser(message.user,
-                          config.rapidproGroups[[(region)]],
+                          [config.rapidproGroups[region]],
                           pickLanguage(profile),
                           profile,
                           {referrer: message.referral.ref})
