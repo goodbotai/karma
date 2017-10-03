@@ -451,19 +451,62 @@ function prepareConversation(bot, message, newLanguage) {
 }
 
 /**
+* Get the region for a specific timezone
+* @param {Integer} timezone The timezone of the user runs from 0 to 12
+* @return {String} the region that the user is in
+*/
+function regionByTimeZone(timezone) {
+  if (timezone < 0) {
+    return 'por';
+  } else if (timezone > 3) {
+    return 'ind';
+  } else {
+    return 'default';
+  }
+}
+
+/**
+* First try locale, if it fails try timezone, if that fails use default
+* @param {String} locale of the user from FB
+* @param {String} timezone of the user from FB
+* @return {String} language as a ISO6392 string
+*/
+function pickLanguage({locale, timezone}) {
+  if (locale) {
+    const lang = localeUtils.extractLanguageFromLocale(locale);
+    return localeUtils.lookupISO6392(lang) || config.defaultLanguage;
+  } else {
+    const region = regionByTimeZone(timezone);
+    const lang = 'default' ? config.defaultLanguage : region;
+    return localeUtils.lookupISO6392(lang);
+  }
+}
+
+/**
 * Create a karma user and start a conversation with them
 * @param {object} message a message object also created by the controller
 * @param {object} bot a bot instance created by the controller
 */
 function createUserAndStartConversation(message, bot) {
-  services.createUser(message.user, message.referral.ref)
-    .then((rapidProContact) => {
-      bot.startConversation(message, (err, convo) => {
-        karmaConversation(err, convo, rapidProContact);
-      });
+  services.getFacebookProfile(message.user)
+    .then((profile) => {
+      const region = regionByTimeZone(profile.timezone);
+      services.createUser(message.user,
+                          [config.rapidproGroups[region]],
+                          pickLanguage(profile),
+                          profile,
+                          {referrer: message.referral.ref})
+        .then((rapidProContact) => {
+          bot.startConversation(message, (err, convo) => {
+            karmaConversation(err, convo, rapidProContact);
+          });
+        })
+        .catch((reason) => http.genericCatchRejectedPromise(
+          `Failed createUser: ${reason}`));
     })
-    .catch((reason) =>
-           http.genericCatchRejectedPromise(`Failed createUser: ${reason}`));
+    .catch((reason) => http.genericCatchRejectedPromise(
+      'Failed to fetch Facebook profile' +
+        `in createUserAndStartConversation: ${reason}`));
 }
 
 facebookBot.setupWebserver(config.PORT, (err, webserver) => {
