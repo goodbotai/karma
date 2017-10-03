@@ -611,7 +611,7 @@ facebookBot.on('facebook_postback', (bot, message) => {
   } else if (['quit'].includes(payload)) {
     bot.reply(message, i18next.t(`${lang}:utils.quitMessage`));
   } else if (['opt_out'].includes(payload)) {
-    services.deleteUser(message.user, config.deletedUserGroups);
+    services.deleteUser(message.user, Object.values(config.deletedUserGroups));
     bot.reply(message, i18next.t(`${lang}:utils.done`));
   }
 });
