@@ -22,7 +22,6 @@
   "B4f": "Have you spoken with someone else about {{responses.social_concern}} recently?",
   "thankYou": "Thanks, see you tomorrow 😃.",
   "shareWith": "Please press \"SHARE\" to send me to your friends.",
-
   "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing today?",
   "utils": {
     "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
