@@ -1,0 +1,210 @@
+const {
+  facebook,
+  services,
+  http,
+  facebookUtils,
+  translate: t,
+} = require('borq');
+const {
+  generateButtonTemplate,
+  sendMessage
+} = facebookUtils;
+
+function setup (bot) {
+
+  function sendGreeting({urn, contact_name, contact}) {
+    services.getRapidProContact({urn: urn})
+      .then(({results: [{language}]}) => {
+        let lang = language.slice(0, 2);
+        let facebookId = urn.split(':')[1];
+        sendMessage(bot, facebookId, (err, convo) => {
+          convo.addQuestion(generateButtonTemplate(
+            t(`${lang}:dailyGreeting`, {contact_name}),
+            null,
+            [{
+              title: t(`${lang}:yes`),
+              payload: 'restart',
+            }, {
+              title: t(`${lang}:no`),
+              payload: 'opt_out',
+            }]),
+                            [{
+                              pattern: 'restart',
+                              callback: (err, convo) => {
+                                convo.stop();
+                              },
+                            }, {
+                              pattern: 'opt_out',
+                              callback: (err, convo) => {
+                                convo.say('Ok, talk tomorrow.');
+                                convo.stop();
+                              },
+                            }]);
+        });
+      })
+      .catch((reason) =>
+             http.genericCatchRejectedPromise(
+               `Failed to getRapidProContact in sendGreeting: ${reason}`));
+  }
+
+  facebook.start(bot, (err, webserver) => {
+    webserver.get('/', (req, res) => {
+      const html = '<h3>Karma is your friend</h3>';
+      res.send(html);
+    });
+
+    webserver.post('/trigger', (req, res) => {
+      sendGreeting(req.body);
+      res.statusCode = 200;
+      res.send();
+    });
+});
+
+  facebook.setGreeting('I will ask you questions about your daily well-being.');
+  facebook.setGetStarted('get_started');
+  facebook.setMenu([{
+    locale: 'default',
+    composer_input_disabled: true,
+    call_to_actions: [
+      {
+        title: 'Help',
+        type: 'nested',
+        call_to_actions: [
+        {
+          title: 'Restart survery',
+          type: 'postback',
+          payload: 'restart',
+        },
+        {
+          title: 'Stop daily messaging',
+          type: 'postback',
+          payload: 'opt_out',
+        },
+      ],
+    },
+    {title: 'Change language',
+      type: 'nested',
+      call_to_actions: [
+        {
+          title: 'English',
+          type: 'postback',
+          payload: 'switch_en',
+        },
+        {
+          title: 'Bahasa',
+          type: 'postback',
+          payload: 'switch_in',
+        },
+        {
+          title: 'Portuguese',
+          type: 'postback',
+         payload: 'switch_pt',
+        },
+      ],
+    },
+    {
+      type: 'web_url',
+      title: 'FAQ',
+      url: 'https://karma.goodbot.ai/',
+      webview_height_ratio: 'full',
+    },
+  ],
+},{
+  locale: 'pt_BR',
+  composer_input_disabled: false,
+  call_to_actions: [
+    {
+      title: 'Socorro',
+      type: 'nested',
+      call_to_actions: [
+        {
+          title: 'Reiniciar pesquisa',
+          type: 'postback',
+          payload: 'restart',
+        },
+        {
+          title: 'Pare a mensagem diária',
+          type: 'postback',
+          payload: 'opt_out',
+        },
+      ],
+    },
+    {title: 'Mudar idioma',
+      type: 'nested',
+      call_to_actions: [
+        {
+          title: 'Inglês',
+          type: 'postback',
+          payload: 'switch_en',
+        },
+        {
+          title: 'Indonesian',
+          type: 'postback',
+          payload: 'switch_in',
+        },
+        {
+          title: 'Português',
+          type: 'postback',
+         payload: 'switch_pt',
+        },
+      ],
+    },
+    {
+      type: 'web_url',
+      title: 'FAQ',
+      url: 'https://karma.goodbot.ai/',
+      webview_height_ratio: 'full',
+    },
+  ],
+},{
+  locale: 'id_ID',
+  composer_input_disabled: false,
+  call_to_actions: [
+    {
+      title: 'Membantu',
+      type: 'nested',
+      call_to_actions: [
+        {
+          title: 'Mengulang kembali',
+          type: 'postback',
+          payload: 'restart',
+        },
+        {
+          title: 'Hentikan pesan harian',
+          type: 'postback',
+          payload: 'opt_out',
+        },
+      ],
+    },
+    {title: 'Ganti BAHASA',
+      type: 'nested',
+      call_to_actions: [
+        {
+          title: 'Inggris',
+          type: 'postback',
+          payload: 'switch_en',
+        },
+        {
+          title: 'Bahasa',
+          type: 'postback',
+          payload: 'switch_in',
+        },
+        {
+          title: 'Portugis',
+          type: 'postback',
+         payload: 'switch_pt',
+        },
+      ],
+    },
+    {
+      type: 'web_url',
+      title: 'FAQ',
+      url: 'https://karma.goodbot.ai/',
+      webview_height_ratio: 'full',
+    },
+  ],
+},
+]);
+}
+
+module.exports = setup;
