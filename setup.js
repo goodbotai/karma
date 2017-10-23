@@ -2,7 +2,9 @@ const {
   facebook,
   services,
   http,
+  config,
   facebookUtils,
+  localeUtils,
   translate: t,
 } = require('borq');
 const {
@@ -15,7 +17,7 @@ function setup (bot) {
   function sendGreeting({urn, contact_name, contact}) {
     services.getRapidProContact({urn: urn})
       .then(({results: [{language}]}) => {
-        let lang = language.slice(0, 2);
+        let lang = localeUtils.lookupISO6391(language) || config.defaultLanguage;
         let facebookId = urn.split(':')[1];
         sendMessage(bot, facebookId, (err, convo) => {
           convo.addQuestion(generateButtonTemplate(
