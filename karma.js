@@ -145,7 +145,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
     with_whom: [],
   };
 
-  convo.addMessage(t(`${lang}:respond`));
+  convo.addMessage({text: t(`${lang}:respond`)}, 'default');
 
   convo.addQuestion(t(`${lang}:doing`),
                     nextConversation,
@@ -341,7 +341,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
       facebookUtils.sendMessage(
         karma,
         conversation.context.user,
-        (err, convo) => convo.say(t(`${lang}:timeoutMessage`))
+        (err, convo) => convo.say(t(`${lang}:utils.timeoutMessage`))
       );
     } else {
       winston.log('info', `Ended with status: ${conversation.status}`);
@@ -377,9 +377,7 @@ function prepareConversation(bot, message, newLanguage) {
             bot.startConversation(message, (err, convo) => {
               karmaConversation(err, convo, rapidProContact);
       }))
-      .catch((reason) =>
-           http.genericCatchRejectedPromise(
-             `Failed to getRapidProContact in prepareConversation: ${reason}`));
+      .catch((reason) => createUserAndStartConversation(message, bot));
   }
 }
 
