@@ -377,9 +377,7 @@ function prepareConversation(bot, message, newLanguage) {
             bot.startConversation(message, (err, convo) => {
               karmaConversation(err, convo, rapidProContact);
       }))
-      .catch((reason) =>
-           http.genericCatchRejectedPromise(
-             `Failed to getRapidProContact in prepareConversation: ${reason}`));
+      .catch((reason) => createUserAndStartConversation(message, bot));
   }
 }
 
