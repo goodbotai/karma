@@ -341,7 +341,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
       facebookUtils.sendMessage(
         karma,
         conversation.context.user,
-        (err, convo) => convo.say(t(`${lang}:timeoutMessage`))
+        (err, convo) => convo.say(t(`${lang}:utils.timeoutMessage`))
       );
     } else {
       winston.log('info', `Ended with status: ${conversation.status}`);
