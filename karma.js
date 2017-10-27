@@ -17,10 +17,12 @@ const {
   generateButtonTemplate,
   generateQuickReply,
 } = facebookUtils;
+const idString = config.onaFormIds.default;
 const {controller} = facebook;
 const lang = config.defaultLanguage;
 const karma = facebook.controller.spawn({});
 setup(karma);
+
 
 /**
 * Create an object for the withWhom section
@@ -335,9 +337,9 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 
   convo.on('end', (conversation) => {
     if (conversation.status === 'completed') {
-      services.genAndPostSubmissionToOna(convo, {name});
+      services.genAndPostSubmissionToOna(convo, {name, idString});
     } else if (conversation.status === 'timeout') {
-      services.genAndPostSubmissionToOna(convo, {name});
+      services.genAndPostSubmissionToOna(convo, {name, idString});
       facebookUtils.sendMessage(
         karma,
         conversation.context.user,
