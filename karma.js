@@ -1,7 +1,6 @@
 const fs = require('fs');
-const setup = require('./setup.js');
 const winston = require('winston');
-
+const setup = require('./setup.js');
 const {
   facebookUtils,
   facebook,
@@ -261,8 +260,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
                      'social concern confidant');
 
   convo.addQuestion(
-    generateQuickReply(t(`${lang}:socialConcernChangeScale`),
-                                         nums10),
+    generateQuickReply(t(`${lang}:socialConcernChangeScale`), nums10),
                       goto('what changed'),
                       {key: 'socialConcern_change_scale'},
                      'social concern change scale');
@@ -273,8 +271,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
                       'what changed');
 
   convo.addQuestion(
-    generateQuickReply(t(`${lang}:socialConcernChangeBW`),
-                                         nums10),
+    generateQuickReply(t(`${lang}:socialConcernChangeBW`), nums10),
                       goto('B4f'),
                       {key: 'social_concern_change_better_worse'},
                      'social concern change');

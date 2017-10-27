@@ -18,7 +18,7 @@
   "socialConcernConfidantName": "Sebutkan nama orang tersebut",
   "socialConcernChangeScale": "Setelah berbicara dengan {{responses.social_concern_confidant_name}}, seberapa besar hal tersebut mengubah pendapat Anda tentang {{responses.social_concern}}?",
   "whatChanged": "Secara spesifik, hal apa yang berubah?",
-  "socialConcernChange": "Setelah berbicara tentang {{responses.social_concern}}, apakah Anda merasa lebih baik atau lebih buruk?",
+  "socialConcernChangeBW": "Setelah berbicara tentang {{responses.social_concern}}, apakah Anda merasa lebih baik atau lebih buruk?",
   "B4f": "Apakah belakangan ini Anda pernah berbicara dengan orang lain selain orang di atas tentang {{responses.social_concern}}?",
   "thankYou": "Terima kasih, sampai jumpa besok 😃.",
   "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
