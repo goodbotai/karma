@@ -421,11 +421,13 @@ function createUserAndStartConversation(message, bot) {
   services.getFacebookProfile(message.user)
     .then((profile) => {
       const region = regionByTimeZone(profile.timezone);
+      const extraFields = message.referral ? {referrer: message.referral.ref} :
+            {referrer: 'none'};
       services.createUser(message.user,
                           [config.rapidproGroups[region]],
                           pickLanguage(profile),
                           profile,
-                          {referrer: message.referral.ref})
+                          extraFields)
         .then((rapidProContact) => {
           bot.startConversation(message, (err, convo) => {
             karmaConversation(err, convo, rapidProContact);
