@@ -362,10 +362,12 @@ function prepareConversation(bot, message, newLanguage) {
   if (newLanguage) {
     services.updateRapidProContact({urn: `facebook:${user}`},
                                    {language: newLanguage})
-      .then((rapidProContact) =>
-            bot.startConversation(message, (err, convo) => {
-              karmaConversation(err, convo, rapidProContact);
-            }))
+      .then((rapidProContact) => {
+        bot.startTicking();
+        bot.startConversation(message, (err, convo) => {
+          karmaConversation(err, convo, rapidProContact);
+        });
+      })
       .catch((reason) =>
              http.genericCatchRejectedPromise(
                'Failed to updateRapidProContact in prepareConversation:' +
