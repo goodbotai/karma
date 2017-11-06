@@ -2,8 +2,7 @@
   "yes": "Sim",
    "no": "Não",
 
-   "respond": "É importante responder a todas as perguntas sem parar. Preferevelmente, complete a pesquisa em 10 minutos.",
-   "doing": "O que você está fazendo agora?",
+   "doing": "É importante responder a todas as perguntas sem parar. Preferevelmente, complete a pesquisa em 10 minutos.\n\nO que você está fazendo agora?",
    "withSomeone": "Você está com alguém agora?",
    "withWhom": "Se sim, quem está com você agora?",
   "withWhomRelationship": "{{responses.with_whom_name}} é seu:",

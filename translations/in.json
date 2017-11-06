@@ -2,8 +2,7 @@
   "yes": "Ya",
   "no": "Tidak",
 
-  "respond": "Penting untuk menanggapi semua pertanyaan tanpa henti. Selesaikan kembali, lengkapi survei dalam 10 menit.",
-  "doing": "Apa yang sedang Anda lakukan sekarang?",
+  "doing": "Penting untuk menanggapi semua pertanyaan tanpa henti. Selesaikan kembali, lengkapi survei dalam 10 menit.\n\nApa yang sedang Anda lakukan sekarang?",
   "withSomeone": "Apa Anda bersama orang lain?",
   "withWhom": "Siapa yang bersama Anda?",
   "withWhomRelationship": "Apa hubungan Anda dengan {{responses.with_whom_name}}",

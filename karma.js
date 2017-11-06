@@ -146,8 +146,6 @@ function karmaConversation(err, convo, {uuid, name, language}) {
     with_whom: [],
   };
 
-  convo.say(t(`${lang}:respond`));
-
   convo.addQuestion(t(`${lang}:doing`),
                     nextConversation,
                     {key: 'doing'});
@@ -363,7 +361,6 @@ function prepareConversation(bot, message, newLanguage) {
     services.updateRapidProContact({urn: `facebook:${user}`},
                                    {language: newLanguage})
       .then((rapidProContact) => {
-        bot.startTicking();
         bot.startConversation(message, (err, convo) => {
           karmaConversation(err, convo, rapidProContact);
         });
