@@ -18,8 +18,8 @@ const {
 } = facebookUtils;
 const idString = config.onaFormIds.default;
 const {controller} = facebook;
-const lang = config.defaultLanguage;
 const karma = facebook.controller.spawn({});
+let lang = config.defaultLanguage;
 setup(karma);
 
 
