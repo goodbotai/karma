@@ -18,7 +18,8 @@ const {
 } = facebookUtils;
 const idString = config.onaFormIds.default;
 const {controller} = facebook;
-const karma = facebook.controller.spawn({});
+const karma = controller.spawn({});
+controller.startTicking();
 let lang = config.defaultLanguage;
 setup(karma);
 
@@ -147,7 +148,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
   };
 
   convo.addQuestion(t(`${lang}:doing`),
-                    nextConversation,
+                    (res, conv) =>  conv.gotoThread('s'),
                     {key: 'doing'});
 
   convo.addQuestion(
@@ -160,7 +161,8 @@ function karmaConversation(err, convo, {uuid, name, language}) {
       pattern: 'no_with_someone',
       callback: goto('skip yes'),
     }],
-    {key: 'with_someone'});
+    {key: 'with_someone'},
+    's');
 
   convo.addQuestion(t(`${lang}:withWhom`),
                       goto('with whom relationship'),
@@ -346,6 +348,11 @@ function karmaConversation(err, convo, {uuid, name, language}) {
   });
 }
 
+function startBorqConv(bot, message, rapidProContact) {
+  bot.startConversation(message, (err, convo) => {
+    karmaConversation(err, convo, rapidProContact);
+  });
+}
 
 /**
 * Fetch facebook user profile get the reponent's language and name
@@ -358,23 +365,17 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 function prepareConversation(bot, message, newLanguage) {
   const {user} = message;
   if (newLanguage) {
-    services.updateRapidProContact({urn: `facebook:${user}`},
-                                   {language: newLanguage})
-      .then((rapidProContact) => {
-        bot.startConversation(message, (err, convo) => {
-          karmaConversation(err, convo, rapidProContact);
-        });
-      })
+    services.updateUser({urn: `facebook:${user}`},
+                        {language: newLanguage})
+      .then((user) => startBorqConv(bot, message, user))
       .catch((reason) =>
              http.genericCatchRejectedPromise(
                'Failed to updateRapidProContact in prepareConversation:' +
                  ` ${reason}`));
   } else {
-    services.getRapidProContact({urn: `facebook:${user}`})
+    services.getUser({urn: `facebook:${user}`})
       .then(({results: [rapidProContact]}) =>
-            bot.startConversation(message, (err, convo) => {
-              karmaConversation(err, convo, rapidProContact);
-      }))
+            startBorqConv(bot, message, rapidProContact))
       .catch((reason) => createUserAndStartConversation(message, bot));
   }
 }
@@ -423,16 +424,12 @@ function createUserAndStartConversation(message, bot) {
       const region = regionByTimeZone(profile.timezone);
       const extraFields = message.referral ? {referrer: message.referral.ref} :
             {referrer: 'none'};
-      services.createUser(message.user,
+      services.createUser([`facebook:${message.user}`],
                           [config.rapidproGroups[region]],
                           pickLanguage(profile),
                           profile,
                           extraFields)
-        .then((rapidProContact) => {
-          bot.startConversation(message, (err, convo) => {
-            karmaConversation(err, convo, rapidProContact);
-          });
-        })
+        .then((user) => startBorqConv(bot, message, user))
         .catch((reason) => http.genericCatchRejectedPromise(
           `Failed createUser: ${reason}`));
     })
@@ -484,7 +481,7 @@ controller.hears(['help',
                                 }]));
                    });
 
-controller.hears([''], 'message_received', (bot, message) => {});
+// controller.hears([''], 'message_received', (bot, message) => {});
 
 controller.hears([/([a-z])\w+/gi],
                'message_received',
