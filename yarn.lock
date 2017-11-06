@@ -517,7 +517,7 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-borq@^0.0.1-alpha.19:
+borq@0.0.1-alpha.19:
   version "0.0.1-alpha.19"
   resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.19.tgz#fb789405da8be8f566e3d6a17be43988fed103d7"
   dependencies:
