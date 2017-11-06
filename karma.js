@@ -405,8 +405,9 @@ function regionByTimeZone(timezone) {
 */
 function pickLanguage({locale, timezone}) {
   if (locale) {
-    const lang = localeUtils.extractLanguageFromLocale(locale);
-    return localeUtils.lookupISO6392(lang) || config.defaultLanguage;
+    const lang = localeUtils.extractLanguageFromLocale(locale) ||
+          config.defaultLanguage;
+    return localeUtils.lookupISO6392(lang);
   } else {
     const region = regionByTimeZone(timezone);
     const lang = 'default' ? config.defaultLanguage : region;
