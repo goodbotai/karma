@@ -311,7 +311,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
                 payload: {
                   template_type: 'generic',
                   elements: [{
-                    title: 'Hello, I\'m Karma 😃.',
+                    title: 'Hello, I\'m BEATS 😃.',
                     subtitle: `I was referred to you by ${name}. ` +
                       'I would like to ask you questions about your wellbeing' +
                       ' every 24 hours. Press "Start" if you would like me to.',
