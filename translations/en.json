@@ -10,7 +10,7 @@
   "thoughts": "What are you thinking about right now?",
   "A4": "We will show you a list of words describing different feelings and emotions. Indicate to what extent you feel this way right now.\n1 - Very Slightly or Not at All \n2 - A Little \n3 - Moderately \n4 - Quite a Bit \n5 - Extremely",
   "socialConcern": "What is your major social concern right now?",
-  "socialConcernHowAffected": "On a scale from 1 to 10(1 not at all and 10 extremely), how much are you affected by {{responses.social_concern}}?",
+  "socialConcernHowAffected": "On a scale from 1 to 10 (1 not at all and 10 extremely), how much are you affected by {{responses.social_concern}}?",
   "B3": "We will show you a list of words describing different feelings and emotions. Indicate to what extent {{responses.social_concern}} makes you feel right now.\n1 - Very Slightly or Not at All \n2 - A Little \n3 - Moderately \n4 - Quite a Bit \n5 - Extremely",
   "socialConcernSpoken": "Have you spoken with someone about {{responses.social_concern}} recently?",
   "socialConcernSpokeToRelationship": "Who did you talk to about {{responses.social_concern}}?",
