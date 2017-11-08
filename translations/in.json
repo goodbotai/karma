@@ -10,7 +10,7 @@
   "thoughts": "Apa yang sedang Anda pikirkan sekarang?",
   "A4": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda saat ini.",
   "socialConcern": "Apakah masalah sosial yang menjadi perhatian Anda saat ini?",
-  "socialConcernHowAffected": "Dari skala 1 sampai 10, seberapa besar {{responses.social_concern}} tersebut mempengaruhi Anda? ",
+  "socialConcernHowAffected": "Dari skala 1 sampai 10 ( 1 tidak sama sekali dan 10 sangat mempengaruhi), seberapa besar {{responses.social_concern}} tersebut mempengaruhi Anda?",
   "B3": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda terkait {{responses.social_concern}} tersebut saat ini.\n1. Sangat Sedikit atau Tidak Sama sekali \n2. Sedikit \n3. Sedang \n4. Agak Sangat \n5. Sangat",
   "socialConcernSpoken": "Apakah belakangan ini Anda pernah berbicara dengan seseorang mengenai {{responses.social_concern}} tersebut?",
   "socialConcernSpokeToRelationship": "Siapa yang Anda ajak bicara tentang {{responses.social_concern}}?",
