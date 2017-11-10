@@ -370,7 +370,7 @@ function prepareConversation(bot, message, newLanguage) {
                'Failed to updateRapidProContact in prepareConversation:' +
                  ` ${reason}`));
   } else {
-    services.getRapidProContact({urn: `facebook:${user}`})
+    services.getUser({urn: `facebook:${user}`})
       .then(({results: [rapidProContact]}) =>
             bot.startConversation(message, (err, convo) => {
               karmaConversation(err, convo, rapidProContact);
@@ -420,14 +420,27 @@ function pickLanguage({locale, timezone}) {
 function createUserAndStartConversation(message, bot) {
   services.getFacebookProfile(message.user)
     .then((profile) => {
-      const region = regionByTimeZone(profile.timezone);
-      const extraFields = message.referral ? {referrer: message.referral.ref} :
-            {referrer: 'none'};
-      services.createUser(message.user,
-                          [config.rapidproGroups[region]],
+       const {first_name: firstName,
+              last_name: lastName,
+              profile_pic,
+              locale,
+              timezone,
+              gender,
+              is_payment_enabled} = profile;
+      const region = regionByTimeZone(timezone);
+      const referrer = message.referral ? message.referral.ref : 'none';
+      services.createUser(`${firstName} ${lastName}`,
                           pickLanguage(profile),
-                          profile,
-                          extraFields)
+                          [`facebook:${message.user}`],
+                          [config.rapidproGroups[region]],
+                          {
+                            profile_pic,
+                            locale,
+                            timezone,
+                            gender,
+                            is_payment_enabled,
+                            referrer,
+                          })
         .then((rapidProContact) => {
           bot.startConversation(message, (err, convo) => {
             karmaConversation(err, convo, rapidProContact);
