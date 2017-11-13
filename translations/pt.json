@@ -19,7 +19,7 @@
    "whatChanged": "O que mudou especificamente?",
    "socialConcernChangeBW": "Você se sente pior ou melhor depois de conversar sobre {{responses.social_concern}}?",
    "B4f": "Você conversou com mais alguém sobre {{responses.social_concern}} recentemente?",
-   "thankYou": "Obrigado, até amanhã 😃.",
+   "thankYou": "Obrigado, até amanhã! 😃",
    "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
    "dailyGreeting": "Oi, {{{contact_name}}} Você está pronto para falar sobre seu bem-estar hoje?",
    "utils": {
