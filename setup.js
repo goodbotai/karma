@@ -98,7 +98,7 @@ function setup (bot) {
           payload: 'switch_in',
         },
         {
-          title: 'Portuguese',
+          title: 'Português',
           type: 'postback',
          payload: 'switch_pt',
         },
