@@ -27,7 +27,10 @@
     "timeoutMessage": "Conversation has ended because you did not reply within 20 minutes. You may reply with \"help\"",
     "quitMessage": "Bye.\nYou can start me up again by sending me a \"hello\".",
     "idkw": "I don't know that word yet.",
-    "done": "Done"
+    "done": "Done",
+    "start": "Start",
+    "shareTitle": "Hello, I'm BEATS. 😃",
+    "shareSubTitle": "I was referred to you by {{{name}}}. I would like to ask you questions about your wellbeing every 24 hours. Press \"Start\" if you would like me to."
   },
   "relationships": {
     "friend": "Friend",

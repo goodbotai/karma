@@ -27,7 +27,10 @@
      "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 20 minutos. Você pode responder com \"socorro \"",
      "quitMessage": "Bye.\nVocê pode me iniciar novamente enviando-me um \"olá\".",
      "idkw": "Ainda não conheço essa palavra.",
-     "done": "Feito"
+     "done": "Feito",
+     "start": "Comece",
+     "shareTitle": "Olá, eu sou BEATs. 😃",
+     "shareSubTitle": "Eu fui encaminhado para você por {{{name}}}. Gostaria de fazer-lhe perguntas sobre o seu bem-estar todas as 24 horas. Pressione \"Comece\" se você quiser.."
    },
    "relationships": {
      "friend": "amigo",
