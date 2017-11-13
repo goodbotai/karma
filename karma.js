@@ -358,7 +358,7 @@ function karmaConversation(err, convo, {uuid, name, language}) {
 function prepareConversation(bot, message, newLanguage) {
   const {user} = message;
   if (newLanguage) {
-    services.updateRapidProContact({urn: `facebook:${user}`},
+    services.updateUser({urn: `facebook:${user}`},
                                    {language: newLanguage})
       .then((rapidProContact) => {
         bot.startConversation(message, (err, convo) => {
