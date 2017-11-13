@@ -311,14 +311,12 @@ function karmaConversation(err, convo, {uuid, name, language}) {
                 payload: {
                   template_type: 'generic',
                   elements: [{
-                    title: 'Hello, I\'m BEATS 😃.',
-                    subtitle: `I was referred to you by ${name}. ` +
-                      'I would like to ask you questions about your wellbeing' +
-                      ' every 24 hours. Press "Start" if you would like me to.',
+                    title: t(`${lang}:utils.shareTitle`),
+                    subtitle: t(`${lang}:utils.shareSubTitle`),
                     buttons: [{
                       type: 'web_url',
                       url: `http://m.me/1504460956262236?ref=${uuid}`,
-                      title: 'Start'}],
+                      title: t(`${lang}:utils.start`)}],
                   }],
                 },
               },
