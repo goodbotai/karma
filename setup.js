@@ -15,7 +15,7 @@ const {
 function setup (bot) {
 
   function sendGreeting({urn, contact_name, contact}) {
-    services.getRapidProContact({urn: urn})
+    services.getUser({urn: urn})
       .then(({results: [{language}]}) => {
         let lang = localeUtils.lookupISO6391(language) || config.defaultLanguage;
         let facebookId = urn.split(':')[1];
