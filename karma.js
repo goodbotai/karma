@@ -458,11 +458,7 @@ function createUserAndStartConversation(message, bot) {
 controller.on('facebook_postback', (bot, message) => {
   const {payload} = message;
   if (['restart', 'get_started'].includes(payload)) {
-    if (message.referral) {
-      createUserAndStartConversation(message, bot);
-    } else {
-      prepareConversation(bot, message);
-    }
+    prepareConversation(bot, message);
   } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
     lang = payload.split('_')[1];
     prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
@@ -472,6 +468,10 @@ controller.on('facebook_postback', (bot, message) => {
     services.deleteUser(message.user, Object.values(config.deletedUserGroups));
     bot.reply(message, t(`${lang}:utils.done`));
   }
+});
+
+controller.on('facebook_referral', (bot, message) => {
+  createUserAndStartConversation(message, bot);
 });
 
 controller.hears(['help',
