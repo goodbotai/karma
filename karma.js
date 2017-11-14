@@ -464,7 +464,7 @@ controller.on('facebook_postback', (bot, message) => {
     bot.reply(message, t(`${lang}:utils.quitMessage`));
   } else if (['opt_out'].includes(payload)) {
     services.deleteUser(message.user, Object.values(config.deletedUserGroups));
-    bot.reply(message, t(`${lang}:utils.done`));
+    bot.reply(message, t(`${lang}:utils.quitMessage`));
   }
 });
 
