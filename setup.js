@@ -20,7 +20,7 @@ function setup (bot) {
         let lang = localeUtils.lookupISO6391(language) || config.defaultLanguage;
         let facebookId = urn.split(':')[1];
         sendMessage(bot, facebookId, (err, convo) => {
-          convo.addQuestion(generateButtonTemplate(
+          convo.say(generateButtonTemplate(
             t(`${lang}:dailyGreeting`, {contact_name}),
             null,
             [{
@@ -29,19 +29,7 @@ function setup (bot) {
             }, {
               title: t(`${lang}:no`),
               payload: 'opt_out',
-            }]),
-                            [{
-                              pattern: 'restart',
-                              callback: (err, convo) => {
-                                convo.stop();
-                              },
-                            }, {
-                              pattern: 'opt_out',
-                              callback: (err, convo) => {
-                                convo.say('Ok, talk tomorrow.');
-                                convo.stop();
-                              },
-                            }]);
+            }]));
         });
       })
       .catch((reason) =>
