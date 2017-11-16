@@ -1,11 +1,11 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpah.7",
-  "description": "Bot for the Karma study",
-  "main": "karma.js",
+  "version": "0.0.1-alpha.7",
+  "description": "Messenger bot for the Karma study",
+  "main": "./bin/karma.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint karma.js",
-    "dev": "supervisor karma.js",
+    "lint": "./node_modules/.bin/eslint lib/ ./bin/karma.js",
+    "dev": "supervisor --watch translations lib bin bin/karma.js",
     "travis-ecs-deploy": "travis-ecs-deploy"
   },
   "repository": {
@@ -16,6 +16,9 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/onaio/karma/issues"
+  },
+  "bin": {
+    "karma-bot": "./bin/karma.js"
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
