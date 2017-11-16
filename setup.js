@@ -61,7 +61,7 @@ function setup (bot) {
         type: 'nested',
         call_to_actions: [
         {
-          title: 'Restart survery',
+          title: 'Restart survey',
           type: 'postback',
           payload: 'restart',
         },
