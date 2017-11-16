@@ -60,6 +60,14 @@ function setup (bot) {
       res.statusCode = 200;
       res.send();
     });
+    webserver.post('/test', (req, res) => {
+
+      setTimeout(() => {
+        res.statusCode = 200;
+        res.send();
+      },
+      5000)
+    });
 });
 
   facebook.setGreeting('I will ask you questions about your daily well-being.');
