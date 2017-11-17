@@ -2,7 +2,7 @@ module.exports = {
   apps : [
     {
       name      : 'Karma',
-      script    : './bin/karma.js',
+      script    : 'index.js',
       // pm2 is only used in production.
       env: {
         NODE_ENV: 'production'

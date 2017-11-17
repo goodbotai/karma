@@ -2,9 +2,9 @@
   "name": "karma",
   "version": "0.0.1-alpha.7",
   "description": "Messenger bot for the Karma study",
-  "main": "./bin/karma.js",
+  "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint lib/ ./bin/karma.js",
+    "lint": "./node_modules/.bin/eslint lib/ index.js",
     "dev": "supervisor --watch translations lib index.js",
     "test":"./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
