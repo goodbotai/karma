@@ -42,7 +42,7 @@ controller.on('facebook_referral', (bot, message) => {
 controller.hears(['help',
                    '👋',
                    'hello',
-                   '^restart$',
+                   '(^restart(?!_))',
                    'mulai',
                    'halo',
                    'hi',
