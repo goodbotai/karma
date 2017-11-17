@@ -15,7 +15,7 @@
   "socialConcernSpoken": "Have you spoken with someone about {{responses.social_concern}} recently?",
   "socialConcernSpokeToRelationship": "Who did you talk to about {{responses.social_concern}}?",
   "socialConcernConfidantName": "What is their name?",
-  "socialConcernChangeScale": "How much did talking about {{responses.social_concern}} with {{responses.social_concern_confidant_name}} changed what you think about it?",
+  "socialConcernChangeScale": "How much on a scale of 1 to 10 (1 worse and 10 better) did talking about {{responses.social_concern}} with {{responses.social_concern_confidant_name}} changed what you think about it?",
   "whatChanged": "What changed specifically?",
   "socialConcernChangeBW": "Do you feel worse or better after you talked about {{responses.social_concern}}?",
   "B4f": "Have you spoken with someone else about {{responses.social_concern}} recently?",
