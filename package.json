@@ -1,11 +1,12 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpah.7",
-  "description": "Bot for the Karma study",
-  "main": "karma.js",
+  "version": "0.0.1-alpha.7",
+  "description": "Messenger bot for the Karma study",
+  "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint karma.js",
-    "dev": "supervisor karma.js",
+    "lint": "./node_modules/.bin/eslint lib/ index.js",
+    "dev": "supervisor --watch translations lib index.js",
+    "test": "./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
   },
   "repository": {
@@ -19,7 +20,7 @@
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
-    "borq": "0.0.1-alpha.22",
+    "borq": "0.0.1-alpha.23",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.9.1",
     "express-winston": "^2.4.0",
@@ -27,5 +28,8 @@
     "i18next-node-fs-backend": "^1.0.0",
     "winston": "^2.3.1",
     "yarn": "^0.27.5"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1"
   }
 }
