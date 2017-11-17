@@ -1,8 +1,8 @@
-const setup = require('../lib/setup.js');
+const setup = require('./lib/setup.js');
 const {
   prepareConversation,
   createUserAndStartConversation,
-} = require('../lib/user.js');
+} = require('./lib/user.js');
 const {
   facebookUtils,
   facebook,

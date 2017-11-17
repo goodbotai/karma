@@ -5,7 +5,7 @@
   "main": "./bin/karma.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint lib/ ./bin/karma.js",
-    "dev": "supervisor --watch translations lib bin bin/karma.js",
+    "dev": "supervisor --watch translations lib index.js",
     "test":"./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
   },
@@ -17,9 +17,6 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/onaio/karma/issues"
-  },
-  "bin": {
-    "karma-bot": "./bin/karma.js"
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
