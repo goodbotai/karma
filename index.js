@@ -22,7 +22,7 @@ setup(karma);
 
 controller.on('facebook_postback', (bot, message) => {
   const {payload} = message;
-  if (['restart', 'get_started'].includes(payload)) {
+  if (['restart_survey', 'get_started'].includes(payload)) {
     prepareConversation(bot, message);
   } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
     lang = payload.split('_')[1];
@@ -42,7 +42,7 @@ controller.on('facebook_referral', (bot, message) => {
 controller.hears(['help',
                    '👋',
                    'hello',
-                   'restart',
+                   '^restart$',
                    'mulai',
                    'halo',
                    'hi',
@@ -57,7 +57,7 @@ controller.hears(['help',
                                 null,
                                 [{
                                   title: t(`${lang}:yes`),
-                                  payload: 'restart',
+                                  payload: 'restart_survey',
                                 }, {
                                   title: t(`${lang}:no`),
                                   payload: 'quit',
