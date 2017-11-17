@@ -42,10 +42,8 @@ controller.on('facebook_referral', (bot, message) => {
 controller.hears(['help',
                    '👋',
                    'hello',
-<<<<<<< HEAD
                    'restart',
-=======
->>>>>>> Break karma.js into multiple modules
+                   'mulai',
                    'halo',
                    'hi',
                    'oi',
