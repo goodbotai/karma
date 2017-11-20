@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint lib/ index.js",
-    "dev": "supervisor -w lib,translations,node_modules index.js",
+    "dev": "supervisor -w lib,translations,. index.js",
     "test": "./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
   },

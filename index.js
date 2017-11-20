@@ -19,6 +19,25 @@ const karma = facebook.controller.spawn({});
 let lang = config.defaultLanguage;
 setup(karma);
 
+/**
+* A helper function to DRY creating yes and no button templates
+* @param {string} text The question text
+* @param {string} payloadRaary the payloads for yes and no in an array
+* @param {string} lang ISO6392 language code string
+* @return {object} returns a JS object that is sent to FB to create a button
+*/
+function generateYesNoButtonTemplate(text, [yesPayload, noPayload], lang) {
+  return generateButtonTemplate(text,
+                                null,
+                                [{
+                                  title: t(`${lang}:yes`),
+                                  payload: yesPayload,
+                                }, {
+                                  title: t(`${lang}:no`),
+                                  payload: noPayload,
+                                }]);
+}
+
 
 controller.on('facebook_postback', (bot, message) => {
   const {payload} = message;
@@ -39,35 +58,56 @@ controller.on('facebook_referral', (bot, message) => {
   createUserAndStartConversation(message, bot);
 });
 
+const utterances = {
+  yes: new RegExp('/^(yes|yea|yup|yep|ya|sure|ok|y|yeah|yah|ya|sim)/i'),
+  no: new RegExp('/^(no|nah|nope|n|tidak|não)/i'),
+};
+
 controller.hears(['help',
-                   '👋',
-                   'hello',
-                   '(^restart(?!_))',
-                   'mulai',
-                   'halo',
-                   'hi',
-                   'oi',
-                   'hai',
-                   'membantu',
-                   'socorro',
-                   'olá'], 'message_received', (bot, message) => {
-                    bot.reply(message,
-                              generateButtonTemplate(
-                                t(`${lang}:utils.helpMessage`),
-                                null,
-                                [{
-                                  title: t(`${lang}:yes`),
-                                  payload: 'restart_survey',
-                                }, {
-                                  title: t(`${lang}:no`),
-                                  payload: 'quit',
-                                }]));
+                  '👋',
+                  'hello',
+                  '(^restart(?!_))',
+                  'mulai',
+                  'halo',
+                  'hi',
+                  'oi',
+                  'hai',
+                  'membantu',
+                  'socorro',
+                  'olá'], 'message_received', (bot, message) => {
+                    bot.startConversation(message, (err, convo) => {
+                      convo.addQuestion(
+                        generateYesNoButtonTemplate(
+                          t(`${lang}:utils.helpMessage`),
+                          ['yesPayload', 'noPayload'],
+                          lang),
+                        [{
+                          pattern: utterances.yes,
+                          callback: (res, convo) => {
+                            convo.stop();
+                            prepareConversation(bot, message);
+                            },
+                        }, {
+                          pattern: utterances.no,
+                          callback: (res, convo) => {
+                            convo.stop();
+                            bot.reply(message, t(`${lang}:utils.quitMessage`));
+                          },
+                        }, {
+                          default: true,
+                          callback: (res, conv) => {
+                            conv.say(t(`${lang}:utils.pressYN`));
+                            conv.repeat();
+                            conv.next();
+                          }}]);
+                    });
                    });
 
-controller.hears([''], 'message_received', (bot, message) => {});
-
-controller.hears([/([a-z])\w+/gi],
+controller.hears([/\w+/],
                'message_received',
-               function(bot, message) {
+                 function(bot, message) {
+                   console.log(message.text);
                  bot.reply(message, t(`${lang}:utils.idkw`));
 });
+
+controller.hears([''], 'message_received', (bot, message) => {});
