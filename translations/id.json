@@ -26,6 +26,7 @@
     "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hai \" untuk memulai percakapan dengan saya.",
     "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 20 menit. Anda bisa membalas dengan \"membantu \".",
     "pressYN": "Silahkan tekan \"Ya\" atau \"Tidak\".",
+    "pressAnswer": "Tolong tekan jawaban yang diberikan.",
     "quitMessage": "Sampai jumpa.\nAnda bisa memulai saya lagi dengan mengirimkan saya \"halo \".",
     "idkw": "Saya belum mengenal kata itu.",
     "done": "Selesai",
