@@ -59,55 +59,59 @@ controller.on('facebook_referral', (bot, message) => {
 });
 
 const utterances = {
-  yes: new RegExp('/^(yes|yea|yup|yep|ya|sure|ok|y|yeah|yah|ya|sim)/i'),
-  no: new RegExp('/^(no|nah|nope|n|tidak|não)/i'),
+  yes: new RegExp(/^(yes*|yea|yup|yep|ya|sure|ok|y|yeah|yah|ya|sim)/i),
+  no: new RegExp(/^(no*|nah|nope|n|tidak|não)/i),
+  greetings: ['help',
+              '👋',
+              'hello',
+              '(^restart(?!_))',
+              'mulai',
+              'halo',
+              'hi',
+              'oi',
+              'hai',
+              'membantu',
+              'socorro',
+              'olá'],
 };
 
-controller.hears(['help',
-                  '👋',
-                  'hello',
-                  '(^restart(?!_))',
-                  'mulai',
-                  'halo',
-                  'hi',
-                  'oi',
-                  'hai',
-                  'membantu',
-                  'socorro',
-                  'olá'], 'message_received', (bot, message) => {
-                    bot.startConversation(message, (err, convo) => {
-                      convo.addQuestion(
-                        generateYesNoButtonTemplate(
-                          t(`${lang}:utils.helpMessage`),
-                          ['yesPayload', 'noPayload'],
-                          lang),
-                        [{
-                          pattern: utterances.yes,
-                          callback: (res, convo) => {
-                            convo.stop();
-                            prepareConversation(bot, message);
-                            },
-                        }, {
-                          pattern: utterances.no,
-                          callback: (res, convo) => {
-                            convo.stop();
-                            bot.reply(message, t(`${lang}:utils.quitMessage`));
-                          },
-                        }, {
-                          default: true,
-                          callback: (res, conv) => {
-                            conv.say(t(`${lang}:utils.pressYN`));
-                            conv.repeat();
-                            conv.next();
-                          }}]);
-                    });
-                   });
+controller.hears(
+  utterances.greetings,
+  'message_received',
+  (bot, message) => {
+    bot.startConversation(message, (err, convo) => {
+      convo.addQuestion(
+        generateYesNoButtonTemplate(t(`${lang}:utils.helpMessage`),
+                                    ['yesPayload', 'noPayload'],
+                                    lang),
+        [
+          {
+            pattern: utterances.yes,
+            callback: (res, convo) => {
+              convo.stop();
+              prepareConversation(bot, message);
+            },
+          }, {
+            pattern: utterances.no,
+            callback: (res, convo) => {
+              convo.stop();
+              bot.reply(message, t(`${lang}:utils.quitMessage`));
+            },
+          }, {
+            default: true,
+            callback: (res, conv) => {
+              conv.say(t(`${lang}:utils.pressYN`));
+              conv.repeat();
+              conv.next();
+            },
+          },
+        ]);
+    });
+  }
+);
 
-controller.hears([/\w+/],
-               'message_received',
-                 function(bot, message) {
-                   console.log(message.text);
-                 bot.reply(message, t(`${lang}:utils.idkw`));
-});
-
-controller.hears([''], 'message_received', (bot, message) => {});
+controller.hears(
+  [/\w+/],
+  'message_received',
+  (bot, message) => bot.reply(message, t(`${lang}:utils.idkw`))
+);
