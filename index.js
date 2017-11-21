@@ -43,7 +43,7 @@ controller.on('facebook_postback', (bot, message) => {
   const {payload} = message;
   if (['restart_survey', 'get_started'].includes(payload)) {
     prepareConversation(bot, message);
-  } else if (['switch_pt', 'switch_en', 'switch_in'].includes(payload)) {
+  } else if (['switch_pt', 'switch_en', 'switch_id'].includes(payload)) {
     lang = payload.split('_')[1];
     prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
   } else if (['quit'].includes(payload)) {
