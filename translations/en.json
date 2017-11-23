@@ -28,7 +28,7 @@
     "pressAnswer": "Please press on a provided answer.",
     "timeoutMessage": "Conversation has ended because you did not reply within 20 minutes. You may reply with \"help\"",
     "quitMessage": "Bye.\nYou can start me up again by sending me a \"hello\".",
-    "idkw": "I don't know that word yet.",
+    "idkw": "I don't know that word yet. Just say \"hello\" to start a conversation.",
     "done": "Done",
     "start": "Start",
     "shareTitle": "Hello, I'm BEATS. 😃",
