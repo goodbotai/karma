@@ -21,17 +21,26 @@ setup(karma);
 
 
 controller.on('facebook_postback', (bot, message) => {
-  const {payload} = message;
+  const {payload, user} = message;
   if (['restart_survey', 'get_started'].includes(payload)) {
     prepareConversation(bot, message);
   } else if (['switch_pt', 'switch_en', 'switch_id'].includes(payload)) {
     lang = payload.split('_')[1];
     prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
-  } else if (['quit'].includes(payload)) {
-    bot.reply(message, t(`${lang}:utils.quitMessage`));
-  } else if (['opt_out'].includes(payload)) {
-    services.deleteUser(message.user, Object.values(config.deletedUserGroups));
-    bot.reply(message, t(`${lang}:utils.quitMessage`));
+  } else if (['quit', 'opt_out'].includes(payload)) {
+    if (payload === 'opt_out') {
+      services.deleteUser(message.user,
+                          Object.values(config.deletedUserGroups));
+    }
+    services.getUser({urn: `facebook:${user}`})
+      .then(({results: [{language}]}) => {
+        if (language) {
+          bot.reply(message, t(`${language}:utils.quitMessage`));
+        } else {
+          bot.reply(message, t(`${lang}:utils.quitMessage`));
+        }
+      })
+      .catch((err) => bot.reply(message, t(`${lang}:utils.quitMessage`)));
   }
 });
 
