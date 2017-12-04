@@ -35,7 +35,8 @@ controller.on('facebook_postback', (bot, message) => {
     services.getUser({urn: `facebook:${user}`})
       .then(({results: [{language}]}) => {
         if (language) {
-          bot.reply(message, t(`${localeUtils.lookupISO6391(language)}:utils.quitMessage`));
+          bot.reply(message,
+            t(`${localeUtils.lookupISO6391(language)}:utils.quitMessage`));
         } else {
           bot.reply(message, t(`${lang}:utils.quitMessage`));
         }
