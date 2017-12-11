@@ -66,5 +66,16 @@ controller.hears(
 controller.hears(
   [/\w+/],
   'message_received',
-  (bot, message) => bot.reply(message, t(`${lang}:utils.idkw`))
+  (bot, message) => {
+    services.getUser({urn: `facebook:${message.user}`})
+      .then(({results: [{language}]}) => {
+        if (language) {
+          bot.reply(message,
+                    t(`${localeUtils.lookupISO6391(language)}:utils.idkw`));
+        } else {
+          bot.reply(message, t(`${lang}:utils.idkw`));
+        }
+})
+      .catch((err) => bot.reply(message, t(`${lang}:utils.idkw`)));
+  }
 );
