@@ -64,7 +64,7 @@ controller.hears(
 );
 
 controller.hears(
-  [/\w+/],
+  [/\w+/, utterances.punctuation],
   'message_received',
   (bot, message) => {
     services.getUser({urn: `facebook:${message.user}`})
