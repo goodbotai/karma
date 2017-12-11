@@ -3,5 +3,12 @@
   "env": {
     "node": true,
     "es6": true
+  },
+  "rules": {
+    "max-len": ["error", { "code": 80,
+                           "ignoreTemplateLiterals": true,
+                           "ignoreTrailingComments": true,
+                           "ignoreComments": true,
+                           "ignoreRegExpLiterals": true }]
   }
 }
