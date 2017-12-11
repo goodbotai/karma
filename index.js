@@ -1,24 +1,24 @@
-const setup = require('./lib/setup.js');
+const {
+  services,
+  config,
+  translate: t,
+  localeUtils,
+  facebook: {controller},
+  conversations: {utterances},
+} = require('borq');
+
 const {
   helpConversation,
   prepareConversation,
   createUserAndStartConversation,
 } = require('./lib/user.js');
-const {
-  facebookUtils,
-  facebook,
-  services,
-  config,
-  translate: t,
-  localeUtils,
-} = require('borq');
-const {utterances} = facebookUtils;
+const setup = require('./lib/setup.js');
 
-const {controller} = facebook;
-const karma = facebook.controller.spawn({});
+const karma = controller.spawn({});
 let lang = config.defaultLanguage;
-setup(karma);
 
+
+setup(karma);
 
 controller.on('facebook_postback', (bot, message) => {
   const {payload, user} = message;
