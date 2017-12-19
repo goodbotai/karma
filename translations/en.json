@@ -2,7 +2,8 @@
   "yes": "Yes",
   "no": "No",
 
-  "doing": "It is important to respond to all the questions without stopping. Prefereably, complete the survey in 10 minutes.\n\nWhat are you doing right now?",
+  "A1": "It is important to respond to all the questions without stopping. Prefereably, complete the survey in 10 minutes.",
+  "doing": "What are you doing right now?",
   "withSomeone": "Are you with someone now?",
   "withWhom": "Who are you with?",
   "withWhomRelationship": "Is {{responses.with_whom_name}} your",
