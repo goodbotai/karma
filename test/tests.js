@@ -1,4 +1,4 @@
 /* eslint require-jsdoc : "off" */
-const testConversation = require('./lib/conversation/utils.js');
+const testConversation = require('./lib/conversation.js');
 
 testConversation();
