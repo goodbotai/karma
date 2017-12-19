@@ -3,7 +3,7 @@ const assert = require('assert');
 const {
   repeatAnyoneObject,
   repeatObject
-} = require('../../lib/conversation.js');
+} = require('../../lib/conversation/utils.js');
 
 const conversationObj = {
   responses: {
