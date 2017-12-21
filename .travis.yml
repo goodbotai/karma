@@ -2,13 +2,10 @@ sudo: required
 
 language: node_js
 node_js:
-  - "8"
+  - 9.3.0
 
 services:
   - docker
-
-before_install:
-  - pyenv global 2.7.13
 
 install:
   - npm install --dev
