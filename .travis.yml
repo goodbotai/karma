@@ -1,4 +1,5 @@
 sudo: required
+group: edge
 
 language: node_js
 node_js:
@@ -6,6 +7,9 @@ node_js:
 
 services:
   - docker
+
+ before_install:
+   - pyenv global 2.7.13
 
 install:
   - npm install --dev
