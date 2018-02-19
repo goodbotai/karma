@@ -4,7 +4,7 @@
   "description": "Messenger bot for the Karma study",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint lib/ index.js",
+    "lint": "eslint lib/ test/ translations/ index.js",
     "dev": "supervisor -w lib,translations,. index.js",
     "test": "./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
@@ -30,6 +30,8 @@
     "yarn": "^0.27.5"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "eslint-plugin-prettier": "^2.6.0",
+    "mocha": "^4.0.1",
+    "prettier": "^1.10.2"
   }
 }
