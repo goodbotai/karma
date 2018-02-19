@@ -35,7 +35,7 @@ controller.on('facebook_postback', (bot, message) => {
     }
     services
       .getUser({urn: `facebook:${user}`})
-      .then(({results: [{language}]}) => {
+      .then(({body: {results: [{language}]}}) => {
         if (language) {
           bot.reply(
             message,
@@ -57,7 +57,7 @@ controller.hears(utterances.greetings, 'message_received', (bot, message) => {
   const {user} = message;
   services
     .getUser({urn: `facebook:${user}`})
-    .then(({results: [{language}]}) => {
+    .then(({body: {results: [{language}]}}) => {
       helpConversation(bot, message, localeUtils.lookupISO6391(language));
     })
     .catch((err) => helpConversation(bot, message, lang));
@@ -69,7 +69,7 @@ controller.hears(
   (bot, message) => {
     services
       .getUser({urn: `facebook:${message.user}`})
-      .then(({results: [{language}]}) => {
+      .then(({body: {results: [{language}]}}) => {
         if (language) {
           bot.reply(
             message,
