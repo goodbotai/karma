@@ -1,10 +1,10 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpha.7",
+  "version": "0.0.1-alpha.8",
   "description": "Messenger bot for the Karma study",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint lib/ index.js",
+    "lint": "eslint lib/ test/ translations/ index.js",
     "dev": "supervisor -w lib,translations,. index.js",
     "test": "./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
-    "borq": "0.0.1-alpha.27",
+    "borq": "0.0.1-alpha.30",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.9.1",
     "express-winston": "^2.4.0",
@@ -30,6 +30,8 @@
     "yarn": "^0.27.5"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "eslint-plugin-prettier": "^2.6.0",
+    "mocha": "^4.0.1",
+    "prettier": "^1.10.2"
   }
 }
