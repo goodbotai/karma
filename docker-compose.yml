@@ -4,7 +4,7 @@ services:
     build:
       context: .
     working_dir: /app
-    image: goodbotai/karma:0.0.1-alpha.8-SNAPSHOT
+    image: goodbotai/karma:0.0.1-alpha.8
     volumes:
       - ~/data/karma/logs/pm2:/root/.pm2/logs:rw
     environment:
