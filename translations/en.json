@@ -23,7 +23,7 @@
   "thankYouLater": "Thanks, see you later today! 😃",
   "thankYou": "Thanks, see you in three days! 😃",
   "shareWith": "Please press \"SHARE\" to send me to your friends.",
-  "dailyGreeting": "Hi, {{{contact_name}}} are you ready to talk about your wellbeing?",
+  "dailyGreeting": "Hi {{{contactName}}}, are you ready to talk about your wellbeing?",
   "utils": {
     "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
     "pressYN": "Please press \"Yes\" or \"No\".",
@@ -34,7 +34,7 @@
     "done": "Done",
     "start": "Start",
     "shareTitle": "Hello, I'm BEATS. 😃",
-    "shareSubTitle": "I was referred to you by {{{name}}}. I would like to ask you questions about your wellbeing every 24 hours. Press \"Start\" if you would like me to."
+    "shareSubTitle": "I was referred to you by {{{name}}}. I would like to ask you questions about your wellbeing. Press \"Start\" if you would like me to."
   },
   "relationships": {
     "friend": "Friend",

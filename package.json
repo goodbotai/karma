@@ -1,6 +1,6 @@
 {
   "name": "karma",
-  "version": "0.0.1-alpha.8",
+  "version": "0.0.1-alpha.9",
   "description": "Messenger bot for the Karma study",
   "main": "index.js",
   "scripts": {
@@ -20,12 +20,13 @@
   },
   "homepage": "https://github.com/onaio/karma#readme",
   "dependencies": {
-    "borq": "0.0.1-alpha.30",
+    "borq": "0.0.1-alpha.31",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.9.1",
     "express-winston": "^2.4.0",
     "i18next": "^8.4.3",
     "i18next-node-fs-backend": "^1.0.0",
+    "uuid": "^3.2.1",
     "winston": "^2.3.1",
     "yarn": "^0.27.5"
   },

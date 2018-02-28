@@ -23,7 +23,7 @@
   "thankYouLater": "Terima kasih, sampai jumpa lagi hari ini! 😃",
   "thankYou": "Terima kasih, sampai ketemu tiga hari lagi! 😃",
   "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
-  "dailyGreeting": "Hai, {{{contact_name}}} apakah Anda siap untuk membicarakan tentang kesejahteraan Anda?",
+  "dailyGreeting": "Hai {{{contactName}}}, apakah Anda siap untuk membicarakan tentang kesejahteraan Anda?",
   "utils": {
     "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hai \" untuk memulai percakapan dengan saya.",
     "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 20 menit. Anda bisa membalas dengan \"hai\".",
@@ -34,7 +34,7 @@
     "done": "Selesai",
     "start": "Mulai",
     "shareTitle": "Halo, saya BEATS. 😃",
-    "shareSubTitle": "Saya dirujuk oleh {{{name}}}. Saya ingin mengajukan pertanyaan tentang kesejahteraan Anda setiap 24 jam. Tekan \"Mulai\" jika Anda menginginkan saya."
+    "shareSubTitle": "Saya dirujuk oleh {{{name}}}. Saya ingin mengajukan pertanyaan tentang kesejahteraan. Tekan \"Mulai\" jika Anda menginginkan saya."
   },
   "relationships": {
     "friend": "teman",
