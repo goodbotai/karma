@@ -7,5 +7,3 @@ install:
 
 script:
   - yarn lint
-  - yarn test
-    
