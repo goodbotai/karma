@@ -17,7 +17,8 @@ install:
 
 script:
   - yarn lint
-  - echo $
+  - echo $ECS_CLUSTER_$(echo $TRAVIS_TAG | awk '{print toupper($0)}')
+  - echo ECS_CLUSTER_$(echo $TRAVIS_TAG | awk '{print toupper($0)}') 
 
 env:
   global:
