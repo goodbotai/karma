@@ -615,9 +615,9 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-borq@0.0.1-alpha.33:
-  version "0.0.1-alpha.33"
-  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.33.tgz#4072f72e94e77e62d520128aeb0388ae35ed317a"
+borq@0.0.1-alpha.34:
+  version "0.0.1-alpha.34"
+  resolved "https://registry.yarnpkg.com/borq/-/borq-0.0.1-alpha.34.tgz#275945e3bb331fdee662f7886867c9eb6985ca6a"
   dependencies:
     botkit "0.6.12"
     express-winston "^2.4.0"
@@ -629,6 +629,7 @@ borq@0.0.1-alpha.33:
     raven "^2.1.1"
     uuid "^3.1.0"
     winston "^2.3.1"
+    winston-graylog2 "^0.7.1"
 
 botbuilder@^3.8.4:
   version "3.12.0"
@@ -1563,6 +1564,10 @@ graceful-fs@^4.1.2:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
+graylog2@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/graylog2/-/graylog2-0.2.1.tgz#fcb0775766fb6d7d6f5fef3ff873326b8b1d35a9"
+
 growl@1.10.3:
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.3.tgz#1926ba90cf3edfe2adb4927f5880bc22c66c790f"
@@ -2171,6 +2176,10 @@ lodash@^3.3.1:
 lodash@^4.0.0, lodash@^4.11.1, lodash@^4.12.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
+lodash@^4.17.5:
+  version "4.17.5"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
 lodash@~4.11.1:
   version "4.11.2"
@@ -3438,9 +3447,28 @@ window-size@^0.1.2:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
 
+winston-graylog2@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/winston-graylog2/-/winston-graylog2-0.7.1.tgz#c414a1de6d4035a908718ee16162e66b4355b40b"
+  dependencies:
+    graylog2 "^0.2.1"
+    lodash "^4.17.5"
+    winston "^2.4.0"
+
 winston@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/winston/-/winston-2.3.1.tgz#0b48420d978c01804cf0230b648861598225a119"
+  dependencies:
+    async "~1.0.0"
+    colors "1.0.x"
+    cycle "1.0.x"
+    eyes "0.1.x"
+    isstream "0.1.x"
+    stack-trace "0.0.x"
+
+winston@^2.4.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.1.tgz#a3a9265105564263c6785b4583b8c8aca26fded6"
   dependencies:
     async "~1.0.0"
     colors "1.0.x"
