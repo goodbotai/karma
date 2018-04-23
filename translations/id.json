@@ -27,7 +27,7 @@
   "utils": {
     "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hai \" untuk memulai percakapan dengan saya.",
     "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 20 menit. Anda bisa membalas dengan \"hai\".",
-    "pressYN": "Harap tekan \"Ya\" atau \"Tidak \" atau masukkan salah satu dari ini\nYa\nTidak",
+    "pressYN": "Harap tekan \"Ya\" atau \"Tidak\" atau masukkan salah satu dari ini\nYa\nTidak",
     "rereadAndAnswer": "Saya tidak mengerti itu. Silakan baca pertanyaan dan jawab lagi.",
     "tapAnswer": "Ketuk jawaban yang disediakan atau masukkan salah satunya.\n{{{options}}}",
     "quitMessage": "Sampai jumpa.\nAnda bisa memulai saya lagi dengan mengirimkan saya \"halo \".",
