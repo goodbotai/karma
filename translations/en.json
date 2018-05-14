@@ -24,6 +24,13 @@
   "thankYou": "Thanks, see you in three days! 😃",
   "shareWith": "Please press \"SHARE\" to send me to your friends.",
   "dailyGreeting": "Hi {{{contactName}}}, are you ready to talk about your wellbeing?",
+  "introduction": {
+    "consent": "Welcome to BEATs! I will ask questions routinely about your daily experiences and emotions. Before proceeding, please visit the informed consent link below: https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/.",
+    "proceed": "Would you like to proceed?",
+    "accept": "Thank you! I will contact you again tomorrow.",
+    "reject": "Thank you for your time visiting BEATs."
+  },
+
   "utils": {
     "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
     "pressYN": "Please tap \"Yes\" or \"No\" or enter one of these\nYes\nNo",
