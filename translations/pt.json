@@ -24,6 +24,12 @@
    "thankYou": "Obrigado, vejo você em três dias! 😃",
    "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
    "dailyGreeting": "Oi, {{{contactName}}} você está pronto para falar sobre seu bem-estar?",
+   "introduction": {
+     "consent": "Bem-vindo ao BEATs! Vou fazer perguntas sobre seu dia a dia e emoções. Antes de prosseguir, visite o link do termo de consentimento abaixo: https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/",
+     "proceed": "Você concorda em seguir a diante? ",
+     "accept": "Obrigado! Eu entrarei em contato com você novamente amanhã.",
+     "reject": "Obrigado pelo seu tempo."
+  },
    "utils": {
      "helpMessage": "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" para iniciar uma conversa comigo.",
      "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 20 minutos. Você pode responder com \"oi\"",
