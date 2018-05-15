@@ -1,29 +1,4 @@
 {
-  "yes": "Ya",
-  "no": "Tidak",
-
-  "A1": "Penting untuk menanggapi semua pertanyaan tanpa henti. Selesaikan kembali, lengkapi survei dalam 10 menit.",
-  "doing": "Apa yang sedang Anda lakukan sekarang?",
-  "withSomeone": "Apa Anda bersama orang lain?",
-  "withWhom": "Siapa yang bersama Anda?",
-  "withWhomRelationship": "Apa hubungan Anda dengan {{&responses.with_whom_name}}",
-  "withAnyoneElse": "Apakah ada orang lain lagi yang bersama dengan Anda saat ini?",
-  "thoughts": "Apa yang sedang Anda pikirkan sekarang?",
-  "A4": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda saat ini.\n1 - Sangat Sedikit atau Tidak Sama sekali \n2 - Sedikit \n3 - Sedang \n4 - Agak Sangat \n5 - Sangat",
-  "socialConcern": "Apakah masalah sosial yang menjadi perhatian Anda saat ini?",
-  "socialConcernHowAffected": "Dari skala 1 sampai 10 ( 1 tidak sama sekali dan 10 sangat mempengaruhi), seberapa besar {{&responses.social_concern}} tersebut mempengaruhi Anda?",
-  "B3": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda terkait {{&responses.social_concern}} tersebut saat ini.\n1 - Sangat Sedikit atau Tidak Sama sekali \n2 - Sedikit \n3 - Sedang \n4 - Agak Sangat \n5 - Sangat",
-  "socialConcernSpoken": "Apakah belakangan ini Anda pernah berbicara dengan seseorang mengenai {{&responses.social_concern}} tersebut?",
-  "socialConcernSpokeToRelationship": "Siapa yang Anda ajak bicara tentang {{&responses.social_concern}}?",
-  "socialConcernConfidantName": "Sebutkan nama orang tersebut",
-  "socialConcernChangeScale": "Seberapa besar dalam skala 1 sampai 10 (1 lebih buruk dan 10 lebih baik) berbicara tentang  {{&responses.social_concern}} dengan {{&responses.social_concern_confidant_name}} mempengaruhi apa yang Anda pikirkan tentang hal tersebut?",
-  "whatChanged": "Secara spesifik, hal apa yang berubah?",
-  "socialConcernChangeBW": "Setelah berbicara tentang {{&responses.social_concern}}, apakah Anda merasa lebih baik atau lebih buruk?",
-  "B4f": "Apakah belakangan ini Anda pernah berbicara dengan orang lain selain orang di atas tentang {{&responses.social_concern}}?",
-  "thankYouLater": "Terima kasih, sampai jumpa lagi hari ini! 😃",
-  "thankYou": "Terima kasih, sampai ketemu tiga hari lagi! 😃",
-  "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
-  "dailyGreeting": "Hai {{{contactName}}}, apakah Anda siap untuk membicarakan tentang kesejahteraan Anda?",
   "introduction": {
     "consent": "Selamat datang di BEATs! Saya akan bertanya kepada Anda secara berkala tentang keadaan dan kesejahteraan Anda sehari-hari. Sebelum melanjutkan, silahkan kunjungi lembar persetujuan di laman berikut: https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/.",
     "proceed": "Apakah Anda setuju untuk melanjutkan?",
@@ -31,7 +6,33 @@
     "reject": "Terima kasih atas waktu Anda berkunjung ke BEATs."
   },
 
+  "firstSurvey": {
+      "A1": "Penting untuk menanggapi semua pertanyaan tanpa henti. Selesaikan kembali, lengkapi survei dalam 10 menit.",
+    "doing": "Apa yang sedang Anda lakukan sekarang?",
+    "withSomeone": "Apa Anda bersama orang lain?",
+    "withWhom": "Siapa yang bersama Anda?",
+    "withWhomRelationship": "Apa hubungan Anda dengan {{&responses.with_whom_name}}",
+    "withAnyoneElse": "Apakah ada orang lain lagi yang bersama dengan Anda saat ini?",
+    "thoughts": "Apa yang sedang Anda pikirkan sekarang?",
+    "A4": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda saat ini.\n1 - Sangat Sedikit atau Tidak Sama sekali \n2 - Sedikit \n3 - Sedang \n4 - Agak Sangat \n5 - Sangat"
+  },
+
+  "secondSurvey": {
+    "socialConcern": "Apakah masalah sosial yang menjadi perhatian Anda saat ini?",
+    "socialConcernHowAffected": "Dari skala 1 sampai 10 ( 1 tidak sama sekali dan 10 sangat mempengaruhi), seberapa besar {{&responses.social_concern}} tersebut mempengaruhi Anda?",
+    "B3": "Kami akan menunjukkan kepada Anda beberapa kata yang menggambarkan perasaan dan emosi yang berbeda-beda. Untuk setiap kata, pilih jawaban yang paling sesuai dengan perasaan Anda terkait {{&responses.social_concern}} tersebut saat ini.\n1 - Sangat Sedikit atau Tidak Sama sekali \n2 - Sedikit \n3 - Sedang \n4 - Agak Sangat \n5 - Sangat",
+    "socialConcernSpoken": "Apakah belakangan ini Anda pernah berbicara dengan seseorang mengenai {{&responses.social_concern}} tersebut?",
+    "socialConcernSpokeToRelationship": "Siapa yang Anda ajak bicara tentang {{&responses.social_concern}}?",
+    "socialConcernConfidantName": "Sebutkan nama orang tersebut",
+    "socialConcernChangeScale": "Seberapa besar dalam skala 1 sampai 10 (1 lebih buruk dan 10 lebih baik) berbicara tentang  {{&responses.social_concern}} dengan {{&responses.social_concern_confidant_name}} mempengaruhi apa yang Anda pikirkan tentang hal tersebut?",
+    "whatChanged": "Secara spesifik, hal apa yang berubah?",
+    "socialConcernChangeBW": "Setelah berbicara tentang {{&responses.social_concern}}, apakah Anda merasa lebih baik atau lebih buruk?",
+    "B4f": "Apakah belakangan ini Anda pernah berbicara dengan orang lain selain orang di atas tentang {{&responses.social_concern}}?"
+  },
+
   "utils": {
+    "yes": "Ya",
+    "no": "Tidak",
     "helpMessage": "Saya BEATS. Saya adalah sebuah program yang bermaksud mengajukan pertanyaan setiap hari tentang kesejahteraan Anda. \n Anda dapat menekan tombol menu (tombol dengan ☰) untuk melihat tawaran lain apa yang saya tawarkan. Anda juga bisa membalas dengan \"hai \" untuk memulai percakapan dengan saya.",
     "timeoutMessage": "Percakapan telah berakhir karena Anda tidak membalasnya dalam waktu 20 menit. Anda bisa membalas dengan \"hai\".",
     "pressYN": "Harap tekan \"Ya\" atau \"Tidak\" atau masukkan salah satu dari ini\nYa\nTidak",
@@ -42,8 +43,13 @@
     "done": "Selesai",
     "start": "Mulai",
     "shareTitle": "Halo, saya BEATS. 😃",
-    "shareSubTitle": "Saya dirujuk oleh {{{name}}}. Saya ingin mengajukan pertanyaan tentang kesejahteraan. Tekan \"Mulai\" jika Anda menginginkan saya."
+    "shareSubTitle": "Saya dirujuk oleh {{{name}}}. Saya ingin mengajukan pertanyaan tentang kesejahteraan. Tekan \"Mulai\" jika Anda menginginkan saya.",
+    "thankYouLater": "Terima kasih, sampai jumpa lagi hari ini! 😃",
+    "thankYou": "Terima kasih, sampai ketemu tiga hari lagi! 😃",
+    "shareWith": "Tolong tekan \"BERBAGI\" untuk mengirim saya ke teman Anda.",
+    "dailyGreeting": "Hai {{{contactName}}}, apakah Anda siap untuk membicarakan tentang kesejahteraan Anda?"
   },
+
   "relationships": {
     "friend": "teman",
     "family": "keluarga",
@@ -52,6 +58,7 @@
     "client": "klien/pelangan",
     "other": "lainnya"
   },
+
   "emotions": {
     "upset": "Kecewa",
     "hostile": "Rasa bermusuhan",
