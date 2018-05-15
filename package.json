@@ -4,7 +4,7 @@
   "description": "Messenger bot for the Karma study",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint lib/ test/ translations/ index.js",
+    "lint": "eslint lib/ test/ translations/ setup.js index.js",
     "dev": "supervisor -w lib,translations,. index.js",
     "test": "./node_modules/mocha/bin/mocha test/",
     "travis-ecs-deploy": "travis-ecs-deploy"
