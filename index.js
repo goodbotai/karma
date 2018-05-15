@@ -19,7 +19,7 @@ let lang = config.defaultLanguage;
 
 setup(karma);
 
-controller.on('facebook_postback', (bot, message) => {
+controller.on('facebook_postback', async (bot, message) => {
   const {payload, user} = message;
   if (['restart_survey', 'get_started'].includes(payload)) {
     prepareConversation(bot, message);
@@ -33,19 +33,19 @@ controller.on('facebook_postback', (bot, message) => {
         Object.values(config.deletedUserGroups)
       );
     }
-    services
-      .getUser({urn: `facebook:${user}`})
-      .then(({body: {results: [{language}]}}) => {
-        if (language) {
-          bot.reply(
-            message,
-            t(`${localeUtils.lookupISO6391(language)}:utils.quitMessage`)
-          );
-        } else {
-          bot.reply(message, t(`${lang}:utils.quitMessage`));
-        }
-      })
-      .catch((err) => bot.reply(message, t(`${lang}:utils.quitMessage`)));
+    try {
+      const {body: {results: [{language}]}} = await services.getUser({urn: `facebook:${user}`});
+      if (language) {
+        bot.reply(
+          message,
+          t(`${localeUtils.lookupISO6391(language)}:utils.quitMessage`)
+        );
+      } else {
+        bot.reply(message, t(`${lang}:utils.quitMessage`));
+      }
+    } catch(e) {
+      bot.reply(message, t(`${lang}:utils.quitMessage`));
+    }
   }
 });
 
@@ -53,32 +53,31 @@ controller.on('facebook_referral', (bot, message) => {
   createUserAndStartConversation(message, bot);
 });
 
-controller.hears(utterances.greetings, 'message_received', (bot, message) => {
+controller.hears(utterances.greetings, 'message_received', async (bot, message) => {
   const {user} = message;
-  services
-    .getUser({urn: `facebook:${user}`})
-    .then(({body: {results: [{language}]}}) => {
-      helpConversation(bot, message, localeUtils.lookupISO6391(language));
-    })
-    .catch((err) => helpConversation(bot, message, lang));
+  let lang;
+  try {
+    const {body: {results: [{language}]}} = await services.getUser({urn: `facebook:${user}`});
+    lang = localeUtils.lookupISO6391(language);
+  } catch(e) {
+    lang = config.defaultLanguage;
+  }
+  return helpConversation(bot, message, lang);
 });
 
 controller.hears(
   [/\w+/, utterances.punctuation, /[0-9]+/],
   'message_received',
-  (bot, message) => {
-    services
-      .getUser({urn: `facebook:${message.user}`})
-      .then(({body: {results: [{language}]}}) => {
-        if (language) {
-          bot.reply(
-            message,
-            t(`${localeUtils.lookupISO6391(language)}:utils.idkw`)
-          );
-        } else {
-          bot.reply(message, t(`${lang}:utils.idkw`));
-        }
-      })
-      .catch((err) => bot.reply(message, t(`${lang}:utils.idkw`)));
+  async (bot, message) => {
+    try {
+      const {body: {results: [{language}]}} = await services.getUser({urn: `facebook:${message.user}`});
+      if (language) {
+        bot.reply(message, t(`${localeUtils.lookupISO6391(language)}:utils.idkw`));
+      } else {
+        bot.reply(message, t(`${lang}:utils.idkw`));
+      }
+    } catch (e) {
+      bot.reply(message, t(`${lang}:utils.idkw`));
+    }
   }
 );
