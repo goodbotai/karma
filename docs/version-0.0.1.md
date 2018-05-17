@@ -1,28 +1,27 @@
-
 # Version 0.0.1
 
-1.  [User interaction](#org14b0929)
-    1.  [Consent](#org6c95a14)
-    2.  [Sharing](#orgd5d5dce)
-    3.  [Restarts](#org73d84c5)
-    4.  [Help](#org8dd870d)
-    5.  [Language change](#org74d0be7)
-    6.  [Stop daily messaging](#org89b057a)
-2.  [Terms](#org0cf46f2)
-3.  [Schedules](#org4c9e324)
+1.  [User interaction](#org7f06b27)
+    1.  [Consent](#orge10428d)
+    2.  [Sharing](#org55c34a7)
+    3.  [Restarts](#org4b0edf4)
+    4.  [Help](#org1b1fe7b)
+    5.  [Language change](#org96b8349)
+    6.  [Stop daily messaging](#org65072b3)
+2.  [Terms](#org802b1d7)
+3.  [Schedules](#org7aac279)
 
 
 
-<a id="org14b0929"></a>
+<a id="org7f06b27"></a>
 
-# User interaction
+## User interaction
 
 Consent is at the core of all interactions.
 
 
-<a id="org6c95a14"></a>
+<a id="orge10428d"></a>
 
-## Consent
+### Consent
 
 Does not create a user unless they click yes on consent.
 
@@ -32,9 +31,9 @@ Is consented?
 -   **false:** say goodbye
 
 
-<a id="orgd5d5dce"></a>
+<a id="org55c34a7"></a>
 
-## Sharing
+### Sharing
 
 Sharing leads to a conversation with BEATs.
 Does a conversation exist?
@@ -47,9 +46,9 @@ Does a conversation exist?
     -   **false:** show consent page
 
 
-<a id="org73d84c5"></a>
+<a id="org4b0edf4"></a>
 
-## Restarts
+### Restarts
 
 -   When in a survey
     -   restart that survey
@@ -60,9 +59,9 @@ Does a conversation exist?
         -   **false:** show consent and message them later
 
 
-<a id="org8dd870d"></a>
+<a id="org1b1fe7b"></a>
 
-## Help
+### Help
 
 -   When in a survey
     -   **Reject** because we expect answers
@@ -70,16 +69,16 @@ Does a conversation exist?
 -   When **outside** a survey
     -   Show help text
 
-1.  What does help text do?
+-   Help text prompt
+    -   **no:** show thank you message
+    -   **yes:** is consented?  
+        - **true :** start second survey
+        - **false:** show consent
 
-    -   is consented?
-        -   **true :** start second survey
-        -   **false:** show consent
 
+<a id="org96b8349"></a>
 
-<a id="org74d0be7"></a>
-
-## Language change
+### Language change
 
 Is consented?
 
@@ -87,17 +86,17 @@ Is consented?
 -   **false:** change language and restart the current survey in the language of their choosing
 
 
-<a id="org89b057a"></a>
+<a id="org65072b3"></a>
 
-## Stop daily messaging
+### Stop daily messaging
 
 Move user to an unsubscribe group
 > Should we have a delete?
 
 
-<a id="org0cf46f2"></a>
+<a id="org802b1d7"></a>
 
-# Terms
+## Terms
 
 -   **creating a user:** creating a contact in RapidPro
 -   **user:** contact in RapidPro
@@ -108,9 +107,8 @@ Move user to an unsubscribe group
 -   **trigger:** an action that prompts the user to take a **survey**
 
 
-<a id="org4c9e324"></a>
+<a id="org7aac279"></a>
 
-# Schedules
+## Schedules
 
 To be done manually
-
