@@ -1,39 +1,42 @@
 # Version 0.0.1
 
-1.  [User interaction](#org7f06b27)
-    1.  [Consent](#orge10428d)
-    2.  [Sharing](#org55c34a7)
-    3.  [Restarts](#org4b0edf4)
-    4.  [Help](#org1b1fe7b)
-    5.  [Language change](#org96b8349)
-    6.  [Stop daily messaging](#org65072b3)
-2.  [Terms](#org802b1d7)
-3.  [Schedules](#org7aac279)
+1.  [User interaction](#orgeb44274)
+    1.  [Consent](#org1c6339e)
+    2.  [Sharing](#org180bd2c)
+    3.  [Restarts](#org2a2db36)
+    4.  [Help](#orgd570036)
+    5.  [Language change](#org2e57697)
+    6.  [Stop daily messaging](#orgdde6c10)
+2.  [Terms](#orgc776027)
+3.  [Surveys](#org3f44bae)
+4.  [Schedules](#org2c93128)
 
 
 
-<a id="org7f06b27"></a>
+<a id="orgeb44274"></a>
 
-## User interaction
+# User interaction
 
 Consent is at the core of all interactions.
 
 
-<a id="orge10428d"></a>
+<a id="org1c6339e"></a>
 
-### Consent
+## Consent
 
 Does not create a user unless they click yes on consent.
 
 Is consented?
 
--   **true :** Give them a message telling them they'll be contacted later
+-   **true :** Create a user and them they'll be contacted later
 -   **false:** say goodbye
 
+> TODO: Where to save referring survey UUID?
 
-<a id="org55c34a7"></a>
 
-### Sharing
+<a id="org180bd2c"></a>
+
+## Sharing
 
 Sharing leads to a conversation with BEATs.
 Does a conversation exist?
@@ -46,9 +49,9 @@ Does a conversation exist?
     -   **false:** show consent page
 
 
-<a id="org4b0edf4"></a>
+<a id="org2a2db36"></a>
 
-### Restarts
+## Restarts
 
 -   When in a survey
     -   restart that survey
@@ -59,9 +62,9 @@ Does a conversation exist?
         -   **false:** show consent and message them later
 
 
-<a id="org1b1fe7b"></a>
+<a id="orgd570036"></a>
 
-### Help
+## Help
 
 -   When in a survey
     -   **Reject** because we expect answers
@@ -71,14 +74,14 @@ Does a conversation exist?
 
 -   Help text prompt
     -   **no:** show thank you message
-    -   **yes:** is consented?  
-        - **true :** start second survey
-        - **false:** show consent
+    -   **yes:** -   is consented?
+            -   **true :** start second survey
+            -   **false:** show consent
 
 
-<a id="org96b8349"></a>
+<a id="org2e57697"></a>
 
-### Language change
+## Language change
 
 Is consented?
 
@@ -86,17 +89,17 @@ Is consented?
 -   **false:** change language and restart the current survey in the language of their choosing
 
 
-<a id="org65072b3"></a>
+<a id="orgdde6c10"></a>
 
-### Stop daily messaging
+## Stop daily messaging
 
 Move user to an unsubscribe group
 > Should we have a delete?
 
 
-<a id="org802b1d7"></a>
+<a id="orgc776027"></a>
 
-## Terms
+# Terms
 
 -   **creating a user:** creating a contact in RapidPro
 -   **user:** contact in RapidPro
@@ -107,8 +110,25 @@ Move user to an unsubscribe group
 -   **trigger:** an action that prompts the user to take a **survey**
 
 
-<a id="org7aac279"></a>
+<a id="org3f44bae"></a>
 
-## Schedules
+# Surveys
+
+There are two surveys:
+
+1.  Survey 1
+2.  Survey 2
+
+To get to a survey you need to go through
+
+1.  A trigger
+2.  A restart
+3.  Help message
+
+
+<a id="org2c93128"></a>
+
+# Schedules
 
 To be done manually
+
