@@ -1,6 +1,6 @@
 {
-  "introduction": {
-    "consent": "Selamat datang di BEATs! Saya akan bertanya kepada Anda secara berkala tentang keadaan dan kesejahteraan Anda sehari-hari. Sebelum melanjutkan, silahkan kunjungi lembar persetujuan di laman berikut: https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/.",
+  "consent": {
+    "introduction": "Selamat datang di BEATs! Saya akan bertanya kepada Anda secara berkala tentang keadaan dan kesejahteraan Anda sehari-hari. Sebelum melanjutkan, silahkan kunjungi lembar persetujuan di laman berikut: https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/.",
     "proceed": "Apakah Anda setuju untuk melanjutkan?",
     "accept": "Terima kasih! Saya akan menghubungi Anda lagi besok.",
     "reject": "Terima kasih atas waktu Anda berkunjung ke BEATs."

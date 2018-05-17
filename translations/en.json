@@ -1,6 +1,6 @@
 {
-  "introduction": {
-    "consent": "Welcome to BEATs! I will ask questions routinely about your daily experiences and emotions. Before proceeding, please visit the informed consent link below: https://www.facebook.com/notes/beats/informed-consent/2024254367616223/.",
+  "consent": {
+    "introduction": "Welcome to BEATs! I will ask questions routinely about your daily experiences and emotions. Before proceeding, please visit the informed consent link below: https://www.facebook.com/notes/beats/informed-consent/2024254367616223/.",
     "proceed": "Would you like to proceed?",
     "accept": "Thank you! I will contact you again tomorrow.",
     "reject": "Thank you for your time visiting BEATs."
@@ -33,7 +33,7 @@
   "utils": {
     "yes": "Yes",
     "no": "No",
-    "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
+    "helpMessage": "I am BEATS, a program meant to ask you questions every day about your wellbeing.\nYou can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
     "pressYN": "Please tap \"Yes\" or \"No\" or enter one of these\nYes\nNo",
     "rereadAndAnswer": "I didn't get that please read the question and answer again.",
     "tapAnswer": "Please tap on a provided answer or enter one of these.\n{{{options}}}",
