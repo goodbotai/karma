@@ -9,10 +9,13 @@ const {
 
 const {
   helpConversation,
+  quitConversation,
   prepareConversation,
   consentConversation,
 } = require('./lib/user.js');
 const setup = require('./lib/setup.js');
+const {getContact} = require('./lib/utils.js');
+
 
 const karma = controller.spawn({});
 let lang = config.defaultLanguage;
@@ -20,32 +23,20 @@ let lang = config.defaultLanguage;
 setup(karma);
 
 controller.on('facebook_postback', async (bot, message) => {
-  const {payload, user} = message;
-  if (['restart_survey', 'get_started'].includes(payload)) {
-    prepareConversation(bot, message);
-  } else if (['switch_pt', 'switch_en', 'switch_id'].includes(payload)) {
-    lang = payload.split('_')[1];
-    prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
-  } else if (['quit', 'opt_out'].includes(payload)) {
-    if (payload === 'opt_out') {
-      services.deleteUser(
-        message.user,
-        Object.values(config.deletedUserGroups)
-      );
+  const contact = await getContact(message.user);
+  if (contact) {
+    const {payload, user} = message;
+    if (['get_started'].includes(payload)) {
+      prepareConversation(bot, message, contact, 'get started');
+    } else if (['switch_pt', 'switch_en', 'switch_id'].includes(payload)) {
+      prepareConversation(bot, message, contact, 'change language');
+    } else if (['restart_survey'].includes(payload)) {
+      prepareConversation(bot, message, contact, 'restart');
+    } else if (['quit', 'opt_out'].includes(payload)) {
+      quitConversation(bot, message, contact);
     }
-    try {
-      const {body: {results: [{language}]}} = await services.getUser({urn: `facebook:${user}`});
-      if (language) {
-        bot.reply(
-          message,
-          t(`${localeUtils.lookupISO6391(language)}:utils.quitMessage`)
-        );
-      } else {
-        bot.reply(message, t(`${lang}:utils.quitMessage`));
-      }
-    } catch(e) {
-      bot.reply(message, t(`${lang}:utils.quitMessage`));
-    }
+  } else {
+    consentConversation(bot, message);
   }
 });
 
