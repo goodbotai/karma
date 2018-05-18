@@ -31,7 +31,7 @@ Is consented?
 -   **true :** Create a user and them they'll be contacted later
 -   **false:** say goodbye
 
-> TODO: Where to save referring survey UUID?
+Saving referrals in a referral form.
 
 
 <a id="org180bd2c"></a>

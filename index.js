@@ -1,5 +1,4 @@
 const {
-  services,
   config,
   translate: t,
   localeUtils,
@@ -47,14 +46,16 @@ controller.on('facebook_postback', async (bot, message) => {
 controller.on('facebook_referral', consentConversation);
 
 controller.hears(utterances.greetings, 'message_received', async (bot, message) => {
-  let lang;
   try {
-    const {language} = await services.getContact(message.user);
-    lang = localeUtils.lookupISO6391(language);
-  } catch(e) {
-    lang = config.defaultLanguage;
+    const contact = await getContact(message.user);
+    if (!contact) {
+      throw Error ('Contact does not exist');
+    }
+    const lang = localeUtils.lookupISO6391(contact.language);
+    helpConversation(bot, message, lang);
+  } catch (e) {
+    consentConversation(bot, message);
   }
-  return helpConversation(bot, message, lang);
 });
 
 controller.hears(
