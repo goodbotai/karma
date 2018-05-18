@@ -10,7 +10,7 @@ const {
 const {
   helpConversation,
   prepareConversation,
-  createUserAndStartConversation,
+  consentConversation,
 } = require('./lib/user.js');
 const setup = require('./lib/setup.js');
 
@@ -49,9 +49,7 @@ controller.on('facebook_postback', async (bot, message) => {
   }
 });
 
-controller.on('facebook_referral', (bot, message) => {
-  createUserAndStartConversation(message, bot);
-});
+controller.on('facebook_referral', consentConversation);
 
 controller.hears(utterances.greetings, 'message_received', async (bot, message) => {
   const {user} = message;
