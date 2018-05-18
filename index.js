@@ -47,10 +47,9 @@ controller.on('facebook_postback', async (bot, message) => {
 controller.on('facebook_referral', consentConversation);
 
 controller.hears(utterances.greetings, 'message_received', async (bot, message) => {
-  const {user} = message;
   let lang;
   try {
-    const {body: {results: [{language}]}} = await services.getUser({urn: `facebook:${user}`});
+    const {language} = await services.getContact(message.user);
     lang = localeUtils.lookupISO6391(language);
   } catch(e) {
     lang = config.defaultLanguage;
