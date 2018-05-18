@@ -5,9 +5,15 @@
     "node": true
   },
   "rules": {
-    
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true }],
+    "no-warning-comments": [
+      2,
+      {
+        "terms": ["todo", "fixme"],
+        "location": "anywhere"
+      }
+    ],
     "max-len": [
       "error",
       {
