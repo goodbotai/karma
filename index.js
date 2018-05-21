@@ -1,84 +1,85 @@
 const {
-  services,
   config,
   translate: t,
   localeUtils,
+  logger,
   facebook: {controller},
   conversations: {utterances},
 } = require('borq');
 
 const {
   helpConversation,
+  quitConversation,
   prepareConversation,
-  createUserAndStartConversation,
+  consentConversation,
 } = require('./lib/user.js');
 const setup = require('./lib/setup.js');
+const {getContact} = require('./lib/utils.js');
 
 const karma = controller.spawn({});
-let lang = config.defaultLanguage;
+const lang = config.defaultLanguage;
 
 setup(karma);
 
-controller.on('facebook_postback', (bot, message) => {
-  const {payload, user} = message;
-  if (['restart_survey', 'get_started'].includes(payload)) {
-    prepareConversation(bot, message);
-  } else if (['switch_pt', 'switch_en', 'switch_id'].includes(payload)) {
-    lang = payload.split('_')[1];
-    prepareConversation(bot, message, localeUtils.lookupISO6392(lang));
-  } else if (['quit', 'opt_out'].includes(payload)) {
-    if (payload === 'opt_out') {
-      services.deleteUser(
-        message.user,
-        Object.values(config.deletedUserGroups)
-      );
+controller.on('facebook_postback', async (bot, message) => {
+  try {
+    const contact = await getContact(message.user);
+    if (contact) {
+      const {payload} = message;
+      if (['get_started'].includes(payload)) {
+        prepareConversation(bot, message, contact, 'get started');
+      } else if (['switch_pt', 'switch_en', 'switch_id'].includes(payload)) {
+        prepareConversation(bot, message, contact, 'change language');
+      } else if (['restart_survey'].includes(payload)) {
+        prepareConversation(bot, message, contact, 'restart');
+      } else if (['quit', 'opt_out'].includes(payload)) {
+        quitConversation(bot, message, contact);
+      }
+    } else {
+      consentConversation(bot, message);
     }
-    services
-      .getUser({urn: `facebook:${user}`})
-      .then(({body: {results: [{language}]}}) => {
-        if (language) {
-          bot.reply(
-            message,
-            t(`${localeUtils.lookupISO6391(language)}:utils.quitMessage`)
-          );
-        } else {
-          bot.reply(message, t(`${lang}:utils.quitMessage`));
-        }
-      })
-      .catch((err) => bot.reply(message, t(`${lang}:utils.quitMessage`)));
+  } catch (e) {
+    logger.logRejectedPromise(
+      'Failed facebook_postback in index \n' + JSON.stringify(message) + e
+    );
   }
 });
 
-controller.on('facebook_referral', (bot, message) => {
-  createUserAndStartConversation(message, bot);
-});
+controller.on('facebook_referral', consentConversation);
 
-controller.hears(utterances.greetings, 'message_received', (bot, message) => {
-  const {user} = message;
-  services
-    .getUser({urn: `facebook:${user}`})
-    .then(({body: {results: [{language}]}}) => {
-      helpConversation(bot, message, localeUtils.lookupISO6391(language));
-    })
-    .catch((err) => helpConversation(bot, message, lang));
-});
+controller.hears(
+  utterances.greetings,
+  'message_received',
+  async (bot, message) => {
+    try {
+      const contact = await getContact(message.user);
+      if (!contact) {
+        throw Error('Contact does not exist');
+      }
+      const lang = localeUtils.lookupISO6391(contact.language);
+      helpConversation(bot, message, lang);
+    } catch (e) {
+      consentConversation(bot, message);
+    }
+  }
+);
 
 controller.hears(
   [/\w+/, utterances.punctuation, /[0-9]+/],
   'message_received',
-  (bot, message) => {
-    services
-      .getUser({urn: `facebook:${message.user}`})
-      .then(({body: {results: [{language}]}}) => {
-        if (language) {
-          bot.reply(
-            message,
-            t(`${localeUtils.lookupISO6391(language)}:utils.idkw`)
-          );
-        } else {
-          bot.reply(message, t(`${lang}:utils.idkw`));
-        }
-      })
-      .catch((err) => bot.reply(message, t(`${lang}:utils.idkw`)));
+  async (bot, message) => {
+    try {
+      const {language} = await getContact(message.user);
+      if (language) {
+        bot.reply(
+          message,
+          t(`${localeUtils.lookupISO6391(language)}:utils.idkw`)
+        );
+      } else {
+        bot.reply(message, t(`${lang}:utils.idkw`));
+      }
+    } catch (e) {
+      bot.reply(message, t(`${lang}:utils.idkw`));
+    }
   }
 );

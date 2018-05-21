@@ -1,49 +1,72 @@
 {
-  "yes": "Yes",
-  "no": "No",
-
-  "A1": "It is important to respond to all the questions without stopping. Prefereably, complete the survey in 10 minutes.",
-  "doing": "What are you doing right now?",
-  "withSomeone": "Are you with someone now?",
-  "withWhom": "Who are you with?",
-  "withWhomRelationship": "Is {{&responses.with_whom_name}} your",
-  "withAnyoneElse": "Is anyone else with you?",
-  "thoughts": "What are you thinking about right now?",
-  "A4": "We will show you a list of words describing different feelings and emotions. Indicate to what extent you feel this way right now.\n1 - Very Slightly or Not at All \n2 - A Little \n3 - Moderately \n4 - Quite a Bit \n5 - Extremely",
-  "socialConcern": "What is your major social concern right now?",
-  "socialConcernHowAffected": "On a scale from 1 to 10 (1 not at all and 10 extremely), how much are you affected by {{&responses.social_concern}}?",
-  "B3": "We will show you a list of words describing different feelings and emotions. Indicate to what extent {{&responses.social_concern}} makes you feel right now.\n1 - Very Slightly or Not at All \n2 - A Little \n3 - Moderately \n4 - Quite a Bit \n5 - Extremely",
-  "socialConcernSpoken": "Have you spoken with someone about {{&responses.social_concern}} recently?",
-  "socialConcernSpokeToRelationship": "Who did you talk to about {{&responses.social_concern}}?",
-  "socialConcernConfidantName": "What is their name?",
-  "socialConcernChangeScale": "How much on a scale of 1 to 10 (1 worse and 10 better) did talking about {{&responses.social_concern}} with {{&responses.social_concern_confidant_name}} changed what you think about it?",
-  "whatChanged": "What changed specifically?",
-  "socialConcernChangeBW": "Do you feel worse or better after you talked about {{&responses.social_concern}}?",
-  "B4f": "Have you spoken with someone else about {{&responses.social_concern}} recently?",
-  "thankYouLater": "Thanks, see you later today! 😃",
-  "thankYou": "Thanks, see you in three days! 😃",
-  "shareWith": "Please press \"SHARE\" to send me to your friends.",
-  "dailyGreeting": "Hi {{{contactName}}}, are you ready to talk about your wellbeing?",
-  "introduction": {
-    "consent": "Welcome to BEATs! I will ask questions routinely about your daily experiences and emotions. Before proceeding, please visit the informed consent link below: https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/.",
+  "consent": {
+    "introduction":
+      "Welcome to BEATs!\nI will ask questions routinely about your daily experiences and emotions.\nBefore proceeding, please visit the informed consent link below: https://www.facebook.com/notes/beats/informed-consent/2024254367616223/.",
     "proceed": "Would you like to proceed?",
     "accept": "Thank you! I will contact you again tomorrow.",
     "reject": "Thank you for your time visiting BEATs."
   },
 
+  "firstSurvey": {
+    "A1":
+      "It is important to respond to all the questions without stopping. Prefereably, complete the survey in 10 minutes.",
+    "doing": "What are you doing right now?",
+    "withSomeone": "Are you with someone now?",
+    "withWhom": "Who are you with?",
+    "withWhomRelationship": "Is {{&responses.with_whom_name}} your",
+    "withAnyoneElse": "Is anyone else with you?",
+    "thoughts": "What are you thinking about right now?",
+    "A4":
+      "We will show you a list of words describing different feelings and emotions. Indicate to what extent you feel this way right now.\n1 - Very Slightly or Not at All \n2 - A Little \n3 - Moderately \n4 - Quite a Bit \n5 - Extremely"
+  },
+
+  "secondSurvey": {
+    "socialConcern": "What is your major social concern right now?",
+    "socialConcernHowAffected":
+      "On a scale from 1 to 10 (1 not at all and 10 extremely), how much are you affected by {{&responses.social_concern}}?",
+    "B3":
+      "We will show you a list of words describing different feelings and emotions. Indicate to what extent {{&responses.social_concern}} makes you feel right now.\n1 - Very Slightly or Not at All \n2 - A Little \n3 - Moderately \n4 - Quite a Bit \n5 - Extremely",
+    "socialConcernSpoken":
+      "Have you spoken with someone about {{&responses.social_concern}} recently?",
+    "socialConcernSpokeToRelationship":
+      "Who did you talk to about {{&responses.social_concern}}?",
+    "socialConcernConfidantName": "What is their name?",
+    "socialConcernChangeScale":
+      "How much on a scale of 1 to 10 (1 worse and 10 better) did talking about {{&responses.social_concern}} with {{&responses.social_concern_confidant_name}} changed what you think about it?",
+    "whatChanged": "What changed specifically?",
+    "socialConcernChangeBW":
+      "Do you feel worse or better after you talked about {{&responses.social_concern}}?",
+    "B4f":
+      "Have you spoken with someone else about {{&responses.social_concern}} recently?"
+  },
+
   "utils": {
-    "helpMessage": "I am BEATS. I am a program meant to ask you questions every day about your wellbeing.\n You can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
+    "yes": "Yes",
+    "no": "No",
+    "helpMessage":
+      "I am BEATS, a program meant to ask you questions every day about your wellbeing.\nYou can press the menu button (the button with ☰) to see what else I offer.\nDo you want to start a survey?",
     "pressYN": "Please tap \"Yes\" or \"No\" or enter one of these\nYes\nNo",
-    "rereadAndAnswer": "I didn't get that please read the question and answer again.",
-    "tapAnswer": "Please tap on a provided answer or enter one of these.\n{{{options}}}",
-    "timeoutMessage": "Conversation has ended because you did not reply within 20 minutes. You may reply with \"help\"",
+    "rereadAndAnswer":
+      "I didn't get that please read the question and answer again.",
+    "tapAnswer":
+      "Please tap on a provided answer or enter one of these.\n{{{options}}}",
+    "timeoutMessage":
+      "Conversation has ended because you did not reply within 20 minutes. You may reply with \"help\"",
     "quitMessage": "Bye.\nYou can start me up again by sending me a \"hello\".",
-    "idkw": "I don't know that word yet. Just say \"hello\" to start a conversation.",
+    "idkw":
+      "I don't know that word yet. Just say \"hello\" to start a conversation.",
     "done": "Done",
     "start": "Start",
     "shareTitle": "Hello, I'm BEATS. 😃",
-    "shareSubTitle": "I was referred to you by {{{name}}}. I would like to ask you questions about your wellbeing. Press \"Start\" if you would like me to."
+    "shareSubTitle":
+      "I was referred to you by {{{name}}}. I would like to ask you questions about your wellbeing. Press \"Start\" if you would like me to.",
+    "thankYouLater": "Thanks, see you later today! 😃",
+    "thankYou": "Thanks, see you in three days! 😃",
+    "shareWith": "Please press \"SHARE\" to send me to your friends.",
+    "dailyGreeting":
+      "Hi {{{contactName}}}, are you ready to talk about your wellbeing?"
   },
+
   "relationships": {
     "friend": "Friend",
     "family": "Family",
@@ -52,6 +75,7 @@
     "client": "Client/Customer",
     "other": "Other"
   },
+
   "emotions": {
     "upset": "Upset",
     "hostile": "Hostile",

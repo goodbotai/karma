@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - 9.5.0
+  - 10.1.0
 
 install:
-  - npm install --dev
+  - yarn install
 
 script:
   - yarn lint

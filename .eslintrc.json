@@ -1,5 +1,5 @@
 {
-  "extends": "google",
+  "extends": ["recommended/node", "google"],
   "plugins": ["prettier"],
   "env": {
     "node": true
@@ -7,6 +7,15 @@
   "rules": {
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true }],
+    "import/no-commonjs": [0],
+    "import/no-nodejs-modules": [0],
+    "no-warning-comments": [
+      2,
+      {
+        "terms": ["todo", "fixme"],
+        "location": "anywhere"
+      }
+    ],
     "max-len": [
       "error",
       {
@@ -28,7 +37,7 @@
     ]
   },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 8,
     "sourceType": "module",
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
