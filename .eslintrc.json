@@ -1,5 +1,5 @@
 {
-  "extends": ["google", "recommended/node"],
+  "extends": ["recommended/node", "google"],
   "plugins": ["prettier"],
   "env": {
     "node": true
@@ -7,6 +7,8 @@
   "rules": {
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true }],
+    "import/no-commonjs": [0],
+    "import/no-nodejs-modules": [0],
     "no-warning-comments": [
       2,
       {
