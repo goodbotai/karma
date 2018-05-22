@@ -59,6 +59,7 @@ controller.hears(
       const lang = localeUtils.lookupISO6391(contact.language);
       helpConversation(bot, message, lang);
     } catch (e) {
+      logger.logRejectedPromise('Greeting listener get contact failed ' + e);
       consentConversation(bot, message);
     }
   }
