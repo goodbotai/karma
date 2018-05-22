@@ -1,5 +1,5 @@
 /* eslint require-jsdoc: "off" */
-const assert = require('assert');
+/* eslint no-undef: "off" */
 const {
   repeatAnyoneObject,
   repeatObject,

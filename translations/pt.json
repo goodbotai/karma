@@ -1,60 +1,95 @@
- {
-   "yes": "Sim",
-   "no": "Não",
+{
+  "consent": {
+    "title": "Termo de consentimento livre e esclarecido",
+    "introduction":
+    "Bem-vindo ao BEATs!\nVou fazer perguntas sobre seu dia a dia e emoções.\nAntes de prosseguir, visite o link do termo de consentimento abaixo.",
+    "URL": "https://www.facebook.com/notes/beats/termo-de-consentimento-livre-e-esclarecido/2024270870947906",
+    "proceed": "Você concorda em seguir a diante? ",
+    "accept": "Obrigado! Eu entrarei em contato com você novamente amanhã.",
+    "reject": "Obrigado pelo seu tempo."
+  },
 
-   "A1": "É importante responder a todas as perguntas sem parar. Preferevelmente, complete a pesquisa em 10 minutos.",
-   "doing": "O que você está fazendo agora?",
-   "withSomeone": "Você está com alguém agora?",
-   "withWhom": "Se sim, quem está com você agora?",
-   "withWhomRelationship": "{{responses.with_whom_name}} é seu:",
-   "withAnyoneElse": "Tem mais alguém com você?",
-   "thoughts": "No que você está pensando agora?",
-   "A4": "Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como você está se sentindo agora.\n1 - Muito pouco ou nada \n2 - Um pouco \n3 - Moderadamente \n4 - Bastante \n5 - Extremamente",
-   "socialConcern": "Qual o problema social mais importante para você agora?",
-   "socialConcernHowAffected": "Numa escala de 1 a 10, o quanto {{&responses.social_concern}} te afeta? ",
-   "B3": " Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como  {{&responses.social_concern}} faz você se sentir agora.\n1 - Muito pouco ou nada \n2 - Um pouco \n3 - Moderadamente \n4 - Bastante \n5 - Extremamente",
-   "socialConcernSpoken": "Você conversou com alguém sobre {{&responses.social_concern}} recentemente?",
-   "socialConcernSpokeTo": "Se sim, com quem você conversou sobre {{&responses.social_concern}}?",
-   "socialConcernConfidant": "Qual o nome dessa pessoa?",
-   "socialConcernChangeScale": "O quanto em uma escala de 1 a 10 ter conversado sobre {{&responses.social_concern}} com {{&responses.social_concern_confidant_name}} mudou o que você pensa sobre este assunto?",
-   "whatChanged": "O que mudou especificamente?",
-   "socialConcernChangeBW": "Você se sente pior ou melhor depois de conversar sobre {{&responses.social_concern}}?",
-   "B4f": "Você conversou com mais alguém sobre {{&responses.social_concern}} recentemente?",
-   "thankYouLater": "Obrigada, até mais! 😃",
-   "thankYou": "Obrigado, vejo você em três dias! 😃",
-   "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
-   "dailyGreeting": "Oi, {{{contactName}}} você está pronto para falar sobre seu bem-estar?",
-   "utils": {
-     "helpMessage": "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" para iniciar uma conversa comigo.",
-     "timeoutMessage": "A conversa terminou porque você não respondeu dentro de 20 minutos. Você pode responder com \"oi\"",
-     "pressYN": "Por favor, toque em \"Sim\" ou \"Não\" ou digite um destes \nsim\nNão",
-     "rereadAndAnswer": "Eu não entendi, por favor, leia a pergunta e responda novamente.",
-     "tapAnswer": "Por favor, toque em uma resposta fornecida ou digite um destes.\n{{{options}}}",
-     "quitMessage": "Bye.\nVocê pode me iniciar novamente enviando-me um \"olá\".",
-     "idkw": "Ainda não conheço essa palavra. Basta dizer \"oi\" para iniciar uma conversa.",
-     "done": "Feito",
-     "start": "Comece",
-     "shareTitle": "Olá, eu sou BEATs. 😃",
-     "shareSubTitle": "Eu fui encaminhado para você por {{{name}}}. Gostaria de fazer-lhe perguntas sobre o seu bem-estar. Pressione \"Comece\" se você quiser.."
-   },
-   "relationships": {
-     "friend": "amigo",
-     "family": "família",
-     "partner": "esposa/marido//namorada(o)",
-     "co-worker": "colega de trabalho",
-     "client": "cliente",
-     "other": "outro"
-   },
-   "emotions": {
-     "upset": "Aborrecido",
-     "hostile": "Agressivo",
-     "alert": "Alerta",
-     "ashamed": "Envergonhado",
-     "inspired": "Inspirado",
-     "nervous": "Nervoso",
-     "determined": "Determinado",
-     "attentive": "Atento",
-     "afraid": "Amedrontado",
-     "active": "Ativo"
-   }
- }
+  "firstSurvey": {
+    "A1":
+      "É importante responder a todas as perguntas sem parar. Preferevelmente, complete a pesquisa em 10 minutos.",
+    "doing": "O que você está fazendo agora?",
+    "withSomeone": "Você está com alguém agora?",
+    "withWhom": "Se sim, quem está com você agora?",
+    "withWhomRelationship": "{{responses.with_whom_name}} é seu:",
+    "withAnyoneElse": "Tem mais alguém com você?",
+    "thoughts": "No que você está pensando agora?",
+    "A4":
+      "Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como você está se sentindo agora.\n1 - Muito pouco ou nada \n2 - Um pouco \n3 - Moderadamente \n4 - Bastante \n5 - Extremamente"
+  },
+
+  "secondSurvey": {
+    "socialConcern": "Qual o problema social mais importante para você agora?",
+    "socialConcernHowAffected":
+      "Numa escala de 1 a 10, o quanto {{&responses.social_concern}} te afeta? ",
+    "B3":
+      " Vamos te mostrar uma lista de palavras que descrevem sentimentos e emoções. Indique como  {{&responses.social_concern}} faz você se sentir agora.\n1 - Muito pouco ou nada \n2 - Um pouco \n3 - Moderadamente \n4 - Bastante \n5 - Extremamente",
+    "socialConcernSpoken":
+      "Você conversou com alguém sobre {{&responses.social_concern}} recentemente?",
+    "socialConcernSpokeTo":
+      "Se sim, com quem você conversou sobre {{&responses.social_concern}}?",
+    "socialConcernConfidant": "Qual o nome dessa pessoa?",
+    "socialConcernChangeScale":
+      "O quanto em uma escala de 1 a 10 ter conversado sobre {{&responses.social_concern}} com {{&responses.social_concern_confidant_name}} mudou o que você pensa sobre este assunto?",
+    "whatChanged": "O que mudou especificamente?",
+    "socialConcernChangeBW":
+      "Você se sente pior ou melhor depois de conversar sobre {{&responses.social_concern}}?",
+    "B4f":
+      "Você conversou com mais alguém sobre {{&responses.social_concern}} recentemente?"
+  },
+
+  "utils": {
+    "yes": "Sim",
+    "no": "Não",
+    "helpMessage":
+      "Eu sou BEATs. Eu sou um programa destinado a fazer perguntas diariamente sobre seu bem-estar.\n Você pode pressionar o botão de menu (o botão com ☰) para ver o que mais eu ofereço. Você também pode responder com \"oi \" para iniciar uma conversa comigo.",
+    "timeoutMessage":
+      "A conversa terminou porque você não respondeu dentro de 20 minutos. Você pode responder com \"oi\"",
+    "pressYN":
+      "Por favor, toque em \"Sim\" ou \"Não\" ou digite um destes \nsim\nNão",
+    "rereadAndAnswer":
+      "Eu não entendi, por favor, leia a pergunta e responda novamente.",
+    "tapAnswer":
+      "Por favor, toque em uma resposta fornecida ou digite um destes.\n{{{options}}}",
+    "quitMessage":
+      "Bye.\nVocê pode me iniciar novamente enviando-me um \"olá\".",
+    "idkw":
+      "Ainda não conheço essa palavra. Basta dizer \"oi\" para iniciar uma conversa.",
+    "done": "Feito",
+    "start": "Comece",
+    "shareTitle": "Olá, eu sou BEATs. 😃",
+    "shareSubTitle":
+      "Eu fui encaminhado para você por {{{name}}}. Gostaria de fazer-lhe perguntas sobre o seu bem-estar. Pressione \"Comece\" se você quiser..",
+    "thankYouLater": "Obrigada, até mais! 😃",
+    "thankYou": "Obrigado, vejo você em três dias! 😃",
+    "shareWith": "Por favor, aperte \"SHARE\" para me enviar aos seus amigos.",
+    "dailyGreeting":
+      "Oi, {{{contactName}}} você está pronto para falar sobre seu bem-estar?"
+  },
+
+  "relationships": {
+    "friend": "amigo",
+    "family": "família",
+    "partner": "esposa/marido//namorada(o)",
+    "co-worker": "colega de trabalho",
+    "client": "cliente",
+    "other": "outro"
+  },
+
+  "emotions": {
+    "upset": "Aborrecido",
+    "hostile": "Agressivo",
+    "alert": "Alerta",
+    "ashamed": "Envergonhado",
+    "inspired": "Inspirado",
+    "nervous": "Nervoso",
+    "determined": "Determinado",
+    "attentive": "Atento",
+    "afraid": "Amedrontado",
+    "active": "Ativo"
+  }
+}
