@@ -1,7 +1,9 @@
 {
   "consent": {
+    "title": "Termo de consentimento livre e esclarecido",
     "introduction":
-      "Bem-vindo ao BEATs!\nVou fazer perguntas sobre seu dia a dia e emoções.\nAntes de prosseguir, visite o link do termo de consentimento abaixo: https://www.facebook.com/notes/beats/termo-de-consentimento-livre-e-esclarecido/2024270870947906/",
+    "Bem-vindo ao BEATs!\nVou fazer perguntas sobre seu dia a dia e emoções.\nAntes de prosseguir, visite o link do termo de consentimento abaixo.",
+    "URL": "https://www.facebook.com/notes/beats/termo-de-consentimento-livre-e-esclarecido/2024270870947906",
     "proceed": "Você concorda em seguir a diante? ",
     "accept": "Obrigado! Eu entrarei em contato com você novamente amanhã.",
     "reject": "Obrigado pelo seu tempo."
