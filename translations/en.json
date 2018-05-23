@@ -4,7 +4,7 @@
     "text":
     "Welcome to BEATs!\nI will ask questions routinely about your daily experiences and emotions.\nBefore proceeding, please visit the informed consent link below.\nhttps://www.facebook.com/notes/beats/informed-consent/2024254367616223",
     "URL": "https://www.facebook.com/notes/beats/informed-consent/2024254367616223",
-    "proceed": "Would you like to proceed?",
+    "proceed": "Would you like to proceed?\nPlease tap \"Yes\" or \"No\" or enter one of these\nYes\nNo",
     "accept": "Thank you! I will contact you again tomorrow.",
     "reject": "Thank you for your time visiting BEATs."
   },
