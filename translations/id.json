@@ -1,9 +1,9 @@
 {
   "consent": {
     "title": "Lembar Persetujuan",
-    "introduction":
-    "Selamat datang di BEATs!\nSaya akan bertanya kepada Anda secara berkala tentang keadaan dan kesejahteraan Anda sehari-hari.\nSebelum melanjutkan, silahkan kunjungi lembar persetujuan di laman berikut.",
-    "URL": "https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751/",
+    "text":
+    "Selamat datang di BEATs!\nSaya akan bertanya kepada Anda secara berkala tentang keadaan dan kesejahteraan Anda sehari-hari.\nSebelum melanjutkan, silahkan kunjungi lembar persetujuan di laman berikut.\nhttps://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751",
+    "URL": "https://www.facebook.com/notes/beats/lembar-persetujuan/2017675754940751",
     "proceed": "Apakah Anda setuju untuk melanjutkan?",
     "accept": "Terima kasih! Saya akan menghubungi Anda lagi besok.",
     "reject": "Terima kasih atas waktu Anda berkunjung ke BEATs."
