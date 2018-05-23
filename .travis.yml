@@ -3,7 +3,7 @@ node_js:
   - 10.1.0
 
 install:
-  - yarn install
+  - yarn
 
 script:
   - yarn lint
